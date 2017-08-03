@@ -33,6 +33,8 @@ class MerkleTree(object):
 
         for k in [blocks[x:x+2] for x in range(0, len(blocks), 2)]:
             hasher = hashlib.sha256()
+            k[0] = k[0].encode('utf-8')
+            k[1] = k[1].encode('utf-8')
             hasher.update(k[0] + k[1])
             secondary.append(hasher.hexdigest())
 
@@ -42,3 +44,6 @@ class MerkleTree(object):
         # recursive
         else:
             return self.get_merkle(secondary)
+
+
+

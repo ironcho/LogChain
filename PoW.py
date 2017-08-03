@@ -3,7 +3,7 @@ import time
 from struct import unpack, pack
 
 
-def proof_of_work(p_tx, difficulty):
+def proof_of_work(tx_list, difficulty):
     """
 
 
@@ -13,7 +13,7 @@ def proof_of_work(p_tx, difficulty):
     timestamp = str(time.time())
     message = "This is a random message"
 
-    for tx_item in p_tx:
+    for tx_item in tx_list:
         message += tx_item
 
     count = 0
