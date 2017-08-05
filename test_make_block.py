@@ -5,3 +5,5 @@ from transaction_db import tx_db
 
 aaaa=tx_db.Make_block_first()
 print(aaaa)
+
+tx_db.Make_block_last(aaaa)

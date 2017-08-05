@@ -9,7 +9,10 @@ import leveldb
 from transaction_db import block_db
 
 Mempooldb = leveldb.LevelDB('./Mempool')
-#Mempooldb.Put(b'Unconfirm_tx',b'')
+try:
+    Mempooldb.Get(b'Unconfirm_tx')
+except:
+    Mempooldb.Put(b'Unconfirm_tx',b'')
 #lee="xasdf".encode('utf-8')## 변수 저장시 encoding 해주어야함
 
 
@@ -52,6 +55,7 @@ def Make_block_first(): ## 노드가 블록 생성을 위해 tx 요청 시
 
     un_tx_list=un_tx_list.decode('utf-8')
     un_tx_list=un_tx_list.split()
+    print(un_tx_list)
 
     for i in un_tx_list:
 
@@ -70,8 +74,13 @@ def Make_block_last(name): ## 블록을 전달 받았을 때
     # 신규 블록 생성 후 기존 mempool 내 거래 제거
     ###### 추가로 해야함 ##########
     block_db.New_block(name)
-    block_db.unconfirmed_block(name)
+    #block_db.unconfirmed_block(name)
 
+    return True
+
+def Receive_new_block(name):
+
+    block_db.unconfirmed_block(name)
     tx_list=name.split() ## 블록 내 tx_hash 리스트 추출
     ###### 추가로 해야함 ##########
     for i in tx_list:
@@ -79,5 +88,11 @@ def Make_block_last(name): ## 블록을 전달 받았을 때
 
     return True
 
+def Request_tx(name): ## transaction 정보 요청
 
+    name=str(name).encode('utf-8')
 
+    temp = Mempooldb.Get(name)
+    temp = temp.decode('utf-8')
+
+    return temp

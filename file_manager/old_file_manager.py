@@ -2,14 +2,18 @@
 ##
 
 import os
-global block_height
+block_height = "0"
+
 
 block_storage_path = os.path.dirname(os.path.dirname(__file__)) + '\_BlockStorage' + '\\'
 
-def Block_save(name):
-    block_height+=1
-    f=open(block_storage_path+"block"+block_height+".dat",'w')
 
+def Block_save(name):
+    if not os.path.isdir(block_storage_path):
+        os.mkdir(block_storage_path)
+
+    f=open(block_storage_path+"block"+block_height+".dat",'w')
+    name=str(name)
     f.write(name)
     f.close()
     return True
