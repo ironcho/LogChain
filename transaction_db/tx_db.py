@@ -39,7 +39,7 @@ def New_transaction(name):
     new_data= str(new_data).encode('utf-8')
 
     Mempooldb.Put(b'Unconfirm_tx',new_data)
-
+    ## transaction 우선순위에 따른 정렬 필요
     return True
 
 

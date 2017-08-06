@@ -14,8 +14,15 @@ def New_block(name): ## 이를 통해서 블록 생성 시 이에 대한 데이�
     Indexdb.Delete(b'Last_Block')
     name_ch=str(name).encode('utf-8')
     Indexdb.Put(b'Last_Block',name_ch)
+    number = Indexdb.Get(b'Index',)
+    number=number.decode('utf-8')
+    number = int(number)
 
-    old_file_manager.Block_save(name)
+    number += 1
+    number=str(number).encode('utf-8')
+    Indexdb.Put(b'Index',number)
+
+    old_file_manager.Block_save(name,str(number))
     return True
 
 def Make_block_file(): ## 블록생성시 이전 블록의 헤더 해쉬등의 정보를 가져오기 위해서 동작
@@ -28,8 +35,16 @@ def Unconfirmed_block(name):
     Blockdb.Delete(b'Unconfirm_Block')
     name_ch = str(name).encode('utf-8')
     Blockdb.Put(b'Unconfirm_Block',name_ch)
-    ###검증 작업
-    old_file_manager.Block_save(name)
+    ##############
+    ###검증 작업###
+    ##############
+    number = Indexdb.Get(b'Index', )
+    number = number.decode('utf-8')
+    number = int(number)
+    number += 1
+    number=str(number).encode('utf-8')
+    Indexdb.Put(b'Index',number)
+    old_file_manager.Block_save(name,str(number))
 
     return True
 
