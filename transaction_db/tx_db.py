@@ -49,15 +49,18 @@ def check():##테스트용
     kk=kk.decode('utf-8')
     return kk
 
-def Make_block_first(): ## 노드가 블록 생성을 위해 tx 요청 시
+def Make_block_first(number): ## 노드가 블록 생성을 위해 tx 요청 시
     total_list = []
     un_tx_list=Mempooldb.Get(b'Unconfirm_tx')
 
     un_tx_list=un_tx_list.decode('utf-8')
     un_tx_list=un_tx_list.split()
     print(un_tx_list)
-
+    k=0
     for i in un_tx_list:
+
+        if k >number :
+            break
 
         i=i.encode('utf-8')
 
@@ -67,6 +70,7 @@ def Make_block_first(): ## 노드가 블록 생성을 위해 tx 요청 시
         Mempooldb.Delete(i)
         total_list.append(temp) ## 각 거래의 전체 거래 내역 취합
 
+        k+=1
     return total_list
 
 
@@ -80,11 +84,12 @@ def Make_block_last(name): ## 블록을 전달 받았을 때
 
 def Receive_new_block(name):
 
-    block_db.unconfirmed_block(name)
-    tx_list=name.split() ## 블록 내 tx_hash 리스트 추출
+    block_db.Unconfirmed_block(name)
+
+    ##tx_list=name.split() ## 블록 내 tx_hash 리스트 추출
     ###### 추가로 해야함 ##########
-    for i in tx_list:
-        Mempooldb.Delete(i)
+    ##for i in tx_list:
+        ##Mempooldb.Delete(i)
 
     return True
 

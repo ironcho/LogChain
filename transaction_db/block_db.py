@@ -11,12 +11,20 @@ Indexdb = leveldb.LevelDB('./Index')  # 마지막 블록정보 관리를 위해�
 def New_block(name): ## 이를 통해서 블록 생성 시 이에 대한 데이터 요청 가능
 
     #마지막 블록정보 관리
-    Indexdb.Delete(b'Last_Block')
+    try:
+        Indexdb.Delete(b'Last_Block')
+    except:
+        name_ch=str(name)
+
     name_ch=str(name).encode('utf-8')
     Indexdb.Put(b'Last_Block',name_ch)
-    number = Indexdb.Get(b'Index',)
-    number=number.decode('utf-8')
-    number = int(number)
+    try :
+        number = Indexdb.Get(b'Index',)
+        number = number.decode('utf-8')
+        number = int(number)
+    except:
+        number=  0
+
 
     number += 1
     number=str(number).encode('utf-8')
@@ -38,9 +46,14 @@ def Unconfirmed_block(name):
     ##############
     ###검증 작업###
     ##############
-    number = Indexdb.Get(b'Index', )
-    number = number.decode('utf-8')
-    number = int(number)
+
+    try:
+        number = Indexdb.Get(b'Index', )
+        number = number.decode('utf-8')
+        number = int(number)
+    except :
+        number = 0
+
     number += 1
     number=str(number).encode('utf-8')
     Indexdb.Put(b'Index',number)
