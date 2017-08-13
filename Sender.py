@@ -1,10 +1,11 @@
 #precondition : Receiver is activated
 from socket import *
+import NodeMappingTable
 import Property
-
+# port num이나 이런 것들은 추후에 계속 정해야 한다. 현재는 같은 네트워크 망 안에서 있을 때만 통신이 가능..
 def sending_tx():
     #need make transaction call
-    #transaction이 만들어 지금 그것을 그냥 담아서 보내도 됨.
+
     f = open("transaction_new0.txt", 'r')
     transaction = f.read()
 
@@ -13,28 +14,21 @@ def sending_tx():
     f.close()
 def sending_mining_block():
     #need make block call
-    #block이 만들어 지금 그것을 그냥 담아서 보내도 됨.
     f = open("block0.txt", 'r')
     block = f.read()
-    Sender.send_to_all(block)
+    send_to_all(block)
 
+def sending_connection(p_ip):
+    msg = "new node"
+    send(p_ip, msg, Property.port)
 
 def send(p_ip, p_msg, p_port, *args):
-    """
-    Basic send function.
-    Using TCP socket connection, send p_msg to (p_ip, p_port)
 
-    :param p_ip: receiver's ip address
-    :param p_msg: can be transaction, block, node information
-    :param p_port: pre-defined port
-    :param args: None
 
-    :return: None
-    """
-
-    if p_ip == Property.my_ip:
+    if p_ip == Property.my_node.self_node:
         #print "Error"
         receiver_addr = (p_ip, p_port)
+
         tcp_socket = socket(AF_INET, SOCK_STREAM)
 
         try:
@@ -49,7 +43,7 @@ def send(p_ip, p_msg, p_port, *args):
     else:
         receiver_addr = (p_ip, p_port)
         tcp_socket = socket(AF_INET, SOCK_STREAM)
-
+        print("receiver addr =" + str(p_ip) + " , "+str(p_port))
         try:
             tcp_socket.connect(receiver_addr)
             tcp_socket.settimeout(2)
@@ -62,14 +56,8 @@ def send(p_ip, p_msg, p_port, *args):
     print("Sending complete")
 
 def send_to_all(p_msg):
-    """
-    Send p_msg to all connected nodes
-    implemented using send() function.
 
-    :param p_msg: can be transaction, block, node information
-    :return: None
+    #Property.my_node.print_table()
 
-
-    """
-    #현재는 실험상 본인에게 보내는 것으로 코딩이 되어있음.
-    send(Property.my_ip, p_msg, Property.port)
+    for connected_node in Property.my_node.linked_node :
+        send(connected_node, p_msg, Property.port)
