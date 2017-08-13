@@ -1,5 +1,7 @@
 trust_ip = ''
-port = 10654
+port = 100
+
+my_node = None
 
 my_node_jstr = None
 my_node_jobj = None
