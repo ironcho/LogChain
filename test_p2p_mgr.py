@@ -25,6 +25,8 @@ class MainController(object):
 
 
 if __name__ == '__main__':
+
+    NodeMappingTable.set_node()
     NodeMappingTable.initialize()
     recv_thread = Receiver.ReceiverThread(1, "RECEIVER", Property.my_node.self_node, Property.port)
     recv_thread.start()
