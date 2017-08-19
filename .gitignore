@@ -24,3 +24,14 @@ logchain/storage/Block/LOG.old
 *.dat
 *.sst
 *.sst
+logchain/storage/Block/CURRENT
+logchain/storage/Block/LOCK
+logchain/storage/Block/MANIFEST-000002
+logchain/storage/Mempool/MANIFEST-000002
+logchain/storage/Mempool/LOG
+logchain/storage/Mempool/CURRENT
+logchain/storage/Index/MANIFEST-000002
+logchain/storage/Mempool/LOCK
+logchain/storage/Index/LOG
+logchain/storage/Index/LOCK
+logchain/storage/Index/CURRENT
