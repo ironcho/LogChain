@@ -56,7 +56,6 @@ class TestUnitUpdateTransaction(unittest.TestCase):
         bb=tx_db.check()
         cc=bb.split()
         print(cc)
-        self.assertTrue()
 
 
 if __name__ == '__main__':

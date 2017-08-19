@@ -20,3 +20,7 @@ Mempool/LOG
 Mempool/MANIFEST-000004
 logchain/storage/Block/LOG
 logchain/storage/Block/LOG.old
+*.dat
+*.dat
+*.sst
+*.sst
