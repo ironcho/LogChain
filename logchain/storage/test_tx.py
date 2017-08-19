@@ -2,7 +2,7 @@
 
 import unittest
 
-from transaction_db import tx_db
+from logchain.storage.transaction_db import tx_db
 
 class TestUnitUpdateTransaction(unittest.TestCase):
     def setUp(self):
@@ -10,6 +10,7 @@ class TestUnitUpdateTransaction(unittest.TestCase):
     
     def tearDown(self):
         pass
+
     def test001_new_transaction(self):
         transaction0  = {"transaction_hash":"0x1231235124312asdf31","data":"tx1"}
         transaction1  = {"transaction_hash":"0x1231adfabfdba23512431231","data":"tx2"}
@@ -56,8 +57,6 @@ class TestUnitUpdateTransaction(unittest.TestCase):
         cc=bb.split()
         print(cc)
         self.assertTrue()
-
-    
 
 
 if __name__ == '__main__':
