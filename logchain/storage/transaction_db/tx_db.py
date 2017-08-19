@@ -6,7 +6,7 @@
 ## json 형식이 value로 넣는 방법 찾아야함
 
 import leveldb
-from transaction_db import block_db
+from logchain.storage.transaction_db import block_db
 
 Mempooldb = leveldb.LevelDB('./Mempool')
 try:
