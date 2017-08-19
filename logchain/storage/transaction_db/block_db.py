@@ -3,7 +3,7 @@
 ### Indexdb에는 가장 마지막 블록 index 정보(키) + 블록 정보(value) 저장
 
 import leveldb
-from file_manager import old_file_manager
+from logchain.storage.file_manager import old_file_manager
 
 Blockdb = leveldb.LevelDB('./Block')  # 미검증된 블록 검증 전 단순 저장
 Indexdb = leveldb.LevelDB('./Index')  # 마지막 블록정보 관리를 위해서
