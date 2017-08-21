@@ -1,17 +1,20 @@
 ### 신규 거래 수신시
 
-import unittest
 
+from unittest import TestCase, main, TestLoader, TextTestRunner
 from logchain.storage.transaction_db import tx_db
 
-class TestUnitUpdateTransaction(unittest.TestCase):
+
+class TxDBTestCase(TestCase):
     def setUp(self):
+        self.test_dir = TemporaryDirectory()
         pass
     
     def tearDown(self):
+        self.test_dir.cleanup()
         pass
 
-    def test001_new_transaction(self):
+    def test_insert_new_tx():
         transaction0  = {"transaction_hash":"0x1231235124312asdf31","data":"tx1"}
         transaction1  = {"transaction_hash":"0x1231adfabfdba23512431231","data":"tx2"}
         transaction2  = {"transaction_hash":"0x1231235124asdfasdf31231","data":"tx3"}
@@ -53,15 +56,16 @@ class TestUnitUpdateTransaction(unittest.TestCase):
         tx_db.New_transaction(transaction18)
         tx_db.New_transaction(transaction19)
 
-        bb=tx_db.check()
-        cc=bb.split()
+        bb = tx_db.check()
+        cc = bb.split()
         print(cc)
+
+        ##self.assertRaises(IOError, tx_db.check, object())
 
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestUnitUpdateTransaction)
-    unittest.TestLoader().loadTestsFromTestCase(TestUnitUpdateTransaction)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    main()
+
 
 
 
