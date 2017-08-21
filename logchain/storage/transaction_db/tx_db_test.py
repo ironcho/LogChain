@@ -1,4 +1,4 @@
-### 신규 거래 수신시
+# 신규 거래 수신시
 
 
 from unittest import TestCase, main, TestLoader, TextTestRunner
@@ -7,34 +7,52 @@ from logchain.storage.transaction_db import tx_db
 
 class TxDBTestCase(TestCase):
     def setUp(self):
-        self.test_dir = TemporaryDirectory()
         pass
-    
+
     def tearDown(self):
-        self.test_dir.cleanup()
         pass
 
     def test_insert_new_tx():
-        transaction0  = {"transaction_hash":"0x1231235124312asdf31","data":"tx1"}
-        transaction1  = {"transaction_hash":"0x1231adfabfdba23512431231","data":"tx2"}
-        transaction2  = {"transaction_hash":"0x1231235124asdfasdf31231","data":"tx3"}
-        transaction3  = {"transaction_hash":"0x123123agfadgfba512431231","data":"tx4"}
-        transaction4  = {"transaction_hash":"0x1231235badfbgdb12431231","data":"tx5"}
-        transaction5  = {"transaction_hash":"0x12312351sbhjfh2431231","data":"tx6"}
-        transaction6  = {"transaction_hash":"0x1231235asdfgafd12431231","data":"tx7"}
-        transaction7  = {"transaction_hash":"0x1231235nshfnfg12431231","data":"tx8"}
-        transaction8  = {"transaction_hash":"0x1231235124nhgsdndgf31231","data":"tx9"}
-        transaction9  = {"transaction_hash":"0x1231235124sfhjfgh31231","data":"tx10"}
-        transaction10  = {"transaction_hash":"0x12312351afdgdafg2431231","data":"tx11"}
-        transaction11  = {"transaction_hash":"0x12312351afgfan2431231","data":"tx12"}
-        transaction12 = {"transaction_hash":"0x1231235124asdfvadbgf31231","data":"tx13"}
-        transaction13  = {"transaction_hash":"0x1231235nafnsf12431231","data":"tx14"}
-        transaction14  = {"transaction_hash":"0x1231235asdfanbagf12431231","data":"tx15"}
-        transaction15  = {"transaction_hash":"0x1231235adbfgba12431231","data":"tx16"}
-        transaction16  = {"transaction_hash":"0x1231235asdfsavb12431231","data":"tx17"}
-        transaction17  = {"transaction_hash":"0x12312351adbgfba2431231","data":"tx18"}
-        transaction18  = {"transaction_hash":"0x1231235asdfsaf12431231","data":"tx19"}
-        transaction19  = {"transaction_hash":"0x123123bgabadf512431231","data":"tx20"}
+        transaction0 = {
+            "transaction_hash": "0x1231235124312asdf31", "data": "tx1"}
+        transaction1 = {
+            "transaction_hash": "0x1231adfabfdba23512431231", "data": "tx2"}
+        transaction2 = {
+            "transaction_hash": "0x1231235124asdfasdf31231", "data": "tx3"}
+        transaction3 = {
+            "transaction_hash": "0x123123agfadgfba512431231", "data": "tx4"}
+        transaction4 = {
+            "transaction_hash": "0x1231235badfbgdb12431231", "data": "tx5"}
+        transaction5 = {
+            "transaction_hash": "0x12312351sbhjfh2431231", "data": "tx6"}
+        transaction6 = {
+            "transaction_hash": "0x1231235asdfgafd12431231", "data": "tx7"}
+        transaction7 = {
+            "transaction_hash": "0x1231235nshfnfg12431231", "data": "tx8"}
+        transaction8 = {
+            "transaction_hash": "0x1231235124nhgsdndgf31231", "data": "tx9"}
+        transaction9 = {
+            "transaction_hash": "0x1231235124sfhjfgh31231", "data": "tx10"}
+        transaction10 = {
+            "transaction_hash": "0x12312351afdgdafg2431231", "data": "tx11"}
+        transaction11 = {
+            "transaction_hash": "0x12312351afgfan2431231", "data": "tx12"}
+        transaction12 = {
+            "transaction_hash": "0x1231235124asdfvadbgf31231", "data": "tx13"}
+        transaction13 = {
+            "transaction_hash": "0x1231235nafnsf12431231", "data": "tx14"}
+        transaction14 = {
+            "transaction_hash": "0x1231235asdfanbagf12431231", "data": "tx15"}
+        transaction15 = {
+            "transaction_hash": "0x1231235adbfgba12431231", "data": "tx16"}
+        transaction16 = {
+            "transaction_hash": "0x1231235asdfsavb12431231", "data": "tx17"}
+        transaction17 = {
+            "transaction_hash": "0x12312351adbgfba2431231", "data": "tx18"}
+        transaction18 = {
+            "transaction_hash": "0x1231235asdfsaf12431231", "data": "tx19"}
+        transaction19 = {
+            "transaction_hash": "0x123123bgabadf512431231", "data": "tx20"}
         tx_db.New_transaction(transaction0)
         tx_db.New_transaction(transaction1)
         tx_db.New_transaction(transaction2)
@@ -63,11 +81,5 @@ class TxDBTestCase(TestCase):
         ##self.assertRaises(IOError, tx_db.check, object())
 
 
-if __name__ == '__main__':
-    main()
-
-
-
-
-
-
+# if __name__ == '__main__':
+# main()
