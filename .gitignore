@@ -48,3 +48,4 @@ logchain/storage/transaction_db/Mempool/LOCK
 logchain/storage/transaction_db/Mempool/LOG
 logchain/storage/transaction_db/Mempool/MANIFEST-000002
 logchain/storage/transaction_db/tx_db_test.py
+logchain/storage/transaction_db/.cache/v/cache/lastfailed
