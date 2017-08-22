@@ -1,0 +1,7 @@
+{
+  "logchain/communication/p2p/p2p_mgr_test.py": true,
+  "logchain/communication/p2p/receiver_sender_test.py": true,
+  "logchain/communication/prac/test_chat_client.py": true,
+  "logchain/communication/prac/test_chat_server.py": true,
+  "logchain/storage/file_manager/old_file_manager_test.py": true
+}
