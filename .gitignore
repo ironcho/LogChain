@@ -35,3 +35,16 @@ logchain/storage/Mempool/LOCK
 logchain/storage/Index/LOG
 logchain/storage/Index/LOCK
 logchain/storage/Index/CURRENT
+logchain/storage/transaction_db/Block/CURRENT
+logchain/storage/transaction_db/Block/LOCK
+logchain/storage/transaction_db/Block/LOG
+logchain/storage/transaction_db/Block/MANIFEST-000002
+logchain/storage/transaction_db/Index/CURRENT
+logchain/storage/transaction_db/Index/LOCK
+logchain/storage/transaction_db/Index/LOG
+logchain/storage/transaction_db/Index/MANIFEST-000002
+logchain/storage/transaction_db/Mempool/CURRENT
+logchain/storage/transaction_db/Mempool/LOCK
+logchain/storage/transaction_db/Mempool/LOG
+logchain/storage/transaction_db/Mempool/MANIFEST-000002
+logchain/storage/transaction_db/tx_db_test.py
