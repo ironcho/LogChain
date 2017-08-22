@@ -1,28 +1,11 @@
 .idea/
 .vscode/
 *.log
-Block/CURRENT
-Block/LOCK
-Block/LOG
-Block/LOG.old
-Block/MANIFEST-000004
-Index/CURRENT
-Index/LOCK
-Index/LOG
 *.old
-Index/MANIFEST-000004
-logchain/storage/Block/LOG
 *.pyc
-*.sst
-Mempool/CURRENT
-Mempool/LOCK
-Mempool/LOG
-Mempool/MANIFEST-000004
-logchain/storage/Block/LOG
-logchain/storage/Block/LOG.old
-*.dat
 *.dat
 *.sst
+<<<<<<< HEAD
 *.sst
 logchain/storage/Block/CURRENT
 logchain/storage/Block/LOCK
@@ -49,3 +32,6 @@ logchain/storage/transaction_db/Mempool/LOG
 logchain/storage/transaction_db/Mempool/MANIFEST-000002
 logchain/storage/transaction_db/tx_db_test.py
 logchain/storage/transaction_db/.cache/v/cache/lastfailed
+=======
+
+>>>>>>> df5548d1ef63f54b1b88f635b0dd770750864ff1
