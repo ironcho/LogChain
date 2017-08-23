@@ -16,10 +16,10 @@ class MainController(object):
         while cmd != 'q':
             cmd = input('[t: send transaction, b: send block] > ')
             if cmd == 't':
-                Sender.sending_tx()
+                sender.sending_tx()
 
             if cmd == 'b':
-                Sender.sending_mining_block()
+                sender.sending_mining_block()
 
 
 if __name__ == '__main__':
