@@ -1,6 +1,7 @@
-from blockconsensus import merkle
-from blockconsensus import proof_of_work
-from blockmanager import block
+
+from logchain.service.blockmanager import block
+import merkle
+import proof_of_work
 
 
 class BlindVote(object):
@@ -38,14 +39,14 @@ class BlindVote(object):
 
         current_nonce = proof_of_work.proof_of_work(transactions, _difficulty)
 
-        block_header = block.block_header()
+        block_header = block.Block_header()
 
         block_header.num_tx = len(tx_list)
 
         block_header_hash = hashlib.sha256(block_header).hexdigest()
         block_header.block_hash = block_header_hash
 
-        block = Block.Block(block_header, tx_list)
+        block = block.Block(block_header, tx_list)
 
         return block
 
@@ -54,10 +55,10 @@ class BlindVote(object):
 if __name__ == '__main__':
 
     'Test cal_candidate'
-    merkle_root ="937ba9042411aae82e555f494619e745a061d3b095ef407367156b5ea6ab69cf"
+    merkle_root = "937ba9042411aae82e555f494619e745a061d3b095ef407367156b5ea6ab69cf"
     total_node = 10
-    blind_vote=BlindVote
-    delegated_node=blind_vote.cal_candidate(total_node,merkle_root)
+    blind_vote = BlindVote
+    delegated_node = blind_vote.cal_candidate(total_node, merkle_root)
     print(delegated_node)
 
     'Test cal_candidate'
