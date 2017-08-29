@@ -1,0 +1,11 @@
+{
+    "Merkleroot_hash": "4d4bfb60e8f6f09b4021d460df3749ebb588acf42f80b4fbdd862d6cdf0f9135", 
+    "block_hash": "4d4bfb60e8f6f09b4021d460df3749ebb588acf42f80b4fbdd862d6cdf0f9135", 
+    "block_height": 1, 
+    "block_info": "genesisblock", 
+    "block_miner": "Se", 
+    "previous_blockhash": 0, 
+    "time_stamp": "20170104212908", 
+    "transactions": "Daliworks chain start", 
+    "type": "B"
+}
