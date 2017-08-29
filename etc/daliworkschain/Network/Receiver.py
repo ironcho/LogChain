@@ -2,9 +2,10 @@ from socket import *
 from StorageManager import FileController
 import json
 
+
 def start(thread_name, ip_address, port):
 
-    print 'receiver thread start'
+    print('receiver thread start')
     addr = (ip_address, port)
     buf_size = 10000
 
@@ -17,7 +18,7 @@ def start(thread_name, ip_address, port):
         try:
             while True:
                 data = receive_socket.recv(buf_size)
-                print "Receiving " + data
+                print("Receiving " + data)
 
                 data_entity = json.loads(data)
 
@@ -26,8 +27,10 @@ def start(thread_name, ip_address, port):
                     receive_socket.close()
                     break
 
-                elif data_entity['type'] == 'B':
-                    FileController.create_new_block(str(data_entity['block_height']), data)
+                    FileController.create_new_block(
+                        str(data_entity['block_height']), data)
+                    FileController.create_new_block(
+                        str(data_entity['block_height']), data)
                     receive_socket.close()
                     break
 
@@ -40,13 +43,9 @@ def start(thread_name, ip_address, port):
                     receive_socket.close()
                     break
                 else:
-                    print "No data in socket"
+                    print("No data in socket")
                     break
 
         except Exception as e:
-            print "Exception ", e
+            print("Exception ", e)
             break
-
-    tcp_socket.close()
-
-

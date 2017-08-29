@@ -1,4 +1,10 @@
-import thread
+# temporary__ for jskim 2017.08.29
+import sys
+sys.path.append("C:\\GitHubProject\\LogChain\\etc\\daliworkschain")
+# __temporary for jskim 2017.08.29
+
+import _thread
+
 from MainController import Property
 from Network import Receiver
 from StorageManager import FileController
@@ -15,7 +21,7 @@ def main():
     print("my peer" + str(Property.my_peer_num))
     FileController.remove_all_transactions()
 
-    thread.start_new_thread(
+    _thread.start_new_thread(
         Receiver.start, ("Receiver", my_ip_address, my_port))
     GenesisBlock_Generator.generate_Genesisblock()
 

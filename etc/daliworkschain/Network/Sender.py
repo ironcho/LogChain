@@ -15,10 +15,10 @@ def send(ip_address, message, port):
     try:
         tcp_socket.connect(receiver_addr)
         tcp_socket.send(message)
-        print message
-        #print "SEND COMPLETE"
+        print(message)
+        # print "SEND COMPLETE"
     except Exception as e:
-        print "connection failed", e
+        print("connection failed", e)
     tcp_socket.close()
 
 
@@ -30,5 +30,5 @@ def send_to_all_node(message, my_ip, my_port):
         try:
             send(addr, message, my_port)
         except Exception as e:
-                print e
+            print(e)
     print('send block')

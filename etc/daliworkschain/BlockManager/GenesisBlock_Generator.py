@@ -11,12 +11,14 @@ def generate_Genesisblock():
     block_height = 1
     MerkleTree_Hash = hashlib.sha256(transactions).hexdigest()
     nonce = 0
-    Difficulty =0
+    Difficulty = 0
     previous_blockhash = 0
 
-    block = Block.Block(block_hash,block_info,block_miner,block_height,MerkleTree_Hash,transactions,previous_blockhash)
+    block = Block.Block(block_hash, block_info, block_miner, block_height,
+                        MerkleTree_Hash, transactions, previous_blockhash)
 
-    block_temp = json.dumps(block, indent=4, default=lambda o: o.__dict__, sort_keys=True)
+    block_temp = json.dumps(
+        block, indent=4, default=lambda o: o.__dict__, sort_keys=True)
     FileController.create_new_block(str(block_height), block_temp)
 
-    print 'BlockCreate'
+    print('BlockCreate')

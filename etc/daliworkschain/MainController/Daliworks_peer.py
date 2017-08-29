@@ -1,5 +1,5 @@
 import http.client
-import thread
+import _thread
 import time
 from TransactionManager import Daliworks_Transaction
 
@@ -20,8 +20,8 @@ def main():
     my_ip_address = FileController.get_my_ip()
     Property.my_ip_address = my_ip_address
     Set_Peer_num.Set_PeerNum()
-    print "daliworks peer" + str(Property.my_peer_num)
-    thread.start_new_thread(
+    print("daliworks peer" + str(Property.my_peer_num))
+    _thread.start_new_thread(
         Receiver.start, ("Receiver", my_ip_address, my_port))
     GenesisBlock_Generator.generate_Genesisblock()
 
@@ -32,7 +32,7 @@ def main():
         FileController.remove_all_transactions()
         time.sleep(60)
 
-    thread.exit()
+    _thread.exit()
 
 
 if __name__ == '__main__':
