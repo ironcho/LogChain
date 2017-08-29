@@ -1,5 +1,5 @@
 
-# base_node_2, 4를 우선 testing server에 설치하고, smoke test 진행 중
+# base_node_4, 2를 우선 testing server에 설치하고, smoke testing...
 
 cloud_peer = "163.239.200.160"
 base_node_4 = "163.239.200.161"
