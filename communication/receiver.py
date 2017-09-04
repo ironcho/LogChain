@@ -40,10 +40,6 @@ def start(thread_name, ip_address, port):
                     file_controller.add_voting(data)
                     receive_socket.close()
                     break
-                elif data_entity['type'] == 'C':
-                    file_controller.add_blockconfirm(data)
-                    receive_socket.close()
-                    break
                 else:
                     print("No data in socket")
                     print(2)

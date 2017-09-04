@@ -1,7 +1,7 @@
 #precondition : Receiver is activated
 from socket import *
-from logchain.communication.p2p import node_mapping_table
-from logchain.communication.p2p import Property
+from communication.p2p import node_mapping_table
+from communication.p2p import Property
 # port num이나 이런 것들은 추후에 계속 정해야 한다. 현재는 같은 네트워크 망 안에서 있을 때만 통신이 가능..
 
 
