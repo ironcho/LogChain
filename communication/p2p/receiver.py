@@ -2,6 +2,7 @@ from socket import *
 from peerproperty import nodeproperty
 import threading
 import json
+from storage import file_controller
 
 
 class ReceiverThread(threading.Thread):
@@ -82,9 +83,16 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
                     num_tx = num_tx + 1
                     # print(num_tx)
+
+                    file_controller.add_transaction(recv_data)
+                    request_sock.close()
+                    break
+
+                    ''' for testing
                     f = open("transaction_new" + str(num_tx) + ".txt", 'w')
                     f.write(recv_data)
                     f.close()
+                    '''
 
                 elif data_jobj['type'] is 'B':
                     print("Block received")
