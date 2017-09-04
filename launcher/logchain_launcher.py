@@ -1,4 +1,4 @@
-import threading
+
 from peerproperty import nodeproperty
 from peerproperty import set_peer
 from storage import file_controller
