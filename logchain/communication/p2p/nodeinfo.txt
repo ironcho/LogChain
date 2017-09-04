@@ -1,1 +1,0 @@
-{"self_node": "192.168.0.92", "index": [0], "linked_node": ["192.168.0.96"], "state": ["stable"]}
