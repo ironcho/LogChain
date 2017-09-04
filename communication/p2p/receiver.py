@@ -1,5 +1,5 @@
 from socket import *
-import Property
+from peerproperty import nodeproperty
 import threading
 import json
 
@@ -20,7 +20,7 @@ class ReceiverThread(threading.Thread):
         self.thrd_port = p_port
 
     def run(self):
-        print ("Start Receiver Thread")
+        print("Start Receiver Thread")
         receive_data(self.thrd_name, self.thrd_ip, self.thrd_port)
 
 
@@ -35,16 +35,16 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
     addr = (p_ip, p_port)
     buf_size = 10000
-    #to check my node info
+    # to check my node info
     #print(p_thrd_name, p_ip, p_port)
     #
     tcp_socket = socket(AF_INET, SOCK_STREAM)
     tcp_socket.bind(addr)
     tcp_socket.listen(5)
-    num_tx =0
-    num_block =0
+    num_tx = 0
+    num_block = 0
     while True:
-        print ("waiting")
+        print("waiting")
         request_sock, request_ip = tcp_socket.accept()
 
         while True:
@@ -54,55 +54,52 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 if recv_data == "":
                     break
                 #print("from ip : " + str(request_ip[0]))
-                #node mapping table 관리를 넣는다.
+                # node mapping table 관리를 넣는다.
                 if recv_data == "new node":
-                    if str(request_ip[0]) in Property.my_node.linked_node:
+                    if str(request_ip[0]) in nodeproperty.my_node.linked_node:
                         print("already connected")
                         break
                     else:
                         print("new node connection received")
-                        Property.my_node.table_add(str(request_ip[0]),'stable')
-                        #Property.my_node.print_table()
-                        Property.my_node.write_table()
+                        nodeproperty.my_node.table_add(
+                            str(request_ip[0]), 'stable')
+                        # Property.my_node.print_table()
+                        nodeproperty.my_node.write_table()
                         break
 
-                if str(request_ip[0]) not in Property.my_node.linked_node : # 연결이 안되있는 노드로 부터 오는 메세지는 무시.
+                # 연결이 안되있는 노드로 부터 오는 메세지는 무시.
+                if str(request_ip[0]) not in nodeproperty.my_node.linked_node:
                     break
 
-
-
-                Property.my_node.table_update(str(request_ip[0]), 'true')
-                #Property.my_node.print_table()
-                Property.my_node.write_table()
-                #node mapping table 관리
+                nodeproperty.my_node.table_update(str(request_ip[0]), 'true')
+                # Property.my_node.print_table()
+                nodeproperty.my_node.write_table()
+                # node mapping table 관리
                 data_jobj = json.loads(recv_data)
-                #print(data_jobj['type'])
+                # print(data_jobj['type'])
                 if data_jobj['type'] is 'T':
-                    print ("Transaction received")
-
+                    print("Transaction received")
 
                     num_tx = num_tx + 1
-                    #print(num_tx)
+                    # print(num_tx)
                     f = open("transaction_new" + str(num_tx) + ".txt", 'w')
                     f.write(recv_data)
                     f.close()
 
-
                 elif data_jobj['type'] is 'B':
-                    print ("Block received")
+                    print("Block received")
 
                     # block verification thread
 
-                    num_block = num_block +1
-                    #print(num_block)
+                    num_block = num_block + 1
+                    # print(num_block)
                     f = open("block" + str(num_block) + ".txt", 'w')
                     f.write(recv_data)
                     f.close()
                     # remove all txs call
 
-
             except Exception as e:
-                print ("SOCKET ERROR", e)
+                print("SOCKET ERROR", e)
                 break
 
     tcp_socket.close()

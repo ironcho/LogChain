@@ -1,7 +1,7 @@
-from logchain.communication.p2p import Property
-from logchain.communication.p2p import sender
-from logchain.communication.p2p import receiver
-from logchain.communication.p2p import node_mapping_table
+from peerproperty import nodeproperty
+from communication.p2p import sender
+from communication.p2p import receiver
+from communication.p2p import node_mapping_table
 
 
 class MainController(object):
@@ -25,7 +25,7 @@ class MainController(object):
 if __name__ == '__main__':
     node_mapping_table.initialize()
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", Property.my_node.self_node, Property.port)
+        1, "RECEIVER", nodeproperty.my_node.self_node, nodeproperty.port)
     recv_thread.start()
 
     MainController.command_line_interface()
@@ -34,7 +34,7 @@ if __name__ == '__main__':
 def test_p2p_mgr():
     node_mapping_table.initialize()
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", Property.my_node.self_node, Property.port)
+        1, "RECEIVER", nodeproperty.my_node.self_node, nodeproperty.port)
     recv_thread.start()
 
     MainController.command_line_interface()

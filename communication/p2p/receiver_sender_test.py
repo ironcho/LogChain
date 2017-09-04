@@ -1,8 +1,8 @@
 import socket
 
-from logchain.communication.p2p import Property
-from logchain.communication.p2p import sender
-from logchain.communication.p2p import receiver
+from peerproperty import nodeproperty
+from communication.p2p import sender
+from communication.p2p import receiver
 import json
 
 
@@ -13,7 +13,7 @@ class MainController(object):
     @staticmethod
     def set_node():
 
-        Property.my_ip = socket.gethostbyname(socket.gethostname())
+        nodeproperty.my_ip_address = socket.gethostbyname(socket.gethostname())
         return True
 
     @staticmethod
@@ -39,7 +39,7 @@ class MainController(object):
                 sender.send_to_all(transaction)
                 # print trx_jstr
                 # Sender.send_to_all(trx_jstr)
-                Property.tx_count += 1
+                nodeproperty.tx_count += 1
                 f.close()
             if cmd == 'b':
                 f = open("block0.txt", 'r')
@@ -53,9 +53,9 @@ class MainController(object):
 
 if __name__ == '__main__':
     MainController.set_node()
-    print(Property.my_ip)
+    print(nodeproperty.my_ip_address)
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", Property.my_ip, Property.port)
+        1, "RECEIVER", nodeproperty.my_ip_address, nodeproperty.port)
     recv_thread.start()
 
     MainController.command_line_interface()
@@ -63,9 +63,9 @@ if __name__ == '__main__':
 
 def test_receiver_sender():
     MainController.set_node()
-    print(Property.my_ip)
+    print(nodeproperty.my_ip_address)
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", Property.my_ip, Property.port)
+        1, "RECEIVER", nodeproperty.my_ip_address, nodeproperty.port)
     recv_thread.start()
 
     MainController.command_line_interface()

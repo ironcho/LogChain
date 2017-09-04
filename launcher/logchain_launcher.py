@@ -1,8 +1,9 @@
 import threading
-from peerproperty import property
+from peerproperty import nodeproperty
 from peerproperty import set_peer
 from storage import file_controller
-from communication import receiver
+from communication.p2p import receiver
+from communication.p2p import node_mapping_table
 
 
 def main():
@@ -11,13 +12,15 @@ def main():
 
     'Peer setting'
     my_ip_address = file_controller.get_my_ip()
-    property.my_ip_address = my_ip_address
+    nodeproperty.my_ip_address = my_ip_address
     set_peer.set_peer()
-    print("my peer : " + str(property.my_peer_num))
+    print("my peer : " + str(nodeproperty.my_peer_num))
 
     'reveiver thread start'
-    threading._start_new_thread(receiver.start(
-        "Receiver", my_ip_address, property.port))
+    node_mapping_table.initialize()
+    recv_thread = receiver.ReceiverThread(
+        1, "RECEIVER", nodeproperty.my_ip_address, nodeproperty.port)
+    recv_thread.start()
     print("RECEIVER START")
 
 

@@ -1,10 +1,14 @@
+# to be replaced with new module
+
+
 from socket import *
 from storage import file_controller
 import json
 
+
 def start(thread_name, ip_address, port):
 
-    print ('receiver thread start')
+    print('receiver thread start')
     addr = (ip_address, port)
     buf_size = 10000
 
@@ -18,7 +22,7 @@ def start(thread_name, ip_address, port):
         try:
             while True:
                 data = receive_socket.recv(buf_size)
-                print ("Receiving " + data)
+                print("Receiving " + data)
                 data_entity = json.loads(data)
 
                 if data_entity['type'] == 't':
@@ -27,7 +31,8 @@ def start(thread_name, ip_address, port):
                     break
 
                 elif data_entity['type'] == 'B':
-                    file_controller.create_new_block(str(data_entity['block_height']), data)
+                    file_controller.create_new_block(
+                        str(data_entity['block_height']), data)
                     receive_socket.close()
                     break
 
@@ -40,14 +45,12 @@ def start(thread_name, ip_address, port):
                     receive_socket.close()
                     break
                 else:
-                    print ("No data in socket")
+                    print("No data in socket")
                     print(2)
                     break
 
         except Exception as e:
-            print ("Exception ", e)
+            print("Exception ", e)
             break
 
     tcp_socket.close()
-
-
