@@ -1,7 +1,8 @@
-from socket import *
-from peerproperty import nodeproperty
 import threading
 import json
+import time
+from socket import *
+from peerproperty import nodeproperty
 from storage import file_controller
 from service.blockconsensus import merkle_tree
 from service.blockconsensus import block_generator
@@ -102,8 +103,8 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         'blind voting'
                         voting.blind_voting(merkle_root)
 
-                        # TODO: sleep 추가할 것.
-
+                        'time sleep-> result voting'
+                        time.sleep(5)
                         difficulty = voting.result_voting()
 
                         if(difficulty > 0):
@@ -142,7 +143,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                     # remove all txs call
 
                 elif data_jobj['type'] == 'C':
-                    # file_controller.add_blockconfirm(recv_data)
+                    file_controller.add_blockconfirm(recv_data)
                     request_sock.close()
                     break
 
