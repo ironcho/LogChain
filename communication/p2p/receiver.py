@@ -101,6 +101,9 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
                         'blind voting'
                         voting.blind_voting(merkle_root)
+
+                        # TODO: sleep 추가할 것.
+
                         difficulty = voting.result_voting()
 
                         if(difficulty > 0):
