@@ -142,7 +142,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                     # remove all txs call
 
                 elif data_jobj['type'] == 'C':
-                    file_controller.add_blockconfirm(recv_data)
+                    # file_controller.add_blockconfirm(recv_data)
                     request_sock.close()
                     break
 
