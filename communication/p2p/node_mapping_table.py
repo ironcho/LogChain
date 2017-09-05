@@ -56,24 +56,57 @@ def read_nodeinfo():
     return nodeinfo
 
 # 만약 새로운 노드라면 ~, 아니고 기존 노드라면 ~ 이러한 정보를 text로 부터 읽고 판단 하여야 한다.
-
-
-# 초기화에서 블록 갯수, 트랜잭션의 갯수 동기화 작업을 한번씩 해줘야 한다. 최초 참여일 경우와 아닐 경우를 나눠서 해야함.
+# 만약 최초 네트워크 참여가 아니라면, 블록 갯수, 트랜잭션의 갯수 동기화 작업을 한번씩 해줘야 한다. 최초 참여일 경우와 아닐 경우를 나눠서 해야함.
 # 이니셜라이즈 와 싱크로나이즈 로 시나리오가 두개 존재 해야함.
-def initialize():
-    nodeproperty.my_ip_address = socket.gethostbyname(socket.gethostname())
 
+# 동기화 : 기존에 네트워크 참여했던 경우
+# 동기화 부분에서 블록, 트랜잭션 동기화를 위해 체크를 하는 부분 구현 해야함.
+
+
+def synchronize():
+    print("synchronize")
+    info = read_nodeinfo()
+    print(info)
+    nodeproperty.my_node = Table()
+    # ip 정보가 바뀔경우를 생각 해야함.
+    nodeproperty.my_node.table_create(
+        socket.gethostbyname(socket.gethostname()))
+    for i in info['index']:
+        nodeproperty.my_node.table_add(
+            info['linked_node'][i], info['state'][i])
+
+    nodeproperty.my_node.print_table()
+
+# 초기화 : 최초에 네트워크 참여하는 경우
+
+
+def initialize():
     nodeproperty.my_node = Table()
     nodeproperty.my_node.table_create(
         socket.gethostbyname(socket.gethostname()))
-    #Property.my_node = read_nodeinfo()
-    # print(Property.my_node)
     # add 에서 txt를 읽어 최초로 connection 일어날수 있게. 적어도 하나 이상의 컴퓨터는 항상 켜져있는상태.
     # super node ip 정보는 파일로 부터 읽어 들이기.
     #f = open('supernode.txt','r')
     #supernode = f.read()
-    #Property.my_node.table_add(Property.my_ip, 'stable')
-    #Property.my_node.table_add('192.168.0.96', 'stable')
+    nodeproperty.my_node.table_add(nodeproperty.my_ip_address, 'stable')
+    nodeproperty.my_node.table_add('192.168.0.96', 'stable')
     # Sender.sending_connection('192.168.0.96')
     # 요기부분이.
     nodeproperty.my_node.print_table()
+
+
+def set_node():
+    nodeproperty.my_ip = socket.gethostbyname(socket.gethostname())
+    # nodeinfo.txt 에 내용이 없다면 최초 참여(initialize), 있다면 동기화(synchronize)
+    f = open('nodeinfo.txt', 'r')
+    tmp = f.read()
+    f.close()
+    if tmp == '':
+        initialize()
+    else:
+        synchronize()
+
+
+if __name__ == '__main__':
+    set_node()
+    # Property.my_node.write_table()
