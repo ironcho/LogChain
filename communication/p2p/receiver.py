@@ -88,7 +88,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                     request_sock.close()
                     break
 
-                    ''' for testing
+                    ''' to test by wonwoo
                     f = open("transaction_new" + str(num_tx) + ".txt", 'w')
                     f.write(recv_data)
                     f.close()
@@ -100,10 +100,38 @@ def receive_data(p_thrd_name, p_ip, p_port):
                     # block verification thread
 
                     num_block = num_block + 1
+                    file_controller.create_new_block(
+                        str(data_jobj['block_height']), recv_data)
+                    request_sock.close()
+                    break
+
+                    ''' to test by wonwoo
                     # print(num_block)
                     f = open("block" + str(num_block) + ".txt", 'w')
                     f.write(recv_data)
                     f.close()
+                    '''
+
+                    # remove all txs call
+
+                elif data_jobj['type'] is 'V':
+                    print("Block received")
+
+                    # block verification thread
+
+                    num_block = num_block + 1
+
+                    file_controller.add_voting(recv_data)
+                    request_sock.close()
+                    break
+
+                    ''' to test by wonwoo
+                    # print(num_block)
+                    f = open("block" + str(num_block) + ".txt", 'w')
+                    f.write(recv_data)
+                    f.close()
+                    '''
+
                     # remove all txs call
 
             except Exception as e:

@@ -1,7 +1,8 @@
 #precondition : Receiver is activated
 from socket import *
 from communication.p2p import node_mapping_table
-from communication.p2p import Property
+
+from peerproperty import nodeproperty
 # port num이나 이런 것들은 추후에 계속 정해야 한다. 현재는 같은 네트워크 망 안에서 있을 때만 통신이 가능..
 
 
@@ -25,12 +26,12 @@ def sending_mining_block():
 
 def sending_connection(p_ip):
     msg = "new node"
-    send(p_ip, msg, Property.port)
+    send(p_ip, msg, nodeproperty.port)
 
 
 def send(p_ip, p_msg, p_port, *args):
 
-    if p_ip == Property.my_node.self_node:
+    if p_ip == nodeproperty.my_node.self_node:
         # print "Error"
         receiver_addr = (p_ip, p_port)
 
@@ -45,6 +46,7 @@ def send(p_ip, p_msg, p_port, *args):
             print(e)
 
         tcp_socket.close()
+
     else:
         receiver_addr = (p_ip, p_port)
         tcp_socket = socket(AF_INET, SOCK_STREAM)
@@ -58,6 +60,7 @@ def send(p_ip, p_msg, p_port, *args):
             print(e)
 
         tcp_socket.close()
+
     print("Sending complete")
 
 
@@ -65,5 +68,5 @@ def send_to_all(p_msg):
 
     # Property.my_node.print_table()
 
-    for connected_node in Property.my_node.linked_node:
-        send(connected_node, p_msg, Property.port)
+    for connected_node in nodeproperty.my_node.linked_node:
+        send(connected_node, p_msg, nodeproperty.port)
