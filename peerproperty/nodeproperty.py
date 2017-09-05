@@ -7,6 +7,7 @@ Peer4 = "163.239.200.161"
 my_ip_address = None
 my_peer_num = None
 port = 10654
+REST_server_port = 10101
 peer_num = 4
 
 

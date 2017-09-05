@@ -9,7 +9,7 @@ from service.blockmanager import block
 from service.blockconsensus import proof_of_work
 from service.blockconsensus import voting
 from service.blockconsensus import merkle_tree
-from communication import sender
+from communication.p2p import sender
 
 
 def generate_block(difficulty, merkle_root, transactions):
@@ -38,7 +38,7 @@ def generate_block(difficulty, merkle_root, transactions):
     json_new_block = json.dumps(
         new_block, indent=4, default=lambda o: o.__dict__, sort_keys=True)
     sender.send_to_all_node(
-        json_new_block, nodeproperty.my_ip_address, nodeproperty.my_port)
+        json_new_block, nodeproperty.my_ip_address, nodeproperty.port)
 
 
 if __name__ == '__main__':

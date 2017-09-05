@@ -1,6 +1,6 @@
 from peerproperty import nodeproperty
 from storage import file_controller
-from communication import sender
+from communication.p2p import sender
 import json
 
 
