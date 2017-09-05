@@ -6,7 +6,6 @@ from communication.p2p import receiver
 from communication.p2p import node_mapping_table
 
 from service.blockmanager import genesisblock
-from storage import file_controller
 
 
 def main():
@@ -25,7 +24,7 @@ def main():
 
     node_mapping_table.initialize()
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", nodeproperty.my_ip_address, nodeproperty.REST_server_port)
+        1, "RECEIVER", nodeproperty.my_ip_address, nodeproperty.REST_node_port)
     recv_thread.start()
     print("REST API RECEIVER START")
 

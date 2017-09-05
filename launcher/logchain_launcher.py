@@ -5,7 +5,6 @@ from storage import file_controller
 from communication.p2p import receiver
 from communication.p2p import node_mapping_table
 from service.blockmanager import genesisblock
-from storage import file_controller
 
 
 def main():
