@@ -99,14 +99,18 @@ def receive_data(p_thrd_name, p_ip, p_port):
                     transaction_count = len(
                         file_controller.get_transaction_list())
                     if transaction_count == 10:
-
+                        print ("Enter transaciotn count")
                         difficulty = 0
                         transactions = file_controller.get_transaction_list()
+
                         merkle = merkle_tree.MerkleTree()
                         merkle_root = merkle.get_merkle(transactions)
-
+                        print("merkle _root :",merkle_root)
                         'blind voting'
+
                         voting.blind_voting(merkle_root)
+
+                        print("End voting")
 
                         'time sleep-> result voting'
                         time.sleep(5)
