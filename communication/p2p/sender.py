@@ -6,6 +6,8 @@ from storage import file_controller
 from peerproperty import nodeproperty
 # port num이나 이런 것들은 추후에 계속 정해야 한다. 현재는 같은 네트워크 망 안에서 있을 때만 통신이 가능..
 
+import json
+
 
 def sending_tx():
     # need make transaction call
@@ -39,9 +41,10 @@ def send(p_ip, p_msg, p_port, *args):
         tcp_socket = socket(AF_INET, SOCK_STREAM)
 
         try:
+
             tcp_socket.connect(receiver_addr)
             tcp_socket.settimeout(2)
-            tcp_socket.send(p_msg.encode("utf-8"))
+            tcp_socket.send(p_msg.encode('utf-8'))
 
         except Exception as e:
             print(e)
@@ -55,8 +58,9 @@ def send(p_ip, p_msg, p_port, *args):
         try:
             tcp_socket.connect(receiver_addr)
             tcp_socket.settimeout(2)
-            tcp_socket.send(p_msg.encode("utf-8"))
-
+            print(p_msg)
+            tcp_socket.send(p_msg.encode('utf-8'))
+            print("end send")
         except Exception as e:
             print(e)
 
