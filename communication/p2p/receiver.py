@@ -54,6 +54,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
         while True:
             recv_data = request_sock.recv(buf_size).decode('utf-8')
+            print(recv_data)
 
             try:
                 if recv_data == "":
@@ -73,15 +74,19 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         break
 
                 # 연결이 안되있는 노드로 부터 오는 메세지는 무시.
+                '''
+                print(recv_data)
                 if str(request_ip[0]) not in nodeproperty.my_node.linked_node:
+                    print("break??")
                     break
+                '''
 
-                nodeproperty.my_node.table_update(str(request_ip[0]), 'true')
+                # nodeproperty.my_node.table_update(str(request_ip[0]), 'true')
                 # Property.my_node.print_table()
-                nodeproperty.my_node.write_table()
+                # nodeproperty.my_node.write_table()
                 # node mapping table 관리
                 data_jobj = json.loads(recv_data)
-                # print(data_jobj['type'])
+                print(data_jobj['type'])
 
                 if data_jobj['type'] is 'T':
                     print("Transaction received")
@@ -110,9 +115,10 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         if(difficulty > 0):
                             block_generator.generate_block(
                                 difficulty, merkle_root, transactions)
+                        file_controller.remove_all_transactions()
 
                     request_sock.close()
-                    file_controller.remove_all_transactions()
+
                     break
 
                 elif data_jobj['type'] is 'B':
