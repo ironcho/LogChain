@@ -104,6 +104,10 @@ def set_node():
     nodeproperty.my_ip_address = socket.gethostbyname(
         socket.gethostname())
     # nodeinfo.txt 에 내용이 없다면 최초 참여(initialize), 있다면 동기화(synchronize)
+    initialize()
+
+
+''' nodeinfo.txt 파일을 노드마다 다르게 작성한 후에 테스트 필요
     try:
         f = open('nodeinfo.txt', 'r')
         tmp = f.read()
@@ -116,7 +120,7 @@ def set_node():
     except IOError as e:
         print("file open error - nodeinfo.txt", e)
         initialize()
-
+'''
 
 if __name__ == '__main__':
     set_node()
