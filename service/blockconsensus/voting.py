@@ -32,16 +32,11 @@ def result_voting():
     list = file_controller.get_voting_list()
 
     if len(list) == 1:
-        difficulty = 23
+        difficulty = 1
         return difficulty
     elif len(list) == 2:
-        difficulty = 19
+        difficulty = 1
         return difficulty
-    elif len(list) == 3:
-        difficulty = 15
-        return difficulty
-    elif len(list) == 4:
-        difficulty = 11
     else:
         difficulty = 0
 

@@ -125,15 +125,17 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
                     break
 
-                elif data_jobj['type'] is 'B':
+
+                elif data_jobj['block_header']['type'] is 'B':
                     print("Block received")
 
                     # block verification thread
-                    print(recv_data)
-                    num_block = num_block + 1
+
 
                     file_controller.create_new_block(
-                        str(data_jobj['block_height']), recv_data)
+                        str(data_jobj['block_header']['block_number']), recv_data)
+
+                    print("End create _new block")
                     request_sock.close()
                     break
 
