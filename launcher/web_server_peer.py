@@ -30,7 +30,7 @@ def main():
         transaction_count = 0
         # socket open
 
-        while transaction_count <= 10:
+        while transaction_count < 10:
             recv_addr = "1AVsffe"
             extra = 0x01
             tx = transaction.Transaction(recv_addr, extra)
