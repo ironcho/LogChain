@@ -57,6 +57,7 @@ def send(p_ip, p_msg, p_port, *args):
         print("receiver addr =" + str(p_ip) + " , " + str(p_port))
         try:
             tcp_socket.connect(receiver_addr)
+            print("connected........")
             tcp_socket.settimeout(2)
             print(p_msg)
             tcp_socket.send(p_msg.encode('utf-8'))

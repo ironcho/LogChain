@@ -42,5 +42,8 @@ def result_voting():
         return difficulty
     elif len(list) == 4:
         difficulty = 11
+    else:
+        difficulty = 0
+
 
     return difficulty

@@ -99,7 +99,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                     print(transaction_count)
                     if transaction_count == 10:
                         print ("Enter transaciotn count")
-                        difficulty = 0
+                        #difficulty = 0
                         transactions = file_controller.get_transaction_list()
 
                         merkle = merkle_tree.MerkleTree()
@@ -129,7 +129,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                     print("Block received")
 
                     # block verification thread
-
+                    print(recv_data)
                     num_block = num_block + 1
 
                     file_controller.create_new_block(
@@ -140,7 +140,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                     # remove all txs call
 
                 elif data_jobj['type'] is 'V':
-                    print("Block received")
+                    print("Voting received")
 
                     # block verification thread
 
@@ -163,7 +163,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                     break
 
             except Exception as e:
-                print("SOCKET ERROR", e)
+                print("@receiver ",e)
                 break
 
     tcp_socket.close()
