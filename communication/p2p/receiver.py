@@ -46,7 +46,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
     tcp_socket = socket(AF_INET, SOCK_STREAM)
     tcp_socket.bind(addr)
     tcp_socket.listen(5)
-    num_tx = 0
+    transaction_count = 0
     num_block = 0
     while True:
         print("waiting")
@@ -87,17 +87,16 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 # node mapping table 관리
                 data_jobj = json.loads(recv_data)
                 print(data_jobj['type'])
-
+                dict_data_jobj = dict(data_jobj)
                 if data_jobj['type'] is 'T':
                     print("Transaction received")
 
-                    num_tx = num_tx + 1
-                    # print(num_tx)
+                    transaction_count = transaction_count + 1
+                    print(transaction_count)
 
-                    file_controller.add_transaction(recv_data)
+                    file_controller.add_transaction(dict_data_jobj)
 
-                    transaction_count = len(
-                        file_controller.get_transaction_list())
+                    # transaction_count = len(file_controller.get_transaction_list())
                     print(transaction_count)
                     if transaction_count == 10:
                         print ("Enter transaciotn count")
@@ -121,6 +120,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                             block_generator.generate_block(
                                 difficulty, merkle_root, transactions)
                         file_controller.remove_all_transactions()
+                        transaction_count =0
 
                     request_sock.close()
 
