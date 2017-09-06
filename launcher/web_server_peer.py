@@ -38,7 +38,9 @@ def main():
                 tx, indent=4, default=lambda o: o.__dict__, sort_keys=True)
             temps = json.loads(temp)
 
-            # need update send_to_all_node (temps)
+            # send_to_all은 mapping table에 있는 정보로 broadcasting
+            # send_to_all_node는 file_controller로 부터 IP List 가지고 와서 broadcasting
+            # 테스트 후에 안전한 방식으로 선택
             sender.send_to_all(temps)
 
             transaction_count += 1
