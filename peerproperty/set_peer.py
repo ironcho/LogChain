@@ -10,5 +10,7 @@ def set_peer():
         nodeproperty.my_peer_num = 2
     elif my_ip == nodeproperty.Peer3:
         nodeproperty.my_peer_num = 3
+    elif my_ip == nodeproperty.Peer4:
+        nodeproperty.my_peer_num = 4
     else:
         nodeproperty.my_peer_num = "API_Peer"
