@@ -6,6 +6,7 @@ class Transaction(object):
     Construct new transaction class
 
     """
+
     def __init__(self, p_recv_addr, p_extra):
         """
 
@@ -19,6 +20,7 @@ class Transaction(object):
         self.message = ''
         self.pub_key = ''
         self.signature = ''
+
 
 '''
 # =====MODULE TEST=====
