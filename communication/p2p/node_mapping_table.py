@@ -90,21 +90,32 @@ def initialize():
     #supernode = f.read()
     nodeproperty.my_node.table_add(nodeproperty.my_ip_address, 'stable')
     nodeproperty.my_node.table_add('192.168.0.96', 'stable')
+    nodeproperty.my_node.table_add('163.239.200.163', 'stable')
+    nodeproperty.my_node.table_add('163.239.200.162', 'stable')
+    nodeproperty.my_node.table_add('163.239.200.165', 'stable')
+    nodeproperty.my_node.table_add('163.239.200.161', 'stable')
+
     # Sender.sending_connection('192.168.0.96')
     # 요기부분이.
     nodeproperty.my_node.print_table()
 
 
 def set_node():
-    nodeproperty.my_ip = socket.gethostbyname(socket.gethostname())
+    nodeproperty.my_ip_address = socket.gethostbyname(
+        socket.gethostname())
     # nodeinfo.txt 에 내용이 없다면 최초 참여(initialize), 있다면 동기화(synchronize)
-    f = open('nodeinfo.txt', 'r')
-    tmp = f.read()
-    f.close()
-    if tmp == '':
+    try:
+        f = open('nodeinfo.txt', 'r')
+        tmp = f.read()
+        f.close()
+        if tmp == '':
+            initialize()
+        else:
+            synchronize()
+
+    except IOError as e:
+        print("file open error - nodeinfo.txt", e)
         initialize()
-    else:
-        synchronize()
 
 
 if __name__ == '__main__':

@@ -6,7 +6,9 @@ from peerproperty import set_peer
 from storage import file_controller
 from service.transactionmanager import transaction
 from communication.p2p import receiver
+from communication.p2p import sender
 from communication.p2p import node_mapping_table
+
 
 def main():
     'Remove all transaction in mempool'
@@ -19,25 +21,32 @@ def main():
     set_peer.set_peer()
     print("my peer : " + str(nodeproperty.my_peer_num))
 
+    # node_mapping_table.set_node()와 set_peer()는 중복 기능이나, 일단 디버깅용으로 중복으로 유지함
+    node_mapping_table.set_node()
+
     'Send to all node 10 transaction for one iteration'
 
     while True:
         transaction_count = 0
         # socket open
 
-        while transaction_count <=10:
+        while transaction_count <= 10:
             recv_addr = "1AVsffe"
             extra = 0x01
             tx = transaction.Transaction(recv_addr, extra)
-            temp = json.dumps(tx, indent=4, default=lambda o: o.__dict__, sort_keys=True)
+            temp = json.dumps(
+                tx, indent=4, default=lambda o: o.__dict__, sort_keys=True)
             temps = json.loads(temp)
 
             # need update send_to_all_node (temps)
-            transaction_count +=1
+            sender.send_to_all(temps)
+
+            transaction_count += 1
 
         'For block mining, time sleep'
         time.sleep(100)
-        #socket close
+        # socket close
+
 
 if __name__ == '__main__':
     main()
