@@ -12,7 +12,7 @@ from communication.p2p import node_mapping_table
 
 def main():
     'Remove all transaction in mempool'
-    # file_controller.remove_all_transactions()
+    file_controller.remove_all_transactions()
     print("Web Server Start")
 
     'Peer setting'
@@ -36,12 +36,12 @@ def main():
             tx = transaction.Transaction(recv_addr, extra)
             temp = json.dumps(
                 tx, indent=4, default=lambda o: o.__dict__, sort_keys=True)
-            temps = json.loads(temp)
 
             # send_to_all은 mapping table에 있는 정보로 broadcasting
             # send_to_all_node는 file_controller로 부터 IP List 가지고 와서 broadcasting
             # 테스트 후에 안전한 방식으로 선택
-            sender.send_to_all(temps)
+            sender.send_to_all(temp)
+            #sender.send_to_all_node(temps, nodeproperty.my_ip_address, nodeproperty.port)
 
             transaction_count += 1
 

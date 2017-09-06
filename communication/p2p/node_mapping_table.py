@@ -89,11 +89,10 @@ def initialize():
     # f = open('supernode.txt','r')
     # supernode = f.read()
     nodeproperty.my_node.table_add(nodeproperty.my_ip_address, 'stable')
-    nodeproperty.my_node.table_add('192.168.0.96', 'stable')
     nodeproperty.my_node.table_add('163.239.200.163', 'stable')
-    nodeproperty.my_node.table_add('163.239.200.162', 'stable')
-    nodeproperty.my_node.table_add('163.239.200.165', 'stable')
     nodeproperty.my_node.table_add('163.239.200.161', 'stable')
+    nodeproperty.my_node.table_add('192.168.0.38', 'stable')
+
 
     # Sender.sending_connection('192.168.0.96')
     # 요기부분이.
