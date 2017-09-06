@@ -16,7 +16,7 @@ def main():
     my_ip_address = file_controller.get_my_ip()
     nodeproperty.my_ip_address = my_ip_address
     set_peer.set_peer()
-    print("my peer : " + str(nodeproperty.my_peer_num))
+    print("my peer num : " + str(nodeproperty.my_peer_num))
 
     'Genesis Block Create'
     genesisblock.genesisblock_generate()
