@@ -86,16 +86,15 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 # nodeproperty.my_node.write_table()
                 # node mapping table 관리
                 data_jobj = json.loads(recv_data)
-                print(data_jobj['type'])
-                dict_data_jobj = dict(data_jobj)
+
                 if data_jobj['type'] is 'T':
                     print("Transaction received")
 
                     transaction_count = transaction_count + 1
                     print(transaction_count)
 
-                    file_controller.add_transaction(dict_data_jobj)
-
+                    file_controller.add_transaction(recv_data)
+                    print("tx added to list")
                     # transaction_count = len(file_controller.get_transaction_list())
                     print(transaction_count)
                     if transaction_count == 10:

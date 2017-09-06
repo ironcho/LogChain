@@ -8,7 +8,7 @@ my_ip_address = None
 my_peer_num = None
 port = 10654
 REST_node_port = 10101
-peer_num = 4
+peer_num = 2
 
 
 my_node = None
