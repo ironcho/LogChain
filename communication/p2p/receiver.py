@@ -59,7 +59,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 if not rcvd_pkt : break
                 rcvd_total.append(rcvd_pkt)
 
-            recv_data = rcvd_pkt.decode('utf-8')
+            recv_data = rcvd_total.decode('utf-8')
             print(recv_data)
 
             if recv_data == "":
