@@ -53,11 +53,12 @@ def receive_data(p_thrd_name, p_ip, p_port):
         request_sock, request_ip = tcp_socket.accept()
 
         while True:
-            rcvd_total = []
+            rcvd_total = ""
             while True:
                 rcvd_pkt = request_sock.recv(buf_size)
                 if not rcvd_pkt : break
-                rcvd_total.append(rcvd_pkt)
+                # rcvd_total.append(rcvd_pkt)
+                rcvd_total += rcvd_pkt
 
             recv_data = rcvd_total.decode('utf-8')
             print(recv_data)
