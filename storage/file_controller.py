@@ -137,8 +137,7 @@ def remove_all_voting():
 
 def remove_all_Block():
     try:
-        if os.path.isdir(block_storage_path+block_file):
-            shutil.rmtree(block_storage_path+block_file)
+        shutil.rmtree(block_storage_path)
     except Exception as e:
         print(e)
     # f = open(block_storage_path+block_file, 'w')
