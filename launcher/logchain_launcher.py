@@ -10,6 +10,10 @@ from service.blockmanager import genesisblock
 def main():
     'Remove all transaction in mempool'
     file_controller.remove_all_transactions()
+    file_controller.remove_all_Block()
+    file_controller.remove_all_voting()
+
+
     print("Logchain Start")
 
     'Peer setting'
