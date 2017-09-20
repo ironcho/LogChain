@@ -49,7 +49,7 @@ def main():
             transaction_count += 1
 
         'For block mining, time sleep'
-        time.sleep(100)
+        time.sleep(50)
         # socket close
 
 
