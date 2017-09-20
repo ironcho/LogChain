@@ -56,7 +56,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
             recv_data = request_sock.recv(buf_size).decode('utf-8')
             print(recv_data)
 
-            try:
+
                 if recv_data == "":
                     break
                 # print("from ip : " + str(request_ip[0]))
@@ -85,87 +85,96 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 # Property.my_node.print_table()
                 # nodeproperty.my_node.write_table()
                 # node mapping table 관리
-                data_jobj = json.loads(recv_data)
+                    data_jobj = json.loads(recv_data)
 
-                if data_jobj['type'] is 'T':
-                    print("Transaction received")
+                try:
+                    if data_jobj['type'] is 'T':
+                        print("Transaction received")
 
-                    transaction_count = transaction_count + 1
-                    print(transaction_count)
+                        transaction_count = transaction_count + 1
+                        print(transaction_count)
 
-                    file_controller.add_transaction(recv_data)
-                    print("tx added to list")
-                    # transaction_count = len(file_controller.get_transaction_list())
-                    print(transaction_count)
-                    if transaction_count == 10:
-                        print ("Enter transaciotn count")
-                        #difficulty = 0
-                        transactions = file_controller.get_transaction_list()
+                        file_controller.add_transaction(recv_data)
+                        print("tx added to list")
+                        # transaction_count = len(file_controller.get_transaction_list())
+                        print(transaction_count)
+                        if transaction_count == 10:
+                            print ("Enter transaciotn count")
+                            #difficulty = 0
+                            transactions = file_controller.get_transaction_list()
 
-                        merkle = merkle_tree.MerkleTree()
-                        merkle_root = merkle.get_merkle(transactions)
-                        print("merkle _root :",merkle_root)
-                        'blind voting'
+                            merkle = merkle_tree.MerkleTree()
+                            merkle_root = merkle.get_merkle(transactions)
+                            print("merkle _root :",merkle_root)
+                            'blind voting'
 
-                        voting.blind_voting(merkle_root)
+                            voting.blind_voting(merkle_root)
 
-                        print("End voting")
+                            print("End voting")
 
-                        'time sleep-> result voting'
-                        time.sleep(5)
-                        difficulty = voting.result_voting()
+                            'time sleep-> result voting'
+                            time.sleep(5)
+                            difficulty = voting.result_voting()
 
-                        if(difficulty > 0):
-                            block_generator.generate_block(
-                                difficulty, merkle_root, transactions)
-                        file_controller.remove_all_transactions()
-                        transaction_count =0
+                            if(difficulty > 0):
+                                block_generator.generate_block(
+                                    difficulty, merkle_root, transactions)
+                            file_controller.remove_all_transactions()
+                            transaction_count =0
 
-                    request_sock.close()
+                        request_sock.close()
+                        break
 
-                    break
+                except Exception as e:
+                    print("@receiver ", e)
+
+                try:
+                    if data_jobj['block_header']['type'] is 'B':
+                        print("Block received")
+                        # block verification thread
+
+                        file_controller.create_new_block(
+                            str(data_jobj['block_header']['block_number']), recv_data)
+
+                        print("End create _new block")
+                        request_sock.close()
+                        break
+                except Exception as e:
+                    print("@receiver ", e)
+
+                try:
+
+                    if data_jobj['type'] is 'V':
+                        print("Voting received")
+
+                        # block verification thread
+
+                        num_block = num_block + 1
+
+                        file_controller.add_voting(recv_data)
+                        request_sock.close()
+                        break
+
+                except Exception as e:
+                    print("@receiver ", e)
+                        # remove all txs call
+
+                try:
+                    if data_jobj['type'] == 'C':
+                        file_controller.add_blockconfirm(recv_data)
+                        request_sock.close()
+                        break
+
+                except Exception as e:
+                    print("@receiver ", e)
 
 
-                elif data_jobj['block_header']['type'] is 'B':
-                    print("Block received")
 
-                    # block verification thread
-
-
-                    file_controller.create_new_block(
-                        str(data_jobj['block_header']['block_number']), recv_data)
-
-                    print("End create _new block")
-                    request_sock.close()
-                    break
-
-                    # remove all txs call
-
-                elif data_jobj['type'] is 'V':
-                    print("Voting received")
-
-                    # block verification thread
-
-                    num_block = num_block + 1
-
-                    file_controller.add_voting(recv_data)
-                    request_sock.close()
-                    break
-
-                    # remove all txs call
-
-                elif data_jobj['type'] == 'C':
-                    file_controller.add_blockconfirm(recv_data)
-                    request_sock.close()
-                    break
-
-                else:
-                    print("No data in socket")
-                    print(2)
-                    break
-
-            except Exception as e:
-                print("@receiver ",e)
+                print("No data in socket")
+                print(2)
                 break
 
     tcp_socket.close()
+
+
+

@@ -3,8 +3,8 @@
     "message": "",
     "pub_key": "",
     "signature": "",
-    "timestamp": "20170920113358",
-    "tx_id": "B20170920113358",
+    "timestamp": "20170920115537",
+    "tx_id": "B20170920115537",
     "type": "T"
 }
 {
@@ -12,8 +12,8 @@
     "message": "",
     "pub_key": "",
     "signature": "",
-    "timestamp": "20170920113400",
-    "tx_id": "B20170920113400",
+    "timestamp": "20170920115538",
+    "tx_id": "B20170920115538",
     "type": "T"
 }
 {
@@ -21,8 +21,8 @@
     "message": "",
     "pub_key": "",
     "signature": "",
-    "timestamp": "20170920113410",
-    "tx_id": "B20170920113410",
+    "timestamp": "20170920115539",
+    "tx_id": "B20170920115539",
     "type": "T"
 }
 {
@@ -30,8 +30,8 @@
     "message": "",
     "pub_key": "",
     "signature": "",
-    "timestamp": "20170920113411",
-    "tx_id": "B20170920113411",
+    "timestamp": "20170920115540",
+    "tx_id": "B20170920115540",
     "type": "T"
 }
 {
@@ -39,52 +39,7 @@
     "message": "",
     "pub_key": "",
     "signature": "",
-    "timestamp": "20170920113412",
-    "tx_id": "B20170920113412",
-    "type": "T"
-}
-{
-    "extra_data": 1,
-    "message": "",
-    "pub_key": "",
-    "signature": "",
-    "timestamp": "20170920113413",
-    "tx_id": "B20170920113413",
-    "type": "T"
-}
-{
-    "extra_data": 1,
-    "message": "",
-    "pub_key": "",
-    "signature": "",
-    "timestamp": "20170920113414",
-    "tx_id": "B20170920113414",
-    "type": "T"
-}
-{
-    "extra_data": 1,
-    "message": "",
-    "pub_key": "",
-    "signature": "",
-    "timestamp": "20170920113415",
-    "tx_id": "B20170920113415",
-    "type": "T"
-}
-{
-    "extra_data": 1,
-    "message": "",
-    "pub_key": "",
-    "signature": "",
-    "timestamp": "20170920113416",
-    "tx_id": "B20170920113416",
-    "type": "T"
-}
-{
-    "extra_data": 1,
-    "message": "",
-    "pub_key": "",
-    "signature": "",
-    "timestamp": "20170920113417",
-    "tx_id": "B20170920113417",
+    "timestamp": "20170920115541",
+    "tx_id": "B20170920115541",
     "type": "T"
 }
