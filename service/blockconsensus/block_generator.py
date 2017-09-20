@@ -7,8 +7,6 @@ from peerproperty import nodeproperty
 
 from service.blockmanager import block
 from service.blockconsensus import proof_of_work
-from service.blockconsensus import voting
-from service.blockconsensus import merkle_tree
 from communication.p2p import sender
 
 

@@ -1,7 +1,7 @@
 import os
 import socket
 import json
-
+import shutil
 
 database_path = os.path.dirname(os.path.dirname(__file__)) + '\_DataStorage' + '\\'
 block_storage_path = os.path.dirname(os.path.dirname(__file__)) + '\_BlockStorage' + '\\'
@@ -136,9 +136,14 @@ def remove_all_voting():
     f.close()
 
 def remove_all_Block():
-    f = open(block_storage_path+block_file, 'w')
-    f.write("")
-    f.close()
+    try:
+        if os.path.isdir(block_storage_path+block_file):
+            shutil.rmtree(block_storage_path+block_file)
+    except Exception as e:
+        print(e)
+    # f = open(block_storage_path+block_file, 'w')
+    # f.write("")
+    # f.close()
 
 
 'Save my block'
