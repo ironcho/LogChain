@@ -100,22 +100,32 @@ def get_last_file():
 def get_last_block():
 
     block_list = []
+    block_list_size = 0
+
     for (path, dir, files) in os.walk(block_storage_path):
         block_list = files
 
-    j=0
+    block_list_size = len(files)
 
+
+    j=0
     for i in block_list:
         block_list[j]= int(i)
         j=j+1
 
-    last_block_file_name = block_list[-1]
+    # last_block_file_name = block_list[-1]
+    last_block_file_name = block_list_size
+    
+
+
 
     print(last_block_file_name,type(last_block_file_name))
 
     last_block_tx_list = read_all_line(str(block_storage_path) + str(last_block_file_name))
     last_block = "\n".join(last_block_tx_list)
     a = json.loads(last_block)
+    if int(a['block_header']['block_number'])>=10:
+        print(a['block_header']['block_number'])
     print  (a['block_header']['block_number'])
     return a['block_header']['block_number'], a['block_header']['block_hash']
 

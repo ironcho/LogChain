@@ -137,7 +137,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         break
 
                 except Exception as e:
-                    print("@receiver - data_jobj['type'] is 'T'", e)
+                    print("Exception @receiver - data_jobj['type'] is 'T'", e)
 
                 try:
                     if data_jobj['block_header']['type'] is 'B':
@@ -151,7 +151,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         request_sock.close()
                         break
                 except Exception as e:
-                    print("@receiver - data_jobj['block_header']['type'] is 'B'", e)
+                    print("Exception @receiver - data_jobj['block_header']['type'] is 'B'", e)
 
                 try:
 
@@ -167,7 +167,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         break
 
                 except Exception as e:
-                    print("@receiver - data_jobj['type'] is 'V'", e)
+                    print("Exception @receiver - data_jobj['type'] is 'V'", e)
                         # remove all txs call
 
                 try:
@@ -177,7 +177,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         break
 
                 except Exception as e:
-                    print("@receiver - data_jobj['type'] == 'C'", e)
+                    print("Exception @receiver - data_jobj['type'] == 'C'", e)
 
 
 
