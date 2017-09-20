@@ -115,7 +115,9 @@ def get_last_block():
 
     # last_block_file_name = block_list[-1]
     last_block_file_name = block_list_size
-    
+
+    print("last_block_file_name is .. ", last_block_file_name)
+
 
 
 
