@@ -39,7 +39,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
     """
 
     addr = (p_ip, p_port)
-    buf_size = 8096
+    buf_size = 4096
     # to check my node info
     # print(p_thrd_name, p_ip, p_port)
     #
@@ -61,9 +61,9 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
             temp = ""
             for i in rcvd_total:
-                temp += rcvd_total[i]
+                temp += i.decode('utf-8')
 
-            recv_data = temp.decode('utf-8')
+            recv_data = temp
             print(recv_data)
 
             if recv_data == "":
