@@ -13,8 +13,7 @@ def main():
     print("Logchain Start")
 
     'Peer setting'
-    my_ip_address = file_controller.get_my_ip()
-    nodeproperty.my_ip_address = my_ip_address
+    nodeproperty.my_ip_address = file_controller.get_my_ip()
     set_peer.set_peer()
     print("my peer num : " + str(nodeproperty.my_peer_num))
 

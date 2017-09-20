@@ -88,7 +88,8 @@ def initialize():
     # super node ip 정보는 파일로 부터 읽어 들이기.
     # f = open('supernode.txt','r')
     # supernode = f.read()
-    nodeproperty.my_node.table_add(nodeproperty.my_ip_address, 'stable')
+
+    # nodeproperty.my_node.table_add(nodeproperty.my_ip_address, 'stable')
     nodeproperty.my_node.table_add('163.239.200.163', 'stable')
     nodeproperty.my_node.table_add('163.239.200.161', 'stable')
     nodeproperty.my_node.table_add('192.168.0.38', 'stable')
