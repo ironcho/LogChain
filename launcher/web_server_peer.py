@@ -13,7 +13,7 @@ from communication.p2p import node_mapping_table
 def main():
     'Remove all transaction in mempool'
     file_controller.remove_all_transactions()
-    file_controller.remove_all_Block()
+    # file_controller.remove_all_Block()
     file_controller.remove_all_voting()
 
 
