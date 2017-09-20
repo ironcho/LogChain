@@ -56,22 +56,21 @@ def receive_data(p_thrd_name, p_ip, p_port):
             recv_data = request_sock.recv(buf_size).decode('utf-8')
             print(recv_data)
 
-
-                if recv_data == "":
+            if recv_data == "":
+                break
+            # print("from ip : " + str(request_ip[0]))
+            # node mapping table 관리를 넣는다.
+            if recv_data == "new node":
+                if str(request_ip[0]) in nodeproperty.my_node.linked_node:
+                    print("already connected")
                     break
-                # print("from ip : " + str(request_ip[0]))
-                # node mapping table 관리를 넣는다.
-                if recv_data == "new node":
-                    if str(request_ip[0]) in nodeproperty.my_node.linked_node:
-                        print("already connected")
-                        break
-                    else:
-                        print("new node connection received")
-                        nodeproperty.my_node.table_add(
-                            str(request_ip[0]), 'stable')
-                        # Property.my_node.print_table()
-                        nodeproperty.my_node.write_table()
-                        break
+                else:
+                    print("new node connection received")
+                    nodeproperty.my_node.table_add(
+                        str(request_ip[0]), 'stable')
+                    # Property.my_node.print_table()
+                    nodeproperty.my_node.write_table()
+                    break
 
                 # 연결이 안되있는 노드로 부터 오는 메세지는 무시.
                 '''
@@ -85,7 +84,8 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 # Property.my_node.print_table()
                 # nodeproperty.my_node.write_table()
                 # node mapping table 관리
-                    data_jobj = json.loads(recv_data)
+            else:
+                data_jobj = json.loads(recv_data)
 
                 try:
                     if data_jobj['type'] is 'T':
