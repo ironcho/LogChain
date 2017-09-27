@@ -53,15 +53,22 @@ def initialize_netinfo():
     node_mapping_table.set_node()
 
 
-@app.route('/rulelist/', methods=['GET'])
+@app.route('/rules/', methods=['GET'])
 def get_rules():
     logging.debug('request(query rulelist) rcvd...')
-    logging.debug('event-> queue')
-    query_q.put("rule list")
-
+    query_q.put("rulelist")
     logging.debug(str(query_q))
     logging.debug(query_q.qsize())
     return jsonify({'rulelist': rulelist})
+
+
+@app.route('/rules/<int:rule_id>', methods=['GET'])
+def get_rule(rule_id):
+    logging.debug('request(query rule) rcvd...')
+    query_q.put("rule_id")
+    logging.debug(str(query_q))
+    logging.debug(query_q.qsize())
+    return jsonify({'rule': rule_id})
 
 
 @app.route('/rules/', methods=['POST'])
