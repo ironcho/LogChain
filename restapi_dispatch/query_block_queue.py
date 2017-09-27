@@ -2,14 +2,11 @@ import threading
 import logging
 from queue import Queue
 import time
+import eventqueueplan
 
 
 class QueryQueueThread(threading.Thread):
     def __init__(self, p_thrd_id, p_thrd_name, p_inq):
-        """
-        :param p_thrd_id:
-        :param p_thrd_name:
-        """
         threading.Thread.__init__(self)
         self.thrd_id = p_thrd_id
         self.thrd_name = p_thrd_name
@@ -20,11 +17,11 @@ class QueryQueueThread(threading.Thread):
 
 
 def receive_event(p_thrd_name, p_inq):
-    count = 0
+    count = 1
     while True:
         logging.debug("waiting for event")
         logging.debug(str(p_inq.get()))
-        count = count + 1
         logging.debug(count)
         logging.debug(str(p_inq.qsize()))
-        time.sleep(2)
+        count = count + 1
+        time.sleep(eventqueueplan.QUERY_DEQUEUE_INTERVAL)
