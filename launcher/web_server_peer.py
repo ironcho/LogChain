@@ -36,9 +36,9 @@ def main():
         # socket open
 
         while transaction_count < 10:
-            recv_addr = "1AVsffe"
+            # recv_addr = "1AVsffe"
             extra = 0x01
-            tx = transaction.Transaction(recv_addr, extra)
+            tx = transaction.Transaction(extra)
             temp = json.dumps(
                 tx, indent=4, default=lambda o: o.__dict__, sort_keys=True)
 

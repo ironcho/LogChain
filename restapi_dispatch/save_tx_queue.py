@@ -2,7 +2,10 @@ import threading
 import logging
 from queue import Queue
 import time
-from restapi_dispatch import eventqueueplan
+from restapi_dispatch import queue_strategy
+import json
+from service.transactionmanager import transaction
+from communication.p2p import sender
 
 
 class SaveTxQueueThread(threading.Thread):
@@ -22,12 +25,17 @@ def receive_event(p_thrd_name, p_inq):
         logging.debug("waiting for event")
 
         dequeued = p_inq.get()
-        # tx로 만들어서, send_to_all()
+
+        tx = transaction.Transaction(dequeued)
+        temp = json.dumps(
+            tx, indent=4, default=lambda o: o.__dict__, sort_keys=True)
+
+        # sender.send_to_all(temp) // 노드들 연동 후 테스트 필요 2017-09-27
 
         logging.debug(str(dequeued))
+        logging.debug(str(temp))
+
         logging.debug(count)
         logging.debug(str(p_inq.qsize()))
         count = count + 1
-        time.sleep(eventqueueplan.SAVE_TX_DEQUEUE_INTERVAL)
-
-        # exception queue.Empty
+        time.sleep(queue_strategy.SAVE_TX_DEQUEUE_INTERVAL)
