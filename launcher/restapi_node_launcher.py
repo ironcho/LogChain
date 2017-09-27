@@ -103,14 +103,12 @@ if __name__ == "__main__":
     initialize_blockdbinfo()
     initialize_netinfo()
 
-    logging.debug('QueryQueueThread starts')
     queryqueue_thread = query_block_queue.QueryQueueThread(
         1, "QueryQueueThread", query_q
     )
     queryqueue_thread.start()
     logging.debug('QueryQueueThread started')
 
-    logging.debug('SaveTxQueueThread starts')
     savetxqueue_thread = save_tx_queue.SaveTxQueueThread(
         1, "SaveTxQueueThread", savetx_q
     )
