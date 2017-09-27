@@ -25,3 +25,5 @@ def receive_event(p_thrd_name, p_inq):
         logging.debug(str(p_inq.qsize()))
         count = count + 1
         time.sleep(eventqueueplan.QUERY_DEQUEUE_INTERVAL)
+
+        # exception queue.Empty
