@@ -72,6 +72,7 @@ def create_rule():
     logging.debug(str(savetx_q))
     logging.debug(savetx_q.qsize())
 
+    # for testing......
     if not request.json or not 'title' in request.json:
         abort(400)
     rule = {
@@ -81,6 +82,7 @@ def create_rule():
         'done': False
     }
     rulelist.append(rule)
+    # ...........for testing
     return jsonify({'rule': rule}), 201
 
 

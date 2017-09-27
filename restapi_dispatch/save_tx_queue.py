@@ -2,7 +2,7 @@ import threading
 import logging
 from queue import Queue
 import time
-import eventqueueplan
+from restapi_dispatch import eventqueueplan
 
 
 class SaveTxQueueThread(threading.Thread):
@@ -20,7 +20,11 @@ def receive_event(p_thrd_name, p_inq):
     count = 1
     while True:
         logging.debug("waiting for event")
-        logging.debug(str(p_inq.get()))
+
+        dequeued = p_inq.get()
+        # tx로 만들어서, send_to_all()
+
+        logging.debug(str(dequeued))
         logging.debug(count)
         logging.debug(str(p_inq.qsize()))
         count = count + 1

@@ -2,7 +2,7 @@ import threading
 import logging
 from queue import Queue
 import time
-import eventqueueplan
+from restapi_dispatch import eventqueueplan
 
 
 class QueryQueueThread(threading.Thread):
@@ -20,7 +20,13 @@ def receive_event(p_thrd_name, p_inq):
     count = 1
     while True:
         logging.debug("waiting for event")
-        logging.debug(str(p_inq.get()))
+        dequeued = p_inq.get()
+
+        # 어떤 노드에게 조회 요청을 보낸 후에, 해당 노드로부터 정보를 받은 후에 출력?
+        # 또는 해당 노드에게 직접 접근해서 조회요청을 보내고, 정보를 받은 후에 출력
+
+        logging.debug(str(dequeued))
+
         logging.debug(count)
         logging.debug(str(p_inq.qsize()))
         count = count + 1
