@@ -11,6 +11,8 @@ from communication.p2p import node_mapping_table
 
 from restapi_dispatch import restapi_call_dispatcher
 
+# restapi_node_launcher로 교체될 예정....
+
 
 def main():
     'Remove all transaction in mempool'

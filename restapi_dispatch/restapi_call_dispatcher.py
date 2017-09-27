@@ -3,8 +3,8 @@ from flask import jsonify
 from flask import request
 from flask import abort
 
-
 app = Flask(__name__)
+
 
 rulelist = [
     {
