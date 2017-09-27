@@ -27,4 +27,4 @@ def receive_event(p_thrd_name, p_inq):
         count = count + 1
         logging.debug(count)
         logging.debug(str(p_inq.qsize()))
-        time.sleep(10)
+        time.sleep(2)
