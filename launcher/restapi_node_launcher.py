@@ -1,22 +1,23 @@
+
 import threading
-import time
-import json
-from peerproperty import nodeproperty
-from peerproperty import set_peer
-from storage import file_controller
-from service.transactionmanager import transaction
-from communication.p2p import receiver
-from communication.p2p import sender
-from communication.p2p import node_mapping_table
 import logging
 import sys
-
 from flask import Flask
 from flask import jsonify
 from flask import request
 from flask import abort
+from peerproperty import nodeproperty
+from peerproperty import set_peer
+from storage import file_controller
+from communication.p2p import node_mapping_table
+from restapi_dispatch import query_block_queue
+from restapi_dispatch import save_tx_queue
+from queue import Queue
 
 app = Flask(__name__)
+
+query_q = Queue()
+savetx_q = Queue()
 
 
 rulelist = [
@@ -35,12 +36,15 @@ rulelist = [
 ]
 
 
-def initialize_node():
-    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
-    logging.debug('A debug message!')
-    logging.info('REST API server starts...')
+def initialize_blockdbinfo():
+    logging.info('Remove all transactions in mempool')
+    file_controller.remove_all_transactions()
+    # file_controller.remove_all_Block()
+    logging.info('Remove all voting info ')
+    file_controller.remove_all_voting()
 
-    logging.info('Peer setting...')
+
+def initialize_netinfo():
     nodeproperty.my_ip_address = file_controller.get_my_ip()
     set_peer.set_peer()
     logging.info("my peer : " + nodeproperty.my_peer_num)
@@ -48,26 +52,25 @@ def initialize_node():
     # node_mapping_table.set_node()와 set_peer()는 중복 기능이나, 일단 디버깅용으로 중복으로 유지함
     node_mapping_table.set_node()
 
-    logging.info('save_tx_queue thread starts')
-
-    logging.info('query_block_queue thread starts')
-
-
-def initiate_blockinfo():
-    'Remove all transaction in mempool'
-    file_controller.remove_all_transactions()
-    # file_controller.remove_all_Block()
-    file_controller.remove_all_voting()
-
 
 @app.route('/rulelist/', methods=['GET'])
 def get_rules():
+    logging.debug('request(query rulelist) rcvd...')
+    logging.debug('event-> queue')
+    query_q.put("rule list")
+
+    logging.debug(str(query_q))
+    logging.debug(query_q.qsize())
     return jsonify({'rulelist': rulelist})
 
 
 @app.route('/rules/', methods=['POST'])
 def create_rule():
-    logging.debug('create rule evbet dvf!')
+    logging.debug('request(create rule) rcvd...')
+    logging.debug('event-> queue')
+    savetx_q.put(request.json)
+    logging.debug(str(savetx_q))
+    logging.debug(savetx_q.qsize())
 
     if not request.json or not 'title' in request.json:
         abort(400)
@@ -83,9 +86,26 @@ def create_rule():
 
 @app.route("/")
 def hello():
-    return "LogChain's REST API node!"
+    return "LogChain's REST API node"
 
 
 if __name__ == "__main__":
-    initialize_node()
+    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+    initialize_blockdbinfo()
+    initialize_netinfo()
+
+    logging.debug('QueryQueueThread starts')
+    queryqueue_thread = query_block_queue.QueryQueueThread(
+        1, "QueryQueueThread", query_q
+    )
+    queryqueue_thread.start()
+    logging.debug('QueryQueueThread started')
+
+    logging.debug('SaveTxQueueThread starts')
+    savetxqueue_thread = save_tx_queue.SaveTxQueueThread(
+        1, "SaveTxQueueThread", savetx_q
+    )
+    savetxqueue_thread.start()
+    logging.debug('SaveTxQueueThread started')
+
     app.run()
