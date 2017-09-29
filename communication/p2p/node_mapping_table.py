@@ -101,7 +101,7 @@ def initialize():
     nodeproperty.my_node.table_add("163.239.200.176", 'stable')
     nodeproperty.my_node.table_add("163.239.200.179", 'stable')
 
-    nodeproperty.my_node.table_add("192.168.0.38", 'stable')
+    nodeproperty.my_node.table_add("192.168.0.36", 'stable')
 
     # Sender.sending_connection('192.168.0.96')
     # 요기부분이.
