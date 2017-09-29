@@ -26,19 +26,29 @@ def blind_voting(merkle_root):
         elif vote_number == 4:
             ip_address = nodeproperty.Peer4
             sender.send(ip_address, jsonString, nodeproperty.port)
+        elif vote_number == 5:
+            ip_address = nodeproperty.Peer5
+            sender.send(ip_address, jsonString, nodeproperty.port)
+        elif vote_number == 6:
+            ip_address = nodeproperty.Peer6
+            sender.send(ip_address, jsonString, nodeproperty.port)
+        elif vote_number == 7:
+            ip_address = nodeproperty.Peer7
+            sender.send(ip_address, jsonString, nodeproperty.port)
+        elif vote_number == 8:
+            ip_address = nodeproperty.Peer8
+            sender.send(ip_address, jsonString, nodeproperty.port)
+        elif vote_number == 9:
+            ip_address = nodeproperty.Peer9
+            sender.send(ip_address, jsonString, nodeproperty.port)
 
 
 def result_voting():
     list = file_controller.get_voting_list()
 
-    if len(list) == 1:
-        difficulty = 1
-        return difficulty
-    elif len(list) == 2:
+    if len(list) > 4:
         difficulty = 1
         return difficulty
     else:
         difficulty = 0
-
-
-    return difficulty
+        return difficulty
