@@ -90,10 +90,18 @@ def initialize():
     # supernode = f.read()
 
     # nodeproperty.my_node.table_add(nodeproperty.my_ip_address, 'stable')
-    nodeproperty.my_node.table_add('163.239.200.163', 'stable')
-    nodeproperty.my_node.table_add('163.239.200.161', 'stable')
-    nodeproperty.my_node.table_add('192.168.0.38', 'stable')
 
+    nodeproperty.my_node.table_add("163.239.200.163", 'stable')
+    nodeproperty.my_node.table_add("163.239.200.162", 'stable')
+    nodeproperty.my_node.table_add("163.239.200.166", 'stable')
+    nodeproperty.my_node.table_add("163.239.200.161", 'stable')
+    nodeproperty.my_node.table_add("163.239.200.153", 'stable')
+    nodeproperty.my_node.table_add("163.239.200.173", 'stable')
+    nodeproperty.my_node.table_add("163.239.200.174", 'stable')
+    nodeproperty.my_node.table_add("163.239.200.176", 'stable')
+    nodeproperty.my_node.table_add("163.239.200.179", 'stable')
+
+    nodeproperty.my_node.table_add("192.168.0.38", 'stable')
 
     # Sender.sending_connection('192.168.0.96')
     # 요기부분이.
