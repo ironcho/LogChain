@@ -30,7 +30,7 @@ def receive_event(p_thrd_name, p_inq):
         temp = json.dumps(
             tx, indent=4, default=lambda o: o.__dict__, sort_keys=True)
 
-        # sender.send_to_all(temp) // 노드들 연동 후 테스트 필요 2017-09-27
+        sender.send_to_all(temp)  # 노드들 연동 후 테스트 필요 2017-09-27
 
         logging.debug(str(dequeued))
         logging.debug(str(temp))

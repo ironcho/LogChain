@@ -22,16 +22,74 @@ savetx_q = Queue()
 
 rulelist = [
     {
-        'id': 1,
-        'title': u'Buy',
-        'description': u'Milk, Cheese, Pizza, Fruit, Tylenol',
-        'done': False
-    },
-    {
-        'id': 2,
-        'title': u'Python',
-        'description': u'Need to find a good Python tutorial on the web',
-        'done': False
+        'index': 1,
+        'title': 'Testing-rule #1',
+        'body': {
+            "conditions": [
+                []
+            ],
+            "actions": [
+                [
+                    {
+                        "agent": "actuator",
+                        "type": "led",
+                        "method": {
+                            "name": "LED 제어",
+                            "id": "led",
+                            "params": {
+                                "command": {
+                                    "cmd": "blink",
+                                    "options": {
+                                        "duration": 7000,
+                                        "interval": 1500
+                                    }
+                                },
+                                "notificationOption": "Failure",
+                                "target": {
+                                    "type": "gateway",
+                                    "id": "b827ebda7b2a",
+                                    "sensors": [
+                                        "b827ebda7b2a-0-led"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                ]
+            ],
+            "severity": "information",
+            "timezone": "+9.00",
+            "name": "buttonLED700",
+            "status": "activated",
+            "trigger": {
+                "agent": "sensorValue",
+                "type": "onoff",
+                "method": {
+                    "name": "변경",
+                    "id": "changed",
+                    "params": {
+                        "from": "0",
+                        "to": "1",
+                        "target": {
+                            "type": "tag",
+                            "id": "1",
+                            "sensors": [
+                                "b827ebda7b2a-0-button"
+                            ]
+                        }
+                    }
+                },
+                "filter": {
+                    "type": [
+                        "series"
+                    ],
+                    "gateway": "*",
+                    "sensor": [
+                        "b827ebda7b2a-0-button"
+                    ]
+                }
+            }
+        }
     }
 ]
 
@@ -62,34 +120,31 @@ def get_rules():
     return jsonify({'rulelist': rulelist})
 
 
-@app.route('/rules/<int:rule_id>', methods=['GET'])
-def get_rule(rule_id):
-    logging.debug('request(query rule) rcvd...')
-    query_q.put("rule_id")
-    logging.debug(str(query_q))
-    logging.debug(query_q.qsize())
-    return jsonify({'rule': rule_id})
+# @app.route('/rules/<int:rule_id>', methods=['GET'])
+# def get_rule(rule_id):
+#     logging.debug('request(query rule) rcvd...')
+#     query_q.put("rule_id")
+#     logging.debug(str(query_q))
+#     logging.debug(query_q.qsize())
+#     return jsonify({'rule': rule_id})
 
 
 @app.route('/rules/', methods=['POST'])
 def create_rule():
     logging.debug('request(create rule) rcvd...')
-    logging.debug('event-> queue')
     savetx_q.put(request.json)
     logging.debug(str(savetx_q))
     logging.debug(savetx_q.qsize())
 
-    # for testing......
     if not request.json or not 'title' in request.json:
         abort(400)
     rule = {
-        'id': rulelist[-1]['id'] + 1,
+        'index': rulelist[-1]['index'] + 1,
         'title': request.json['title'],
-        'description': request.json.get('description', ""),
-        'done': False
+        'body': request.json.get('body', "")
     }
     rulelist.append(rule)
-    # ...........for testing
+
     return jsonify({'rule': rule}), 201
 
 
