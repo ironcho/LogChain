@@ -1,2 +1,0 @@
-# LogChain
-selab IoT Project 
