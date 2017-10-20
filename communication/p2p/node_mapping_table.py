@@ -95,7 +95,7 @@ def initialize():
     nodeproperty.my_node.table_add("163.239.200.162", 'stable')
     nodeproperty.my_node.table_add("163.239.200.166", 'stable')
     nodeproperty.my_node.table_add("163.239.200.161", 'stable')
-    nodeproperty.my_node.table_add("163.239.200.153", 'stable')
+    nodeproperty.my_node.table_add("163.239.200.182", 'stable')
     nodeproperty.my_node.table_add("163.239.200.173", 'stable')
     nodeproperty.my_node.table_add("163.239.200.174", 'stable')
     nodeproperty.my_node.table_add("163.239.200.176", 'stable')
