@@ -16,12 +16,12 @@ class Table:
 
     def table_create(self, self_node):
         self.self_node = self_node
-        print('MAKE TABLE %s' % (self.self_node))
-
+        print('MAKE TABLE %s peer' % (self.self_node))
+        print(" ")
         #self.self_node = self_node
 
     def table_add(self, linked_node, state):
-        print('ADD TABLE %s' % (linked_node))
+
         self.index.append(Table.count)
         self.linked_node.append(linked_node)
         self.state.append(state)
@@ -35,11 +35,18 @@ class Table:
 # 출력 확인용 -> 추후에 파일 입출력으로 변환 예정.
     def print_table(self):
         num = Table.count
+
+
+        print("  ")
+        print("==================================")
         print('Number of linked node %d' % (num))
+
         print('index         self_node              linked_node             state')
         for i in range(num):
             print('  %d           %s            %s          %s' % (
                 self.index[i], self.self_node,  self.linked_node[i], self.state[i]))
+
+        print("  ")
 
     def write_table(self):
         nodeinfo = json.dumps(self, default=lambda o: o.__dict__)
@@ -92,16 +99,25 @@ def initialize():
     # nodeproperty.my_node.table_add(nodeproperty.my_ip_address, 'stable')
 
     nodeproperty.my_node.table_add("163.239.200.163", 'stable')
+    print('ADD TABLE 163.239.200.163 : peer 1')
     nodeproperty.my_node.table_add("163.239.200.162", 'stable')
+    print('ADD TABLE 163.239.200.162 : peer 2')
     nodeproperty.my_node.table_add("163.239.200.166", 'stable')
+    print('ADD TABLE 163.239.200.166 : peer 3')
     nodeproperty.my_node.table_add("163.239.200.161", 'stable')
+    print('ADD TABLE 163.239.200.161 : peer 4')
     nodeproperty.my_node.table_add("163.239.200.182", 'stable')
+    print('ADD TABLE 163.239.200.182 : peer 5')
     nodeproperty.my_node.table_add("163.239.200.173", 'stable')
+    print('ADD TABLE 163.239.200.173 : peer 6')
     nodeproperty.my_node.table_add("163.239.200.174", 'stable')
+    print('ADD TABLE 163.239.200.174 : peer 7')
     nodeproperty.my_node.table_add("163.239.200.176", 'stable')
+    print('ADD TABLE 163.239.200.176 : peer 8')
     nodeproperty.my_node.table_add("163.239.200.179", 'stable')
-
-    nodeproperty.my_node.table_add("192.168.0.36", 'stable')
+    print('ADD TABLE 163.239.200.176 : peer 9')
+    nodeproperty.my_node.table_add("163.239.200.153", 'stable')
+    print('ADD TABLE 163.239.200.176 : API service peer')
 
     # Sender.sending_connection('192.168.0.96')
     # 요기부분이.
