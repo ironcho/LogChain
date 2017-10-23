@@ -30,12 +30,13 @@ def main():
     genesisblock.genesisblock_generate()
 
     'receiver thread start'
-    print("Peer Start. Peer num : " + str(nodeproperty.my_peer_num))
+    print("Logchain Peer Start. Peer num : " + str(nodeproperty.my_peer_num))
+    print(" ")
 
     recv_thread = receiver.ReceiverThread(
         1, "RECEIVER", nodeproperty.my_ip_address, nodeproperty.port)
     recv_thread.start()
-    print("RECEIVER START")
+    #print("RECEIVER START")
 
 
 '''

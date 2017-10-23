@@ -27,8 +27,12 @@ def genesisblock_generate():
         genesisblock, indent=4, default=lambda o: o.__dict__, sort_keys=True)
     file_controller.create_new_block(
         str(block_header.block_number), json_genesisblock)
-    print('genesisblock_create')
-
+    print('Genesisblock_create')
+    print(" -block hash: %s" %(block_header.block_hash))
+    print(" -block ID: %s" % (block_header.block_id))
+    print(" -block info: %s" % (block_header.block_info))
+    print(" -block transaction: %s" % (transaction))
+    print(" ")
 
 'Test Code'
 if __name__ == '__main__':

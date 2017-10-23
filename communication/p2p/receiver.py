@@ -25,7 +25,7 @@ class ReceiverThread(threading.Thread):
         self.thrd_port = p_port
 
     def run(self):
-        print("Start Receiver Thread")
+        #print("Start Receiver Thread")
         receive_data(self.thrd_name, self.thrd_ip, self.thrd_port)
 
 
@@ -49,7 +49,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
     transaction_count = 0
     num_block = 0
     while True:
-        print("waiting")
+        print("waiting transaction")
         request_sock, request_ip = tcp_socket.accept()
 
         while True:
@@ -64,7 +64,9 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 temp += i.decode('utf-8')
 
             recv_data = temp
+            print("recv data: ")
             print(recv_data)
+            print("  ")
 
             if recv_data == "":
                 break
