@@ -182,7 +182,6 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         # remove all txs call
 
                 try:
-                    time.sleep(10)
                     if data_jobj['block_header']['type'] is 'B':
                         print("Block received")
                         # block verification thread
