@@ -130,7 +130,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                             print("End voting")
                             print("  ")
 
-
+                            '''
                             time.sleep(5)
 
                             difficulty = voting.result_voting()
@@ -144,7 +144,9 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
 
                             file_controller.remove_all_transactions()
+                            '''
                             transaction_count =0
+
 
                         request_sock.close()
                         break
@@ -172,10 +174,22 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         print("Voting received")
 
                         # block verification thread
-
-                        num_block = num_block + 1
+                        #num_block = num_block + 1
 
                         file_controller.add_voting(recv_data)
+
+                        difficulty = voting.result_voting()
+
+
+                        if (difficulty > 0):
+                            block_generator.generate_block(
+                                difficulty, merkle_root, transactions)
+                            file_controller.remove_all_voting()
+                        else:
+                            print("Wait block")
+
+                        file_controller.remove_all_transactions()
+
                         request_sock.close()
                         break
 
