@@ -14,6 +14,8 @@ def generate_block(difficulty, merkle_root, transactions):
 
     try:
         'set block header info'
+
+
         print("=================================")
         print("Generate Block")
 

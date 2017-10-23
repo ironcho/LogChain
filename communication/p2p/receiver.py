@@ -169,7 +169,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         request_sock.close()
                         break
                 except Exception as e:
-                    print(e, recv_data)
+                    print(recv_data)
 
                 try:
 
@@ -185,12 +185,12 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
 
                         if (difficulty > 0):
-
+                            print("Enter block generator")
                             block_generator.generate_block(
                                 difficulty, merkle_root, transactions)
 
                         else:
-                            print("Wait block")
+                            print("")
 
 
                         request_sock.close()
