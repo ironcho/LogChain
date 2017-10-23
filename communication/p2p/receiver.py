@@ -115,7 +115,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         #print(transaction_count)
                         if transaction_count == 30:
                             #print ("Enter transaciotn count")
-                            #difficulty = 0
+                            difficulty = 0
                             transactions = file_controller.get_transaction_list()
 
                             merkle = merkle_tree.MerkleTree()
