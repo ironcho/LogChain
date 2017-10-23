@@ -1,0 +1,14 @@
+{
+    "extra_data": "Coldchain service rule event",
+    "timestamp": "20171024052402",
+    "transaction_count": 14,
+    "tx_id": "B20171024052402",
+    "type": "T"
+}
+{
+    "extra_data": "Coldchain service rule event",
+    "timestamp": "20171024052423",
+    "transaction_count": 15,
+    "tx_id": "B20171024052423",
+    "type": "T"
+}

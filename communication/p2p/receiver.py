@@ -171,10 +171,8 @@ def receive_data(p_thrd_name, p_ip, p_port):
                             print("Enter block generator")
                             block_generator.generate_block(
                                 difficulty, merkle_root, transactions)
-
                         else:
                             print("")
-
 
                         request_sock.close()
                         break
