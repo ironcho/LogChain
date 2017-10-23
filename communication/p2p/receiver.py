@@ -152,7 +152,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         break
 
                 except Exception as e:
-                    print("Exception @receiver - data_jobj['type'] is 'T'", e)
+                    print(" ")
 
                 try:
 
@@ -180,7 +180,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         break
 
                 except Exception as e:
-                    print("Exception @receiver - data_jobj['type'] is 'V'", e)
+                    print(" ")
                         # remove all txs call
 
                 try:
