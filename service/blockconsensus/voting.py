@@ -19,11 +19,11 @@ def blind_voting(merkle_root):
             sender.send(ip_address, jsonString, nodeproperty.port)
 
         elif vote_number == 2:
-            ip_address = nodeproperty.Peer4
+            ip_address = nodeproperty.Peer2
             sender.send(ip_address, jsonString, nodeproperty.port)
 
         elif vote_number == 3:
-            ip_address = nodeproperty.Peer4
+            ip_address = nodeproperty.Peer3
             sender.send(ip_address, jsonString, nodeproperty.port)
 
         elif vote_number == 4:
