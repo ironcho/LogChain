@@ -139,8 +139,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                             if(difficulty > 0):
                                 block_generator.generate_block(
                                     difficulty, merkle_root, transactions)
-                            else :
-                                print("Wait block")
+
 
 
                             file_controller.remove_all_transactions()

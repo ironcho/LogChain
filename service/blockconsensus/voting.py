@@ -12,6 +12,7 @@ def blind_voting(merkle_root):
     jsonString = json.dumps(voting)
 
     if nodeproperty.my_peer_num == vote_number:
+        print(voting)
         file_controller.add_voting(jsonString)
     else:
         if vote_number == 1:
