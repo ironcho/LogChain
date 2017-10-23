@@ -43,10 +43,11 @@ class MerkleTree(object):
 
         # recursive
         else:
+              print("transaction tree hash : ", secondary)
+              print(" ")
               return self.get_merkle(secondary)
 
 '''
-Test code
 
 if __name__ == '__main__':
     transactions = [

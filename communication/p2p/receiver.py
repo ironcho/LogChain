@@ -49,7 +49,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
     transaction_count = 0
     num_block = 0
     while True:
-        print("waiting transaction")
+        #print("waiting")
         request_sock, request_ip = tcp_socket.accept()
 
         while True:
@@ -65,7 +65,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
             recv_data = temp
             print("recv data: ")
-            print(recv_data)
+            #print(recv_data)
             print("  ")
 
             if recv_data == "":
@@ -101,36 +101,47 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
                 try:
                     if data_jobj['type'] is 'T':
+                        print("  ")
                         print("Transaction received")
-
+                        print("  ")
                         transaction_count = transaction_count + 1
-                        print(transaction_count)
+                        #print(transaction_count)
 
                         file_controller.add_transaction(recv_data)
-                        print("tx added to list")
+                        print("transaction added to mempool : ", recv_data)
+                        print("  ")
+
                         # transaction_count = len(file_controller.get_transaction_list())
-                        print(transaction_count)
-                        if transaction_count == 10:
-                            print ("Enter transaciotn count")
+                        #print(transaction_count)
+                        if transaction_count == 30:
+                            #print ("Enter transaciotn count")
                             #difficulty = 0
                             transactions = file_controller.get_transaction_list()
 
                             merkle = merkle_tree.MerkleTree()
                             merkle_root = merkle.get_merkle(transactions)
-                            print("merkle _root :",merkle_root)
+                            print("Transaction list Merkle _root : ",merkle_root)
+                            print(" ")
                             'blind voting'
 
+                            print("Start blind voting")
                             voting.blind_voting(merkle_root)
-
+                            print("  ")
                             print("End voting")
+                            print("  ")
 
                             'time sleep-> result voting'
                             time.sleep(5)
                             difficulty = voting.result_voting()
+
+
                             file_controller.remove_all_voting()
                             if(difficulty > 0):
                                 block_generator.generate_block(
                                     difficulty, merkle_root, transactions)
+                            else :
+                                print("Wait block")
+                                print("Wait block")
 
                             file_controller.remove_all_transactions()
                             transaction_count =0

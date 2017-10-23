@@ -46,6 +46,9 @@ def blind_voting(merkle_root):
 def result_voting():
     list = file_controller.get_voting_list()
 
+    print("result voting : ", len(list))
+    print(" ")
+
     if len(list) > 4:
         difficulty = 1
         return difficulty

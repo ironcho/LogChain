@@ -55,13 +55,16 @@ def send(p_ip, p_msg, p_port, *args):
         receiver_addr = (p_ip, p_port)
         tcp_socket = socket(AF_INET, SOCK_STREAM)
         print("receiver addr =" + str(p_ip) + " , " + str(p_port))
+        print(" ")
         try:
             tcp_socket.connect(receiver_addr)
             print("connected........")
+            print(" ")
             tcp_socket.settimeout(2)
             print(p_msg)
             tcp_socket.send(p_msg.encode('utf-8'))
             print("end send")
+            print(" ")
         except Exception as e:
             print(e)
 
