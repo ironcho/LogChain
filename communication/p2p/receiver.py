@@ -169,7 +169,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         request_sock.close()
                         break
                 except Exception as e:
-                    print(e. recv_data)
+                    print(e, recv_data)
 
                 try:
 
