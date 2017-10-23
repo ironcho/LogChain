@@ -131,7 +131,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                             print("  ")
 
                             'time sleep-> result voting'
-                            time.sleep(5)
+                            time.sleep(10)
                             difficulty = voting.result_voting()
 
 
@@ -141,7 +141,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                                     difficulty, merkle_root, transactions)
                             else :
                                 print("Wait block")
-                                print("Wait block")
+
 
                             file_controller.remove_all_transactions()
                             transaction_count =0

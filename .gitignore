@@ -38,3 +38,7 @@ logchain/storage/transaction_db/.cache/v/cache/lastfailed
 *.txt
 *.txt
 *.txt
+*.txt
+*.txt
+_BlockStorage/1
+_BlockStorage/2
