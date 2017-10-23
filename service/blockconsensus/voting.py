@@ -56,7 +56,7 @@ def result_voting():
 
     list = file_controller.get_voting_list()
 
-    if len(list) > 9:
+    if len(list) > 8:
         difficulty = 1
         print("result voting : ", len(list))
         print(" ")
