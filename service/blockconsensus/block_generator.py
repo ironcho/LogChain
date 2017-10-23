@@ -51,14 +51,16 @@ def generate_block(difficulty, merkle_root, transactions):
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print("Block Generate Time Time: %.4f seconds" % elapsed_time)
+        print("Block Generate Time Time: %.8f seconds" % elapsed_time)
         print("   ")
-
+        print("Transaction per second : ", 30 / elapsed_time)
         print("")
+        file_controller.remove_all_transactions()
+        file_controller.remove_all_voting()
 
         sender.send_to_all(json_new_block)
         print("send block complete")
-        print("Transaction per second", 30/elapsed_time)
+
 
     except TypeError as te:
         print("@generate block", te)

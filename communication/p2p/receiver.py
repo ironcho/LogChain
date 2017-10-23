@@ -163,10 +163,13 @@ def receive_data(p_thrd_name, p_ip, p_port):
                             str(data_jobj['block_header']['block_number']), recv_data)
 
                         print("End create _new block")
+                        file_controller.remove_all_transactions()
+                        file_controller.remove_all_voting()
+
                         request_sock.close()
                         break
                 except Exception as e:
-                    print("Exception @receiver - data_jobj['block_header']['type'] is 'B'", e)
+                    print(e. recv_data)
 
                 try:
 
@@ -182,13 +185,13 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
 
                         if (difficulty > 0):
+
                             block_generator.generate_block(
                                 difficulty, merkle_root, transactions)
-                            file_controller.remove_all_voting()
+
                         else:
                             print("Wait block")
 
-                        file_controller.remove_all_transactions()
 
                         request_sock.close()
                         break
