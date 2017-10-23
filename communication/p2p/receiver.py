@@ -130,8 +130,8 @@ def receive_data(p_thrd_name, p_ip, p_port):
                             print("End voting")
                             print("  ")
 
-                            'time sleep-> result voting'
-                            #time.sleep(20)
+
+                            time.sleep(5)
 
                             difficulty = voting.result_voting()
 
