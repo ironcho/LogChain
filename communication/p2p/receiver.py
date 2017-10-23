@@ -155,26 +155,9 @@ def receive_data(p_thrd_name, p_ip, p_port):
                     print("Exception @receiver - data_jobj['type'] is 'T'", e)
 
                 try:
-                    if data_jobj['block_header']['type'] is 'B':
-                        print("Block received")
-                        # block verification thread
-
-                        file_controller.create_new_block(
-                            str(data_jobj['block_header']['block_number']), recv_data)
-
-                        print("End create _new block")
-                        file_controller.remove_all_transactions()
-                        file_controller.remove_all_voting()
-
-                        request_sock.close()
-                        break
-                except Exception as e:
-                    print(recv_data)
-
-                try:
 
                     if data_jobj['type'] is 'V':
-                        print("Voting received")
+                        print("Voting received:" , recv_data)
 
                         # block verification thread
                         #num_block = num_block + 1
@@ -199,6 +182,23 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 except Exception as e:
                     print("Exception @receiver - data_jobj['type'] is 'V'", e)
                         # remove all txs call
+
+                try:
+                    if data_jobj['block_header']['type'] is 'B':
+                        print("Block received")
+                        # block verification thread
+
+                        file_controller.create_new_block(
+                            str(data_jobj['block_header']['block_number']), recv_data)
+
+                        print("End create _new block")
+                        file_controller.remove_all_transactions()
+                        file_controller.remove_all_voting()
+
+                        request_sock.close()
+                        break
+                except Exception as e:
+                    print(recv_data)
 
                 try:
                     if data_jobj['type'] == 'C':
