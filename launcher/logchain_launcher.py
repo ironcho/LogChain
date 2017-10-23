@@ -20,8 +20,8 @@ def main():
     nodeproperty.my_ip_address = file_controller.get_my_ip()
     set_peer.set_peer()
 
-    print("my peer num  : " + str(nodeproperty.my_peer_num))
-  
+    print("my peer num : " + str(nodeproperty.my_peer_num))
+    print(" ")
 
     # node_mapping_table.set_node()와 set_peer()는 중복 기능이나, 일단 디버깅용으로 중복으로 유지함
     node_mapping_table.set_node()
@@ -30,7 +30,6 @@ def main():
     genesisblock.genesisblock_generate()
 
     'receiver thread start'
-    print(" ")
     print("Logchain Peer Start. Peer num : " + str(nodeproperty.my_peer_num))
     print(" ")
 

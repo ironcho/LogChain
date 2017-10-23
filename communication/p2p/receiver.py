@@ -99,63 +99,99 @@ def receive_data(p_thrd_name, p_ip, p_port):
             else:
                 data_jobj = json.loads(recv_data)
 
-
-                if data_jobj['type'] is 'T':
-                    print("  ")
-                    print("Transaction received")
-                    print("  ")
-                    transaction_count = transaction_count + 1
-
-                    file_controller.add_transaction(recv_data)
-                    print("transaction added to mempool : ", recv_data)
-                    print("  ")
-
-                    if transaction_count == 30:
-                        difficulty = 0
-                        transactions = file_controller.get_transaction_list()
-
-                        merkle = merkle_tree.MerkleTree()
-                        merkle_root = merkle.get_merkle(transactions)
-                        print("Transaction list Merkle _root : ",merkle_root)
-                        print(" ")
-                        'blind voting'
-
-                        print("Start blind voting")
-                        voting.blind_voting(merkle_root)
+                try:
+                    if data_jobj['type'] is 'T':
                         print("  ")
-                        print("End voting")
+                        print("Transaction received")
                         print("  ")
-                        time.sleep(10)
+                        transaction_count = transaction_count + 1
+                        #print(transaction_count)
 
-                        difficulty = voting.result_voting()
-                        file_controller.remove_all_voting()
-                        if(difficulty > 0):
-                            block_generator.generate_block(
-                                difficulty, merkle_root, transactions)
-                        file_controller.remove_all_transactions()
-                        transaction_count =0
+                        file_controller.add_transaction(recv_data)
+                        print("transaction added to mempool : ", recv_data)
+                        print("  ")
+
+                        # transaction_count = len(file_controller.get_transaction_list())
+                        #print(transaction_count)
+                        if transaction_count == 30:
+                            #print ("Enter transaciotn count")
+                            difficulty = 0
+                            transactions = file_controller.get_transaction_list()
+
+                            merkle = merkle_tree.MerkleTree()
+                            merkle_root = merkle.get_merkle(transactions)
+                            print("Transaction list Merkle _root : ",merkle_root)
+                            print(" ")
+                            'blind voting'
+
+                            print("Start blind voting")
+                            voting.blind_voting(merkle_root)
+                            print("  ")
+                            print("End voting")
+                            print("  ")
+
+
+                            time.sleep(5)
+
+                            difficulty = voting.result_voting()
+
+                            file_controller.remove_all_voting()
+                            if(difficulty > 0):
+                                block_generator.generate_block(
+                                    difficulty, merkle_root, transactions)
+                            else :
+                                print("Wait block")
+
+
+                            file_controller.remove_all_transactions()
+                            transaction_count =0
 
                         request_sock.close()
                         break
 
-                elif data_jobj['block_header']['type'] is 'B':
-                    print("Block received")
-                    # block verification thread
+                except Exception as e:
+                    print("Exception @receiver - data_jobj['type'] is 'T'", e)
 
-                    file_controller.create_new_block(
-                        str(data_jobj['block_header']['block_number']), recv_data)
+                try:
+                    if data_jobj['block_header']['type'] is 'B':
+                        print("Block received")
+                        # block verification thread
 
-                    print("End create _new block")
-                    request_sock.close()
-                    break
+                        file_controller.create_new_block(
+                            str(data_jobj['block_header']['block_number']), recv_data)
 
-                elif data_jobj['type'] is 'V':
-                    print("Voting received")
-                    # block verification thread
-                    # num_block = num_block + 1
-                    file_controller.add_voting(recv_data)
-                    request_sock.close()
-                    break
+                        print("End create _new block")
+                        request_sock.close()
+                        break
+                except Exception as e:
+                    print("Exception @receiver - data_jobj['block_header']['type'] is 'B'", e)
+
+                try:
+
+                    if data_jobj['type'] is 'V':
+                        print("Voting received")
+
+                        # block verification thread
+
+                        num_block = num_block + 1
+
+                        file_controller.add_voting(recv_data)
+                        request_sock.close()
+                        break
+
+                except Exception as e:
+                    print("Exception @receiver - data_jobj['type'] is 'V'", e)
+                        # remove all txs call
+
+                try:
+                    if data_jobj['type'] == 'C':
+                        file_controller.add_blockconfirm(recv_data)
+                        request_sock.close()
+                        break
+
+                except Exception as e:
+                    print("Exception @receiver - data_jobj['type'] == 'C'", e)
+
 
 
                 print("No data in socket")
