@@ -49,8 +49,6 @@ def blind_voting(merkle_root):
         elif vote_number == 9:
             ip_address = nodeproperty.Peer9
             sender.send(ip_address, jsonString, nodeproperty.port)
-        else:
-            print("error")
 
 
 

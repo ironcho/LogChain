@@ -53,7 +53,7 @@ def generate_block(difficulty, merkle_root, transactions):
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print("Block Generate Time Time: %.12f seconds" % elapsed_time)
+        print("Block Generate Time Time: %.8f seconds" % elapsed_time)
         print("   ")
         print("Transaction per second : ", 30 / elapsed_time)
         print("")
