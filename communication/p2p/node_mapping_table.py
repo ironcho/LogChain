@@ -44,7 +44,7 @@ class Table:
         print('index         self_node              linked_node             state')
         for i in range(num):
             print('  %d           %s            %s          %s' % (
-                self.index[i], self.self_node,  self.linked_node[i], self.state[i]))
+                self.index[i]+1, self.self_node,  self.linked_node[i], self.state[i]))
 
         print("  ")
 

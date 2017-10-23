@@ -11,7 +11,79 @@ from communication.p2p import node_mapping_table
 
 
 # restapi_node_launcher로 교체될 예정....
-
+rulelist = [
+    {
+        'type' : 'T',
+        'index': 1,
+        'title': 'Testing-rule #1',
+        'body': {
+            "conditions": [
+                []
+            ],
+            "actions": [
+                [
+                    {
+                        "agent": "actuator",
+                        "type": "led",
+                        "method": {
+                            "name": "LED 제어",
+                            "id": "led",
+                            "params": {
+                                "command": {
+                                    "cmd": "blink",
+                                    "options": {
+                                        "duration": 7000,
+                                        "interval": 1500
+                                    }
+                                },
+                                "notificationOption": "Failure",
+                                "target": {
+                                    "type": "gateway",
+                                    "id": "b827ebda7b2a",
+                                    "sensors": [
+                                        "b827ebda7b2a-0-led"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                ]
+            ],
+            "severity": "information",
+            "timezone": "+9.00",
+            "name": "buttonLED700",
+            "status": "activated",
+            "trigger": {
+                "agent": "sensorValue",
+                "type": "onoff",
+                "method": {
+                    "name": "변경",
+                    "id": "changed",
+                    "params": {
+                        "from": "0",
+                        "to": "1",
+                        "target": {
+                            "type": "tag",
+                            "id": "1",
+                            "sensors": [
+                                "b827ebda7b2a-0-button"
+                            ]
+                        }
+                    }
+                },
+                "filter": {
+                    "type": [
+                        "series"
+                    ],
+                    "gateway": "*",
+                    "sensor": [
+                        "b827ebda7b2a-0-button"
+                    ]
+                }
+            }
+        }
+    }
+]
 
 def main():
     'Remove all transaction in mempool'
@@ -35,10 +107,10 @@ def main():
         transaction_count = 0
         # socket open
 
-        while transaction_count < 10:
+        while transaction_count < 30:
             # recv_addr = "1AVsffe"
-            extra = 0x01
-            tx = transaction.Transaction(extra)
+            extra = "Coldchain service rule event"
+            tx = transaction.Transaction(extra,transaction_count+1)
             temp = json.dumps(
                 tx, indent=4, default=lambda o: o.__dict__, sort_keys=True)
 
