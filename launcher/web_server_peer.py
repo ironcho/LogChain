@@ -106,7 +106,7 @@ def main():
     while True:
         transaction_count = 0
         # socket open
-        time.sleep(30)
+        time.sleep(120)
         while transaction_count < 30:
             # recv_addr = "1AVsffe"
             extra = "Coldchain service rule event"

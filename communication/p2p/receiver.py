@@ -168,7 +168,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
 
                         if (difficulty > 0):
-                            time.sleep(30)
+                            time.sleep(60)
                             print("Enter block generator")
                             block_generator.generate_block(
                                 difficulty, merkle_root, transactions)
