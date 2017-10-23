@@ -30,8 +30,8 @@ def main():
     genesisblock.genesisblock_generate()
 
     'receiver thread start'
-    print("Logchain Peer Start. Peer num : " + str(nodeproperty.my_peer_num))
     print(" ")
+    print("Logchain Peer Start. Peer num : " + str(nodeproperty.my_peer_num))
     print(" ")
 
     recv_thread = receiver.ReceiverThread(
