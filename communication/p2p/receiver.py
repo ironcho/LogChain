@@ -113,7 +113,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
                         # transaction_count = len(file_controller.get_transaction_list())
                         #print(transaction_count)
-                        if transaction_count == 10:
+                        if transaction_count == 30:
                             #print ("Enter transaciotn count")
                             difficulty = 0
                             transactions = file_controller.get_transaction_list()
