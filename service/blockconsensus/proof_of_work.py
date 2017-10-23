@@ -10,8 +10,8 @@ def proof_of_work(block_info, difficulty_bits):
     # calculate the difficulty target
     target = 2 ** (256-difficulty_bits)
 
-    print (hex(target))
-    print (target)
+    print ("Target Value : ",hex(target))
+    print(" ")
     found = False
     start_time = time.time()
     i =1
@@ -21,12 +21,14 @@ def proof_of_work(block_info, difficulty_bits):
 
         if int(hash_result, 16) <= target:
             print ("Success with nonce %d" % nonce, "log2=",math.log(nonce,2))
+            print(" ")
             print ("Hash is %s" % hash_result)
+            print(" ")
             found = True
             end_time = time.time()
 
             elapsed_time = end_time - start_time
-            print ("Elapsed Time: %.4f seconds" % elapsed_time)
+            #print ("Elapsed Time: %.4f seconds" % elapsed_time)
             if elapsed_time > 0:
                 # estimate the hashes per second
                 hash_power = float(int(i) / elapsed_time)

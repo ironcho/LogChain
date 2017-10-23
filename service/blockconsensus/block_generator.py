@@ -14,6 +14,12 @@ def generate_block(difficulty, merkle_root, transactions):
 
     try:
         'set block header info'
+        print("=================================")
+        print("Generate Block")
+
+        start_time = time.time()
+
+
         prev_block_height, prev_hash = file_controller.get_last_block()
         block_info = merkle_root + prev_hash
         vote_result = difficulty
@@ -39,9 +45,20 @@ def generate_block(difficulty, merkle_root, transactions):
         new_block = block.Block(block_header, transactions)
         json_new_block = json.dumps(
             new_block, indent=4, default=lambda o: o.__dict__, sort_keys=True)
-        print("generate block complete")
+        print("Generate block complete")
+        print(" ")
+
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+
+        print("Block Generate Time Time: %.4f seconds" % elapsed_time)
+        print("   ")
+
+        print("")
+
         sender.send_to_all(json_new_block)
-        print("send block complete......????")
+        print("send block complete")
+        print("Transaction per second", 30/elapsed_time)
 
     except TypeError as te:
         print("@generate block", te)
