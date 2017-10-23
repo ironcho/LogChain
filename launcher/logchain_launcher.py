@@ -32,6 +32,7 @@ def main():
     'receiver thread start'
     print("Logchain Peer Start. Peer num : " + str(nodeproperty.my_peer_num))
     print(" ")
+    print(" ")
 
     recv_thread = receiver.ReceiverThread(
         1, "RECEIVER", nodeproperty.my_ip_address, nodeproperty.port)
