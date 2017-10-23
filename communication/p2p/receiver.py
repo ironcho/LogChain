@@ -131,7 +131,8 @@ def receive_data(p_thrd_name, p_ip, p_port):
                             print("  ")
 
                             'time sleep-> result voting'
-                            time.sleep(20)
+                            #time.sleep(20)
+
                             difficulty = voting.result_voting()
 
                             file_controller.remove_all_voting()
