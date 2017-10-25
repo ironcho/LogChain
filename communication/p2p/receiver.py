@@ -178,23 +178,26 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
                     if data_jobj['type'] is 'V':
                         print("Voting received:", recv_data)
+                        dispatch_queue_list.V_type_q.put(recv_data)
+                        dispatch_queue_list.Connected_socket_q.put(
+                            request_sock)
 
                         # block verification thread
-                        #num_block = num_block + 1
+                        # num_block = num_block + 1
 
-                        file_controller.add_voting(recv_data)
+                        # file_controller.add_voting(recv_data)
 
-                        difficulty = voting.result_voting()
+                        # difficulty = voting.result_voting()
 
-                        if (difficulty > 0):
-                            print("Enter block generator")
-                            block_generator.generate_block(
-                                difficulty, merkle_root, transactions)
+                        # if (difficulty > 0):
+                        #     print("Enter block generator")
+                        #     block_generator.generate_block(
+                        #         difficulty, merkle_root, transactions)
 
-                        else:
-                            print("")
+                        # else:
+                        #     print("")
 
-                        request_sock.close()
+                        # request_sock.close()
                         break
 
                 except Exception as e:

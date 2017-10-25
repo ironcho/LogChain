@@ -4,35 +4,42 @@ from queue import Queue
 import time
 import json
 from service.transactionmanager import transaction
+from storage import file_controller
+from service.blockconsensus import merkle_tree
+from service.blockconsensus import voting
+
+from service.blockconsensus import block_generator
+from service.blockconsensus import merkle_tree
 
 
 class VotingTypeQueueThread(threading.Thread):
-    def __init__(self, p_thrd_id, p_thrd_name, p_inq):
+    def __init__(self, p_thrd_id, p_thrd_name, p_inq, p_socket_inq):
         threading.Thread.__init__(self)
         self.thrd_id = p_thrd_id
         self.thrd_name = p_thrd_name
         self.inq = p_inq
+        self.socketq = p_socket_inq
 
     def run(self):
-        receive_event(self.thrd_name, self.inq)
+        receive_event(self.thrd_name, self.inq, self.socketq)
 
 
-def receive_event(p_thrd_name, p_inq):
-    count = 1
+def receive_event(p_thrd_name, p_inq, p_socketq):
     while True:
-        logging.debug("waiting for v type msg")
-        dequeued = p_inq.get()
+        print("waiting for t type msg")
+        recv_data = p_inq.get()
+        request_sock = p_socketq.get()
 
-        tx = transaction.Transaction(dequeued)
-        temp = json.dumps(
-            tx, indent=4, default=lambda o: o.__dict__, sort_keys=True)
+        file_controller.add_voting(recv_data)
 
-        sender.send_to_all(temp)  # 노드들 연동 후 테스트 필요 2017-09-27
+        difficulty = voting.result_voting()
 
-        logging.debug(str(dequeued))
-        logging.debug(str(temp))
+        if (difficulty > 0):
+            print("Enter block generator")
+            block_generator.generate_block(
+                difficulty, merkle_root, transactions)
 
-        logging.debug(count)
-        logging.debug(str(p_inq.qsize()))
-        count = count + 1
-        time.sleep(queue_strategy.SAVE_TX_DEQUEUE_INTERVAL)
+        else:
+            print("")
+
+        request_sock.close()
