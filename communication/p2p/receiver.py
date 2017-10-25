@@ -48,10 +48,9 @@ class ReceiverThread(threading.Thread):
 
     def run(self):
         #print("Start Receiver Thread")
-        t_type_queue_thread.start()
+
         # b_type_queue_thread.start()
         # v_type_queue_thread.start()
-        logging.debug('msg-queue threads started')
 
         receive_data(self.thrd_name, self.thrd_ip, self.thrd_port)
 
@@ -64,6 +63,8 @@ def receive_data(p_thrd_name, p_ip, p_port):
     :param p_port:
     :return:
     """
+    t_type_queue_thread.start()
+    print('msg-queue threads started')
 
     addr = (p_ip, p_port)
     buf_size = 100
@@ -76,7 +77,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
     transaction_count = 0
     num_block = 0
     while True:
-        # print("waiting")
+        print("waiting")
         request_sock, request_ip = tcp_socket.accept()
 
         while True:
