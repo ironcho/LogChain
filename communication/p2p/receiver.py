@@ -9,11 +9,11 @@ from service.blockconsensus import merkle_tree
 from service.blockconsensus import block_generator
 from service.blockconsensus import voting
 from queue import Queue
-from communication.msg_dispatch import t_type_queue
-from communication.msg_dispatch import b_type_queue
-from communication.msg_dispatch import v_type_queue
+from communication.msg_dispatch import t_type_queue_thread
+from communication.msg_dispatch import b_type_queue_thread
+from communication.msg_dispatch import v_type_queue_thread
 
-from communication.msg_dispatch import dispatch_queue
+from communication.msg_dispatch import dispatch_queue_list
 
 
 # b_type_queue_thread = b_type_queue.BlockTypeQueueThread(
@@ -119,8 +119,9 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
                 try:
                     if data_jobj['type'] is 'T':
-                        dispatch_queue.T_type_q.put(recv_data)
-                        dispatch_queue.Connected_socket_q.put(request_sock)
+                        dispatch_queue_list.T_type_q.put(recv_data)
+                        dispatch_queue_list.Connected_socket_q.put(
+                            request_sock)
 
                         # print("  ")
                         # print("Transaction received")

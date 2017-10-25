@@ -23,7 +23,6 @@ class TransactionTypeQueueThread(threading.Thread):
 
 def receive_event(p_thrd_name, p_inq, p_socketq):
     transaction_count = 0
-    count = 1
     while True:
         print("waiting for t type msg")
         recv_data = p_inq.get()

@@ -8,9 +8,9 @@ from communication.p2p import node_mapping_table
 from service.blockmanager import genesisblock
 
 from communication.msg_dispatch import dispatch_queue_list
-from communication.msg_dispatch import t_type_queue
-from communication.msg_dispatch import b_type_queue
-from communication.msg_dispatch import v_type_queue
+from communication.msg_dispatch import t_type_queue_thread
+from communication.msg_dispatch import b_type_queue_thread
+from communication.msg_dispatch import v_type_queue_thread
 
 
 def main():
@@ -43,12 +43,12 @@ def main():
     recv_thread.start()
     #print("RECEIVER START")
 
-    t_type_queue_thread = t_type_queue.TransactionTypeQueueThread(
+    t_type_qt = t_type_queue_thread.TransactionTypeQueueThread(
         1, "TransactionTypeQueueThread",
         dispatch_queue_list.T_type_q,
         dispatch_queue_list.Connected_socket_q
     )
-    t_type_queue_thread.start()
+    t_type_qt.start()
 
 
 '''
