@@ -7,6 +7,11 @@ from communication.p2p import receiver
 from communication.p2p import node_mapping_table
 from service.blockmanager import genesisblock
 
+from communication.msg_dispatch import dispatch_queue
+from communication.msg_dispatch import t_type_queue
+from communication.msg_dispatch import b_type_queue
+from communication.msg_dispatch import v_type_queue
+
 
 def main():
     'Remove all transaction in mempool'
@@ -37,6 +42,11 @@ def main():
         1, "RECEIVER", nodeproperty.my_ip_address, nodeproperty.port)
     recv_thread.start()
     #print("RECEIVER START")
+
+    t_type_queue_thread = t_type_queue.TransactionTypeQueueThread(
+        1, "TransactionTypeQueueThread", dispatch_queue.T_type_q, dispatch_queue.Connected_socket_q
+    )
+    t_type_queue_thread.start()
 
 
 '''

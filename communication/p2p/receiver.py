@@ -13,15 +13,9 @@ from communication.msg_dispatch import t_type_queue
 from communication.msg_dispatch import b_type_queue
 from communication.msg_dispatch import v_type_queue
 
+from communication.msg_dispatch import dispatch_queue
 
-t_type_q = Queue()
-b_type_q = Queue()
-v_type_q = Queue()
-connected_socket_q = Queue()
 
-t_type_queue_thread = t_type_queue.TransactionTypeQueueThread(
-    1, "TransactionTypeQueueThread", t_type_q, connected_socket_q
-)
 # b_type_queue_thread = b_type_queue.BlockTypeQueueThread(
 #     1, "BlockTypeQueueThread", b_type_q, connected_socket_q
 # )
@@ -47,11 +41,6 @@ class ReceiverThread(threading.Thread):
         self.thrd_port = p_port
 
     def run(self):
-        #print("Start Receiver Thread")
-
-        # b_type_queue_thread.start()
-        # v_type_queue_thread.start()
-
         receive_data(self.thrd_name, self.thrd_ip, self.thrd_port)
 
 
@@ -63,8 +52,8 @@ def receive_data(p_thrd_name, p_ip, p_port):
     :param p_port:
     :return:
     """
-    t_type_queue_thread.start()
-    print('msg-queue threads started')
+    # t_type_queue_thread.start()
+    # print('msg-queue threads started')
 
     addr = (p_ip, p_port)
     buf_size = 100
@@ -77,7 +66,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
     transaction_count = 0
     num_block = 0
     while True:
-        print("waiting")
+        print("waiting for connection")
         request_sock, request_ip = tcp_socket.accept()
 
         while True:
@@ -130,8 +119,8 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
                 try:
                     if data_jobj['type'] is 'T':
-                        t_type_q.put(recv_data)
-                        connected_socket_q.put(request_sock)
+                        dispatch_queue.T_type_q.put(recv_data)
+                        dispatch_queue.Connected_socket_q.put(request_sock)
 
                         # print("  ")
                         # print("Transaction received")
