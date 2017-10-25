@@ -2,11 +2,33 @@ import threading
 import json
 import time
 from socket import *
+import logging
 from peerproperty import nodeproperty
 from storage import file_controller
 from service.blockconsensus import merkle_tree
 from service.blockconsensus import block_generator
 from service.blockconsensus import voting
+from queue import Queue
+from communication.msg_dispatch import t_type_queue
+from communication.msg_dispatch import b_type_queue
+from communication.msg_dispatch import v_type_queue
+
+
+t_type_q = Queue()
+b_type_q = Queue()
+v_type_q = Queue()
+connected_socket_q = Queue()
+
+t_type_queue_thread = t_type_queue.TransactionTypeQueueThread(
+    1, "TransactionTypeQueueThread", t_type_q, connected_socket_q
+)
+# b_type_queue_thread = b_type_queue.BlockTypeQueueThread(
+#     1, "BlockTypeQueueThread", b_type_q, connected_socket_q
+# )
+
+# v_type_queue_thread = v_type_queue.VotingTypeQueueThread(
+#     1, "VotingTypeQueueThread", v_type_q, connected_socket_q
+# )
 
 
 class ReceiverThread(threading.Thread):
@@ -26,6 +48,11 @@ class ReceiverThread(threading.Thread):
 
     def run(self):
         #print("Start Receiver Thread")
+        t_type_queue_thread.start()
+        # b_type_queue_thread.start()
+        # v_type_queue_thread.start()
+        logging.debug('msg-queue threads started')
+
         receive_data(self.thrd_name, self.thrd_ip, self.thrd_port)
 
 
@@ -49,14 +76,15 @@ def receive_data(p_thrd_name, p_ip, p_port):
     transaction_count = 0
     num_block = 0
     while True:
-        #print("waiting")
+        # print("waiting")
         request_sock, request_ip = tcp_socket.accept()
 
         while True:
             rcvd_total = []
             while True:
                 rcvd_pkt = request_sock.recv(buf_size)
-                if not rcvd_pkt : break
+                if not rcvd_pkt:
+                    break
                 rcvd_total.append(rcvd_pkt)
 
             temp = ""
@@ -65,7 +93,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
             recv_data = temp
             print("recv data: ")
-            #print(recv_data)
+            # print(recv_data)
             print("  ")
 
             if recv_data == "":
@@ -101,55 +129,56 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
                 try:
                     if data_jobj['type'] is 'T':
-                        print("  ")
-                        print("Transaction received")
-                        print("  ")
-                        transaction_count = transaction_count + 1
-                        #print(transaction_count)
+                        t_type_q.put(recv_data)
+                        connected_socket_q.put(request_sock)
 
-                        file_controller.add_transaction(recv_data)
-                        print("transaction added to mempool : ", recv_data)
-                        print("  ")
+                        # print("  ")
+                        # print("Transaction received")
+                        # print("  ")
+                        # transaction_count = transaction_count + 1
+                        # # print(transaction_count)
 
-                        # transaction_count = len(file_controller.get_transaction_list())
-                        #print(transaction_count)
-                        if transaction_count == 30:
-                            #print ("Enter transaciotn count")
-                            difficulty = 0
-                            transactions = file_controller.get_transaction_list()
+                        # file_controller.add_transaction(recv_data)
+                        # print("transaction added to mempool : ", recv_data)
+                        # print("  ")
 
-                            merkle = merkle_tree.MerkleTree()
-                            merkle_root = merkle.get_merkle(transactions)
-                            print("Transaction list Merkle _root : ",merkle_root)
-                            print(" ")
-                            'blind voting'
+                        # # transaction_count = len(file_controller.get_transaction_list())
+                        # # print(transaction_count)
+                        # if transaction_count == 30:
+                        #     #print ("Enter transaciotn count")
+                        #     difficulty = 0
+                        #     transactions = file_controller.get_transaction_list()
 
-                            print("Start blind voting")
-                            voting.blind_voting(merkle_root)
-                            print("  ")
-                            print("End voting")
-                            print("  ")
+                        #     merkle = merkle_tree.MerkleTree()
+                        #     merkle_root = merkle.get_merkle(transactions)
+                        #     print("Transaction list Merkle _root : ", merkle_root)
+                        #     print(" ")
+                        #     'blind voting'
 
-                            '''
-                            time.sleep(5)
+                        #     print("Start blind voting")
+                        #     voting.blind_voting(merkle_root)
+                        #     print("  ")
+                        #     print("End voting")
+                        #     print("  ")
 
-                            difficulty = voting.result_voting()
+                        #     '''
+                        #     time.sleep(5)
 
-                            file_controller.remove_all_voting()
-                            if(difficulty > 0):
-                                block_generator.generate_block(
-                                    difficulty, merkle_root, transactions)
-                            else :
-                                print("Wait block")
+                        #     difficulty = voting.result_voting()
 
+                        #     file_controller.remove_all_voting()
+                        #     if(difficulty > 0):
+                        #         block_generator.generate_block(
+                        #             difficulty, merkle_root, transactions)
+                        #     else :
+                        #         print("Wait block")
 
-                            file_controller.remove_all_transactions()
-                            '''
-                            transaction_count =0
+                        #     file_controller.remove_all_transactions()
+                        #     '''
+                        #     transaction_count = 0
 
-
-                        request_sock.close()
-                        break
+                        # request_sock.close()
+                        # break
 
                 except Exception as e:
                     print(" ")
@@ -157,7 +186,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 try:
 
                     if data_jobj['type'] is 'V':
-                        print("Voting received:" , recv_data)
+                        print("Voting received:", recv_data)
 
                         # block verification thread
                         #num_block = num_block + 1
@@ -165,7 +194,6 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         file_controller.add_voting(recv_data)
 
                         difficulty = voting.result_voting()
-
 
                         if (difficulty > 0):
                             print("Enter block generator")
@@ -175,13 +203,12 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         else:
                             print("")
 
-
                         request_sock.close()
                         break
 
                 except Exception as e:
                     print(" ")
-                        # remove all txs call
+                    # remove all txs call
 
                 try:
                     if data_jobj['block_header']['type'] is 'B':
@@ -209,13 +236,8 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 except Exception as e:
                     print("Exception @receiver - data_jobj['type'] == 'C'", e)
 
-
-
                 print("No data in socket")
                 print(2)
                 break
 
     tcp_socket.close()
-
-
-

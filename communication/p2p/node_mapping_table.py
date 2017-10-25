@@ -36,7 +36,6 @@ class Table:
     def print_table(self):
         num = Table.count
 
-
         print("  ")
         print("==================================")
         print('Number of linked node %d' % (num))
@@ -44,7 +43,7 @@ class Table:
         print('index         self_node              linked_node             state')
         for i in range(num):
             print('  %d           %s            %s          %s' % (
-                self.index[i]+1, self.self_node,  self.linked_node[i], self.state[i]))
+                self.index[i] + 1, self.self_node,  self.linked_node[i], self.state[i]))
 
         print("  ")
 
@@ -98,16 +97,17 @@ def initialize():
 
     # nodeproperty.my_node.table_add(nodeproperty.my_ip_address, 'stable')
 
-    nodeproperty.my_node.table_add("163.239.200.163", 'stable')
-    nodeproperty.my_node.table_add("163.239.200.162", 'stable')
-    nodeproperty.my_node.table_add("163.239.200.166", 'stable')
-    nodeproperty.my_node.table_add("163.239.200.161", 'stable')
-    nodeproperty.my_node.table_add("163.239.200.182", 'stable')
-    nodeproperty.my_node.table_add("163.239.200.173", 'stable')
-    nodeproperty.my_node.table_add("163.239.200.174", 'stable')
-    nodeproperty.my_node.table_add("163.239.200.176", 'stable')
-    nodeproperty.my_node.table_add("163.239.200.179", 'stable')
-  
+    # nodeproperty.my_node.table_add("163.239.200.163", 'stable')
+    # nodeproperty.my_node.table_add("163.239.200.162", 'stable')
+    # nodeproperty.my_node.table_add("163.239.200.166", 'stable')
+    # nodeproperty.my_node.table_add("163.239.200.161", 'stable')
+    # nodeproperty.my_node.table_add("163.239.200.182", 'stable')
+    # nodeproperty.my_node.table_add("163.239.200.173", 'stable')
+    # nodeproperty.my_node.table_add("163.239.200.174", 'stable')
+    # nodeproperty.my_node.table_add("163.239.200.176", 'stable')
+    # nodeproperty.my_node.table_add("163.239.200.179", 'stable')
+
+    nodeproperty.my_node.table_add("192.168.0.36", 'stable')
 
     # Sender.sending_connection('192.168.0.96')
     # 요기부분이.
