@@ -15,14 +15,7 @@ from communication.msg_dispatch import v_type_queue_thread
 
 from communication.msg_dispatch import dispatch_queue_list
 
-
-# b_type_queue_thread = b_type_queue.BlockTypeQueueThread(
-#     1, "BlockTypeQueueThread", b_type_q, connected_socket_q
-# )
-
-# v_type_queue_thread = v_type_queue.VotingTypeQueueThread(
-#     1, "VotingTypeQueueThread", v_type_q, connected_socket_q
-# )
+Data_jobj = None
 
 
 class ReceiverThread(threading.Thread):
@@ -115,10 +108,11 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 # nodeproperty.my_node.write_table()
                 # node mapping table 관리
             else:
-                data_jobj = json.loads(recv_data)
+                # data_jobj = json.loads(recv_data)
+                Data_jobj = json.loads(recv_data)
 
                 try:
-                    if data_jobj['type'] is 'T':
+                    if Data_jobj['type'] is 'T':
                         dispatch_queue_list.T_type_q.put(recv_data)
                         dispatch_queue_list.Connected_socket_q.put(
                             request_sock)
@@ -169,18 +163,19 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         #     transaction_count = 0
 
                         # request_sock.close()
-                        # break
+                        break
 
                 except Exception as e:
                     print(" ")
 
                 try:
 
-                    if data_jobj['type'] is 'V':
-                        print("Voting received:", recv_data)
+                    if Data_jobj['type'] is 'V':
                         dispatch_queue_list.V_type_q.put(recv_data)
                         dispatch_queue_list.Connected_socket_q.put(
                             request_sock)
+
+                        print("Voting received:", recv_data)
 
                         # block verification thread
                         # num_block = num_block + 1
@@ -205,24 +200,27 @@ def receive_data(p_thrd_name, p_ip, p_port):
                     # remove all txs call
 
                 try:
-                    if data_jobj['block_header']['type'] is 'B':
+                    if Data_jobj['block_header']['type'] is 'B':
                         print("Block received")
                         # block verification thread
+                        dispatch_queue_list.B_type_q.put(recv_data)
+                        dispatch_queue_list.Connected_socket_q.put(
+                            request_sock)
 
-                        file_controller.create_new_block(
-                            str(data_jobj['block_header']['block_number']), recv_data)
+                        # file_controller.create_new_block(
+                        #     str(data_jobj['block_header']['block_number']), recv_data)
 
-                        print("End create _new block")
-                        file_controller.remove_all_transactions()
-                        file_controller.remove_all_voting()
+                        # print("End create _new block")
+                        # file_controller.remove_all_transactions()
+                        # file_controller.remove_all_voting()
 
-                        request_sock.close()
+                        # request_sock.close()
                         break
                 except Exception as e:
                     print(recv_data)
 
                 try:
-                    if data_jobj['type'] == 'C':
+                    if Data_jobj['type'] == 'C':
                         file_controller.add_blockconfirm(recv_data)
                         request_sock.close()
                         break
@@ -234,4 +232,5 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 print(2)
                 break
 
+    # close - listening server
     tcp_socket.close()

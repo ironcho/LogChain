@@ -1,5 +1,9 @@
 import time
 
+Transactions = None
+
+Merkle_root = None
+
 
 class Transaction(object):
     """

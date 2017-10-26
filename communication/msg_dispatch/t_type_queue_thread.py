@@ -43,16 +43,18 @@ def receive_event(p_thrd_name, p_inq, p_socketq):
         if transaction_count == 30:
             #print ("Enter transaciotn count")
             difficulty = 0
-            transactions = file_controller.get_transaction_list()
+
+            transaction.Transactions = file_controller.get_transaction_list()
 
             merkle = merkle_tree.MerkleTree()
-            merkle_root = merkle.get_merkle(transactions)
-            print("Transaction list Merkle _root : ", merkle_root)
+            transaction.Merkle_root = merkle.get_merkle(
+                transaction.Transactions)
+            print("Transaction list Merkle _root : ", transaction.Merkle_root)
             print(" ")
             'blind voting'
 
             print("Start blind voting")
-            voting.blind_voting(merkle_root)
+            voting.blind_voting(transaction.Merkle_root)
             print("  ")
             print("End voting")
             print("  ")
