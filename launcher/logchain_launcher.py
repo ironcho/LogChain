@@ -16,7 +16,7 @@ from communication.msg_dispatch import v_type_queue_thread
 def main():
     'Remove all transaction in mempool'
     file_controller.remove_all_transactions()
-    # file_controller.remove_all_Block()
+    file_controller.remove_all_Block()
     file_controller.remove_all_voting()
 
     print("==Log Chain Start==")

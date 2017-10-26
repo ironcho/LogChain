@@ -97,7 +97,7 @@ rulelist = [
 def initialize_blockdbinfo():
     logging.info('Remove all transactions in mempool')
     file_controller.remove_all_transactions()
-    # file_controller.remove_all_Block()
+    file_controller.remove_all_Block()
     logging.info('Remove all voting info ')
     file_controller.remove_all_voting()
 
@@ -155,7 +155,7 @@ def hello():
 
 if __name__ == "__main__":
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
-    # initialize_blockdbinfo()
+    initialize_blockdbinfo()
     initialize_netinfo()
 
     queryqueue_thread = query_block_queue.QueryQueueThread(
