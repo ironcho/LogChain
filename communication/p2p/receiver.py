@@ -66,7 +66,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
     transaction_count = 0
     num_block = 0
     while True:
-        print("waiting for connection")
+        print("waiting for connection ")
         request_sock, request_ip = tcp_socket.accept()
 
         while True:

@@ -50,6 +50,20 @@ def main():
     )
     t_type_qt.start()
 
+    v_type_qt = v_type_queue_thread.VotingTypeQueueThread(
+        1, "VotingTypeQueueThread",
+        dispatch_queue_list.V_type_q,
+        dispatch_queue_list.Connected_socket_q
+    )
+    v_type_qt.start()
+
+    b_type_qt = b_type_queue_thread.BlockTypeQueueThread(
+        1, "BlockTypeQueueThread",
+        dispatch_queue_list.B_type_q,
+        dispatch_queue_list.Connected_socket_q
+    )
+    b_type_qt.start()
+
 
 '''
     threading._start_new_thread(receiver.start(

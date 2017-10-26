@@ -3,13 +3,8 @@ import logging
 from queue import Queue
 import time
 import json
-from service.transactionmanager import transaction
 from storage import file_controller
-from service.blockconsensus import merkle_tree
 from service.blockconsensus import voting
-
-from service.blockconsensus import block_generator
-from service.blockconsensus import merkle_tree
 
 
 class VotingTypeQueueThread(threading.Thread):
@@ -26,20 +21,8 @@ class VotingTypeQueueThread(threading.Thread):
 
 def receive_event(p_thrd_name, p_inq, p_socketq):
     while True:
-        print("waiting for t type msg")
+        print("waiting for v type msg")
         recv_data = p_inq.get()
         request_sock = p_socketq.get()
-
-        file_controller.add_voting(recv_data)
-
-        difficulty = voting.result_voting()
-
-        if (difficulty > 0):
-            print("Enter block generator")
-            block_generator.generate_block(
-                difficulty, merkle_root, transactions)
-
-        else:
-            print("")
 
         request_sock.close()
