@@ -99,7 +99,7 @@ def initialize():
 
     # nodeproperty.my_node.table_add("163.239.200.163", 'stable')
     # nodeproperty.my_node.table_add("163.239.200.162", 'stable')
-    # nodeproperty.my_node.table_add("163.239.200.166", 'stable')
+    nodeproperty.my_node.table_add("163.239.200.166", 'stable')
     # nodeproperty.my_node.table_add("163.239.200.161", 'stable')
     # nodeproperty.my_node.table_add("163.239.200.182", 'stable')
     # nodeproperty.my_node.table_add("163.239.200.173", 'stable')
@@ -107,7 +107,7 @@ def initialize():
     # nodeproperty.my_node.table_add("163.239.200.176", 'stable')
     # nodeproperty.my_node.table_add("163.239.200.179", 'stable')
 
-    nodeproperty.my_node.table_add("192.168.0.36", 'stable')
+
 
     # Sender.sending_connection('192.168.0.96')
     # 요기부분이.
