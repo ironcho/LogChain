@@ -100,12 +100,12 @@ def initialize():
     # f = open('supernode.txt','r')
     # supernode = f.read()
 
-    # nodeproperty.my_node.table_add(nodeproperty.my_ip_address, 'stable')
+    nodeproperty.my_node.table_add(nodeproperty.my_ip_address, 'stable')
 
-    # nodeproperty.my_node.table_add("163.239.200.163", 'stable')
-    # nodeproperty.my_node.table_add("163.239.200.162", 'stable')
-    # nodeproperty.my_node.table_add("163.239.200.166", 'stable')
-    # nodeproperty.my_node.table_add("163.239.200.161", 'stable')
+    nodeproperty.my_node.table_add("192.168.0.40", 'stable')
+    nodeproperty.my_node.table_add("192.168.0.43", 'stable')
+    nodeproperty.my_node.table_add("192.168.0.49", 'stable')
+    nodeproperty.my_node.table_add("192.168.0.46", 'stable')
     # nodeproperty.my_node.table_add("163.239.200.182", 'stable')
     # nodeproperty.my_node.table_add("163.239.200.173", 'stable')
     # nodeproperty.my_node.table_add("163.239.200.174", 'stable')
