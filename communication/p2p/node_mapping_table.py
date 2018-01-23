@@ -3,6 +3,7 @@
 import json
 import socket
 from peerproperty import nodeproperty
+from storage import file_controller
 
 
 class Table:
@@ -18,7 +19,7 @@ class Table:
         self.self_node = self_node
         print('MAKE TABLE %s peer' % (self.self_node))
         print(" ")
-        #self.self_node = self_node
+        # self.self_node = self_node
 
     def table_add(self, linked_node, state):
 
@@ -88,8 +89,12 @@ def synchronize():
 
 def initialize():
     nodeproperty.my_node = Table()
+
+    # nodeproperty.my_node.table_create(
+    #     socket.gethostbyname(socket.gethostname()))
     nodeproperty.my_node.table_create(
-        socket.gethostbyname(socket.gethostname()))
+        nodeproperty.my_ip_address)
+
     # add 에서 txt를 읽어 최초로 connection 일어날수 있게. 적어도 하나 이상의 컴퓨터는 항상 켜져있는상태.
     # super node ip 정보는 파일로 부터 읽어 들이기.
     # f = open('supernode.txt','r')
@@ -99,7 +104,7 @@ def initialize():
 
     # nodeproperty.my_node.table_add("163.239.200.163", 'stable')
     # nodeproperty.my_node.table_add("163.239.200.162", 'stable')
-    nodeproperty.my_node.table_add("163.239.200.166", 'stable')
+    # nodeproperty.my_node.table_add("163.239.200.166", 'stable')
     # nodeproperty.my_node.table_add("163.239.200.161", 'stable')
     # nodeproperty.my_node.table_add("163.239.200.182", 'stable')
     # nodeproperty.my_node.table_add("163.239.200.173", 'stable')
@@ -107,16 +112,14 @@ def initialize():
     # nodeproperty.my_node.table_add("163.239.200.176", 'stable')
     # nodeproperty.my_node.table_add("163.239.200.179", 'stable')
 
-
-
     # Sender.sending_connection('192.168.0.96')
     # 요기부분이.
     nodeproperty.my_node.print_table()
 
 
 def set_node():
-    nodeproperty.my_ip_address = socket.gethostbyname(
-        socket.gethostname())
+    # nodeproperty.my_ip_address = socket.gethostbyname(
+    #     socket.gethostname())
     # nodeinfo.txt 에 내용이 없다면 최초 참여(initialize), 있다면 동기화(synchronize)
     initialize()
 
@@ -137,5 +140,6 @@ def set_node():
 '''
 
 if __name__ == '__main__':
+    nodeproperty.my_ip_address = file_controller.get_my_ip_rpi()
     set_node()
     # Property.my_node.write_table()
