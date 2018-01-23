@@ -2,6 +2,8 @@ import os
 import socket
 import json
 import shutil
+import netifaces
+
 
 database_path = os.path.dirname(
     os.path.dirname(__file__)) + '\_DataStorage' + '\\'
@@ -65,6 +67,12 @@ def add_node_info(node_info):
 
 def get_my_ip():
     ip = socket.gethostbyname(socket.gethostname())
+    return ip
+
+
+def get_my_ip_rpi():
+    netifaces.ifaddresses('wlan0')
+    ip = netifaces.ifaddresses('wlan0')[netifaces.AF_INET][0]['addr']
     return ip
 
 

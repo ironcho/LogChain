@@ -23,6 +23,8 @@ def main():
     print(" ")
     'Peer setting'
     nodeproperty.my_ip_address = file_controller.get_my_ip()
+    nodeproperty.my_ip_address = file_controller.get_my_ip_rpi()
+
     set_peer.set_peer()
 
     print("my peer num : " + str(nodeproperty.my_peer_num))
