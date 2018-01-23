@@ -22,7 +22,7 @@ def main():
     print("==Log Chain Start==")
     print(" ")
     'Peer setting'
-    nodeproperty.my_ip_address = file_controller.get_my_ip()
+    # nodeproperty.my_ip_address = file_controller.get_my_ip()
     nodeproperty.my_ip_address = file_controller.get_my_ip_rpi()
 
     set_peer.set_peer()
