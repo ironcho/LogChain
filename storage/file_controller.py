@@ -5,12 +5,22 @@ import shutil
 import netifaces
 
 
-database_path = os.path.dirname(
-    os.path.dirname(__file__)) + '\_DataStorage' + '\\'
-block_storage_path = os.path.dirname(
-    os.path.dirname(__file__)) + '\_BlockStorage' + '\\'
-voting_storage_path = os.path.dirname(
-    os.path.dirname(__file__)) + '\_VotingStorage' + '\\'
+# database_path = os.path.dirname(
+#     os.path.dirname(__file__)) + '\_DataStorage' + '\\'
+
+database_path = os.getcwd() + os.sep + '_DataStorage' + os.sep
+
+
+# block_storage_path = os.path.dirname(
+#     os.path.dirname(__file__)) + '\_BlockStorage' + '\\'
+
+
+block_storage_path = os.getcwd() + os.sep + '_BlockStorage' + os.sep
+
+# voting_storage_path = os.path.dirname(
+#     os.path.dirname(__file__)) + '\_VotingStorage' + '\\'
+voting_storage_path = os.getcwd() + os.sep + '_VotingStorage' + os.sep
+
 
 voting_info_file = 'Voting.txt'
 node_info_file = 'NodeInfo.txt'
@@ -97,7 +107,8 @@ def get_transaction_list():
 
 
 def get_voting_list():
-    voting_list = read_all_line(voting_storage_path + voting_info_file)
+    voting_list = read_all_line(
+        voting_storage_path + voting_info_file)
     return voting_list
 
 

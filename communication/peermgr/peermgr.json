@@ -1,0 +1,12 @@
+{
+    "PEER_MGR": {
+        "ID": "logchain_peer_mgr_jskim_pc",
+        "IP": "192.168.0.29",
+        "PORT": 9999
+    },
+    "PEER_CONNECTOR": {
+        "ID": "gw1",
+        "IP": "192.168.0.40",
+        "PORT": 9998
+    }
+}

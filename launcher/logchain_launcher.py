@@ -11,6 +11,7 @@ from communication.msg_dispatch import dispatch_queue_list
 from communication.msg_dispatch import t_type_queue_thread
 from communication.msg_dispatch import b_type_queue_thread
 from communication.msg_dispatch import v_type_queue_thread
+import platform
 
 
 def main():
@@ -22,8 +23,11 @@ def main():
     print("==Log Chain Start==")
     print(" ")
     'Peer setting'
-    # nodeproperty.my_ip_address = file_controller.get_my_ip()
-    nodeproperty.my_ip_address = file_controller.get_my_ip_rpi()
+    os = platform.system()
+    if os is 'Linux':
+        nodeproperty.my_ip_address = file_controller.get_my_ip_rpi()
+    elif os is 'Windows':
+        nodeproperty.my_ip_address = file_controller.get_my_ip()
 
     set_peer.set_peer()
 

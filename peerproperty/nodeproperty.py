@@ -35,3 +35,6 @@ pri_key = None
 sync_flag = False
 
 tx_count = 0
+
+peermgr_port = 0
+peermgr_ip = ''
