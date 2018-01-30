@@ -6,11 +6,13 @@ from queue import Queue
 
 
 with open('peermgr.json', 'r') as f:
-    config = json.load(f)
+    config_peer = json.load(f)
 
-peermgr_id = config['PEER_MGR']['ID']
-peermgr_ip = config['PEER_MGR']['IP']
-peermgr_port = config['PEER_MGR']['PORT']
+peermgr_id = config_peer['PEER_MGR']['ID']
+peermgr_ip = config_peer['PEER_MGR']['IP']
+peermgr_port = config_peer['PEER_MGR']['PORT']
+
+peer_id_array = config_peer['PEER_ID_LIST']
 
 
 def main():
