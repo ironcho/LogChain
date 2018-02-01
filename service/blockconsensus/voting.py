@@ -8,10 +8,10 @@ def blind_voting(merkle_root):
 
     vote_number = (int(merkle_root, 16) % nodeproperty.peer_num) + 1
     voting = {'To': vote_number,
-              'from': nodeproperty.my_ip_address, 'type': 'V'}
+              'from': nodeproperty.My_IP_address, 'type': 'V'}
     jsonString = json.dumps(voting)
 
-    if nodeproperty.my_peer_num == vote_number:
+    if nodeproperty.My_peer_num == vote_number:
         file_controller.add_voting(jsonString)
     else:
         if vote_number == 1:

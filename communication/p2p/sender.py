@@ -1,10 +1,12 @@
 #precondition : Receiver is activated
+import logging
 from socket import *
 from communication.p2p import node_mapping_table
 from storage import file_controller
 
 from peerproperty import nodeproperty
 # port num이나 이런 것들은 추후에 계속 정해야 한다. 현재는 같은 네트워크 망 안에서 있을 때만 통신이 가능..
+from communication.peermgr import peermgr
 
 import json
 
@@ -74,11 +76,18 @@ def send(p_ip, p_msg, p_port, *args):
 
 
 def send_to_all(p_msg):
-
     # Property.my_node.print_table()
 
     for connected_node in nodeproperty.my_node.linked_node:
         send(connected_node, p_msg, nodeproperty.port)
+
+
+# Send to all peers in ConnectedPeerList
+def send_to_all_peers(p_msg):
+    logging.debug("Send to all peers in ConnectedPeerList")
+    for peer in peermgr.ConnectedPeerList:
+        logging.debug("test-connectorpeerlist "+peer)
+
 
 
 def send_to_all_node(message, my_ip, my_port):

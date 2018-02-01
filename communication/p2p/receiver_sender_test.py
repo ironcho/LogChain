@@ -13,7 +13,7 @@ class MainController(object):
     @staticmethod
     def set_node():
 
-        nodeproperty.my_ip_address = socket.gethostbyname(socket.gethostname())
+        nodeproperty.My_IP_address = socket.gethostbyname(socket.gethostname())
         return True
 
     @staticmethod
@@ -53,9 +53,9 @@ class MainController(object):
 
 if __name__ == '__main__':
     MainController.set_node()
-    print(nodeproperty.my_ip_address)
+    print(nodeproperty.My_IP_address)
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", nodeproperty.my_ip_address, nodeproperty.port)
+        1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.port)
     recv_thread.start()
 
     MainController.command_line_interface()
@@ -63,9 +63,9 @@ if __name__ == '__main__':
 
 def test_receiver_sender():
     MainController.set_node()
-    print(nodeproperty.my_ip_address)
+    print(nodeproperty.My_IP_address)
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", nodeproperty.my_ip_address, nodeproperty.port)
+        1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.port)
     recv_thread.start()
 
     MainController.command_line_interface()

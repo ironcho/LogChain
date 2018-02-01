@@ -1,51 +1,54 @@
-import threading
 import logging
+import platform
+import sys
 from peerproperty import nodeproperty
 from peerproperty import set_peer
 from storage import file_controller
 from communication.p2p import receiver
 from communication.p2p import node_mapping_table
 from service.blockmanager import genesisblock
-
 from communication.msg_dispatch import dispatch_queue_list
 from communication.msg_dispatch import t_type_queue_thread
 from communication.msg_dispatch import b_type_queue_thread
 from communication.msg_dispatch import v_type_queue_thread
-import platform
+from communication.peermgr import peermgr
 
-
+# Logchain launcher function for TrustPeer
+# TrustPeer acts as a peer like ordinary nodes
+# TrustPeer performs the role of PeerMgr in parallel.
 def main():
-    'Remove all transaction in mempool'
+    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+    logging.debug('Start Logchain launcher for TrustPeer...')
+
+    logging.info('Start the blockchain initialization process...')
     file_controller.remove_all_transactions()
-    file_controller.remove_all_Block()
+    file_controller.remove_all_blocks()
     file_controller.remove_all_voting()
+    logging.info('Complete the blockchain initialization process...')
 
-    print("==Log Chain Start==")
-    print(" ")
-    'Peer setting'
-    os = platform.system()
-    if os is 'Linux':
-        nodeproperty.my_ip_address = file_controller.get_my_ip_rpi()
-    elif os is 'Windows':
-        nodeproperty.my_ip_address = file_controller.get_my_ip()
+    set_peer.init_myIP()
 
-    set_peer.set_peer()
+    logging.info('Run processes for PeerMgr.')
+    if peermgr.start_peermgr() == False :
+        logging.info('Aborted because PeerMgr execution failed')
+        return
 
-    print("my peer num : " + str(nodeproperty.my_peer_num))
-    print(" ")
+    set_peer.set_my_peer_num()
+    logging.debug("my peer num: " + nodeproperty.My_peer_num)
 
-    # node_mapping_table.set_node()와 set_peer()는 중복 기능이나, 일단 디버깅용으로 중복으로 유지함
-    node_mapping_table.set_node()
+    #
+    # # node_mapping_table.set_node()와 set_peer()는 중복 기능이나, 일단 디버깅용으로 중복으로 유지함
+    # node_mapping_table.set_node()
 
     'Genesis Block Create'
     genesisblock.genesisblock_generate()
 
     'receiver thread start'
-    print("Logchain Peer Start. Peer num : " + str(nodeproperty.my_peer_num))
+    print("Logchain Peer Start. Peer num : " + str(nodeproperty.My_peer_num))
     print(" ")
 
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", nodeproperty.my_ip_address, nodeproperty.port)
+        1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.port)
     recv_thread.start()
     #print("RECEIVER START")
 

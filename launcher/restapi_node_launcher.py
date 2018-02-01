@@ -1,18 +1,18 @@
 
-import threading
 import logging
 import sys
 from flask import Flask
 from flask import jsonify
 from flask import request
 from flask import abort
+from queue import Queue
 from peerproperty import nodeproperty
 from peerproperty import set_peer
 from storage import file_controller
 from communication.p2p import node_mapping_table
 from restapi_dispatch import query_block_queue
 from restapi_dispatch import save_tx_queue
-from queue import Queue
+
 
 app = Flask(__name__)
 
@@ -97,13 +97,13 @@ rulelist = [
 def initialize_blockdbinfo():
     logging.info('Remove all transactions in mempool')
     file_controller.remove_all_transactions()
-    file_controller.remove_all_Block()
+    file_controller.remove_all_blocks()
     logging.info('Remove all voting info ')
     file_controller.remove_all_voting()
 
 
 def initialize_netinfo():
-    nodeproperty.my_ip_address = file_controller.get_my_ip()
+    nodeproperty.My_IP_address = file_controller.get_my_ip()
     set_peer.set_peer()
     # logging.info("my peer : " + nodeproperty.my_peer_num)
 
@@ -153,8 +153,9 @@ def hello():
     return "LogChain's REST API node"
 
 
+# REST API Node launcher function
 if __name__ == "__main__":
-    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+    logging.basicConfig(stream = sys.stderr, level = logging.DEBUG)
     initialize_blockdbinfo()
     initialize_netinfo()
 

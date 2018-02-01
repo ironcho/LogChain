@@ -93,14 +93,14 @@ def initialize():
     # nodeproperty.my_node.table_create(
     #     socket.gethostbyname(socket.gethostname()))
     nodeproperty.my_node.table_create(
-        nodeproperty.my_ip_address)
+        nodeproperty.My_IP_address)
 
     # add 에서 txt를 읽어 최초로 connection 일어날수 있게. 적어도 하나 이상의 컴퓨터는 항상 켜져있는상태.
     # super node ip 정보는 파일로 부터 읽어 들이기.
     # f = open('supernode.txt','r')
     # supernode = f.read()
 
-    nodeproperty.my_node.table_add(nodeproperty.my_ip_address, 'stable')
+    nodeproperty.my_node.table_add(nodeproperty.My_IP_address, 'stable')
 
     nodeproperty.my_node.table_add("192.168.0.40", 'stable')
     nodeproperty.my_node.table_add("192.168.0.43", 'stable')
@@ -140,6 +140,6 @@ def set_node():
 '''
 
 if __name__ == '__main__':
-    nodeproperty.my_ip_address = file_controller.get_my_ip_rpi()
+    nodeproperty.My_IP_address = file_controller.get_my_ip_rpi()
     set_node()
     # Property.my_node.write_table()

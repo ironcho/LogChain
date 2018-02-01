@@ -94,9 +94,9 @@ def main():
     print("Web Server Start")
 
     'Peer setting'
-    nodeproperty.my_ip_address = file_controller.get_my_ip()
+    nodeproperty.My_IP_address = file_controller.get_my_ip()
     set_peer.set_peer()
-    print("my peer : " + nodeproperty.my_peer_num)
+    print("my peer : " + nodeproperty.My_peer_num)
 
     # node_mapping_table.set_node()와 set_peer()는 중복 기능이나, 일단 디버깅용으로 중복으로 유지함
     node_mapping_table.set_node()

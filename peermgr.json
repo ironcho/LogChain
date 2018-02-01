@@ -1,0 +1,10 @@
+{
+    "PEER_MGR": {
+        "ID": "gw_trustpeer_1",
+        "IP": "192.168.0.29",
+        "PORT": 9999
+    },
+    "PEER_LIST": [
+        "gw1","gw2","gw3","gw4"
+    ]
+}

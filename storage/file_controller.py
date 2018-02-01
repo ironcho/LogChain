@@ -3,6 +3,7 @@ import socket
 import json
 import shutil
 import netifaces
+import logging
 
 
 # database_path = os.path.dirname(
@@ -77,12 +78,14 @@ def add_node_info(node_info):
 
 def get_my_ip():
     ip = socket.gethostbyname(socket.gethostname())
+    logging.debug("IP address:" + ip)
     return ip
 
 
 def get_my_ip_rpi():
     netifaces.ifaddresses('wlan0')
     ip = netifaces.ifaddresses('wlan0')[netifaces.AF_INET][0]['addr']
+    logging.debug("IP address:" + ip)
     return ip
 
 
@@ -178,26 +181,24 @@ def remove_all_transactions():
     f = open(database_path + ledger_file, 'w')
     f.write("")
     f.close()
+    logging.debug('All transactions were removed.')
 
 
 def remove_all_voting():
     f = open(voting_storage_path + voting_info_file, 'w')
     f.write("")
     f.close()
+    logging.debug('The consensus related data has been deleted.')
 
 
-def remove_all_Block():
+def remove_all_blocks():
     try:
         shutil.rmtree(block_storage_path)
         os.makedirs(block_storage_path)
+        logging.debug('All blocks were removed.')
     except Exception as e:
         print(e)
-    # f = open(block_storage_path + block_file, 'w')
-    # f.write("")
-    # f.close()
 
-
-'Save my block'
 
 
 def create_new_block(file_name, block_json):
