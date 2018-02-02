@@ -44,14 +44,21 @@ def set_peer():
         nodeproperty.My_peer_num = "API_Peer"
 
 
-def set_my_peer_num():
+
+def set_total_peer_num() -> int:
+    nodeproperty.Total_peer_num = len(peermgr.ConnectedPeerList)
+    return nodeproperty.Total_peer_num
+
+
+def set_my_peer_num() -> int:
     if nodeproperty.My_IP_address == None :
         init_myIP()
-    p_num = 0
+    p_num = 1
     for i in peermgr.ConnectedPeerList :
         if i[1] == nodeproperty.My_IP_address:
             nodeproperty.My_peer_num = p_num
         else:
             p_num = p_num  + 1
 
+    return nodeproperty.My_peer_num
 

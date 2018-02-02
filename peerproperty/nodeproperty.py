@@ -1,5 +1,6 @@
 My_IP_address = None
 My_peer_num = 0
+My_receiver_port = 10654
 
 
 Api_peer = "192.168.0.29"  # "163.239.200.182"
@@ -19,10 +20,9 @@ Peer3 = "192.168.0.49"
 Peer4 = "192.168.0.46"
 
 
-port = 10654
 REST_node_port = 10101
 # peer_num = 9
-peer_num = 4
+Total_peer_num = 4
 
 my_node = None
 

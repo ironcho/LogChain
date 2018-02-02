@@ -1,17 +1,16 @@
 import logging
-import platform
 import sys
 from peerproperty import nodeproperty
 from peerproperty import set_peer
 from storage import file_controller
 from communication.p2p import receiver
-from communication.p2p import node_mapping_table
 from service.blockmanager import genesisblock
 from communication.msg_dispatch import dispatch_queue_list
 from communication.msg_dispatch import t_type_queue_thread
 from communication.msg_dispatch import b_type_queue_thread
 from communication.msg_dispatch import v_type_queue_thread
 from communication.peermgr import peermgr
+
 
 # Logchain launcher function for TrustPeer
 # TrustPeer acts as a peer like ordinary nodes
@@ -28,29 +27,23 @@ def main():
 
     set_peer.init_myIP()
 
-    logging.info('Run processes for PeerMgr.')
-    if peermgr.start_peermgr() == False :
-        logging.info('Aborted because PeerMgr execution failed')
+    logging.info('Run threads for PeerMgr.')
+    if not peermgr.start_peermgr():
+        logging.info('Aborted because PeerMgr execution failed.')
         return
 
     set_peer.set_my_peer_num()
-    logging.debug("my peer num: " + nodeproperty.My_peer_num)
-
-    #
-    # # node_mapping_table.set_node()와 set_peer()는 중복 기능이나, 일단 디버깅용으로 중복으로 유지함
-    # node_mapping_table.set_node()
+    logging.info("My peer num: " + str(nodeproperty.My_peer_num))
 
     'Genesis Block Create'
     genesisblock.genesisblock_generate()
 
-    'receiver thread start'
-    print("Logchain Peer Start. Peer num : " + str(nodeproperty.My_peer_num))
-    print(" ")
-
+    logging.info("Start a thread to receive messages from other peers.")
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.port)
+        1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.My_receiver_port)
     recv_thread.start()
-    #print("RECEIVER START")
+    logging.info("The thread for receiving messages from other peers has started.")
+
 
     t_type_qt = t_type_queue_thread.TransactionTypeQueueThread(
         1, "TransactionTypeQueueThread",
@@ -72,12 +65,6 @@ def main():
         dispatch_queue_list.Connected_socket_q
     )
     b_type_qt.start()
-
-
-'''
-    threading._start_new_thread(receiver.start(
-        "Receiver", my_ip_address, nodeproperty.port))
-'''
 
 
 if __name__ == '__main__':

@@ -25,7 +25,7 @@ class MainController(object):
 if __name__ == '__main__':
     node_mapping_table.initialize()
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", nodeproperty.my_node.self_node, nodeproperty.port)
+        1, "RECEIVER", nodeproperty.my_node.self_node, nodeproperty.My_receiver_port)
     recv_thread.start()
 
     MainController.command_line_interface()
@@ -34,7 +34,7 @@ if __name__ == '__main__':
 def test_p2p_mgr():
     node_mapping_table.initialize()
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", nodeproperty.my_node.self_node, nodeproperty.port)
+        1, "RECEIVER", nodeproperty.my_node.self_node, nodeproperty.My_receiver_port)
     recv_thread.start()
 
     MainController.command_line_interface()

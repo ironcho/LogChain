@@ -31,7 +31,7 @@ def sending_mining_block():
 
 def sending_connection(p_ip):
     msg = "new node"
-    send(p_ip, msg, nodeproperty.port)
+    send(p_ip, msg, nodeproperty.My_receiver_port)
 
 
 def send(p_ip, p_msg, p_port, *args):
@@ -79,7 +79,7 @@ def send_to_all(p_msg):
     # Property.my_node.print_table()
 
     for connected_node in nodeproperty.my_node.linked_node:
-        send(connected_node, p_msg, nodeproperty.port)
+        send(connected_node, p_msg, nodeproperty.My_receiver_port)
 
 
 # Send to all peers in ConnectedPeerList

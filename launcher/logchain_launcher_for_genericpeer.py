@@ -14,11 +14,11 @@ from communication.msg_dispatch import v_type_queue_thread
 from communication.peermgr import peerconnector
 
 
-# Logchain launcher function for ParticipatingPeer
-# ParticipatingPeer performs the role of PeerConnector in parallel.
+# Logchain launcher function for GenericPeer
+# GenericPeer performs the role of PeerConnector in parallel.
 def main():
     logging.basicConfig(stream = sys.stderr, level = logging.DEBUG)
-    logging.debug('Start Logchain launcher for ParticipatingPeer...')
+    logging.debug('Start Logchain launcher for GenericPeer...')
 
     logging.info('Start the blockchain-related initialization process...')
     file_controller.remove_all_transactions()
@@ -60,7 +60,7 @@ def main():
     print(" ")
 
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.port)
+        1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.My_receiver_port)
     recv_thread.start()
     #print("RECEIVER START")
 

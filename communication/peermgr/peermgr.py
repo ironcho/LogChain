@@ -6,7 +6,7 @@ from queue import Queue
 from socket import *
 from communication.p2p import sender
 from peerproperty import nodeproperty
-
+from peerproperty import set_peer
 
 with open(os.getcwd() + os.sep + "peermgr.json", 'r') as f:
     peermgr_config = json.load(f)
@@ -142,10 +142,13 @@ class ManagingConnectedPeerListThread(threading.Thread):
                 connected_peer_list_json = json.dumps(
                     ConnectedPeerList, indent=4, default=lambda o: o.__dict__, sort_keys=True)
                 sender.send_to_all_peers(connected_peer_list_json)
+                set_peer.set_my_peer_num()
+                set_peer.set_total_peer_num()
+
             else:
                 request_sock.close()
                 # If there is no ID in the peer list, ignore it.
-                logging.debug("Ignore it because there is no corresponding ID in the list.")
+                logging.debug("Ignore it because there is no corresponding ID in the predefined list.")
 
 
 

@@ -55,7 +55,7 @@ if __name__ == '__main__':
     MainController.set_node()
     print(nodeproperty.My_IP_address)
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.port)
+        1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.My_receiver_port)
     recv_thread.start()
 
     MainController.command_line_interface()
@@ -65,7 +65,7 @@ def test_receiver_sender():
     MainController.set_node()
     print(nodeproperty.My_IP_address)
     recv_thread = receiver.ReceiverThread(
-        1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.port)
+        1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.My_receiver_port)
     recv_thread.start()
 
     MainController.command_line_interface()

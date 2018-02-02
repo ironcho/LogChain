@@ -39,7 +39,7 @@ def generate_block(difficulty, merkle_root, transactions):
         block_header.block_number = int(prev_block_height) + 1
         block_header.block_hash = block_hash
         block_header.block_info = block_info
-        block_header.miner = nodeproperty.peer_num
+        block_header.miner = nodeproperty.Total_peer_num
         block_header.num_tx = len(transactions)
 
 

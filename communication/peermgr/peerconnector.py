@@ -4,8 +4,6 @@ import json
 import time
 from socket import *
 
-
-
 with open('peerconnector.json', 'r') as f:
     config_peer = json.load(f)
 
@@ -14,7 +12,6 @@ PeerMgr_Port = config_peer['PEER_MGR']['PORT']
 
 PeerConnector_ID = config_peer['PEER_CONNECTOR']['ID']
 PeerConnector_Port = config_peer['PEER_CONNECTOR']['PORT']
-
 
 
 def start_peerconnector():
@@ -37,7 +34,6 @@ class ListeningToPeerMgrThread(threading.Thread):
         self.thrd_id = p_thrd_id
         self.thrd_name = p_thrd_name
         self.inq = p_inq
-
 
     def run(self):
         addr = (p_ip, p_port)
@@ -108,5 +104,3 @@ def receive_event(p_thrd_name, p_inq):
         logging.debug(str(p_inq.qsize()))
         count = count + 1
         time.sleep(queue_strategy.SAVE_TX_DEQUEUE_INTERVAL)
-
-
