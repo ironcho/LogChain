@@ -26,43 +26,25 @@ def main():
     file_controller.remove_all_voting()
     logging.info('Complete the initialization process...')
 
-    logging.info('Set the peer\'s own IP address.')
-    os = platform.system()
-    if os is 'Linux':
-        logging.info('peer\'s os is Linux.')
-        # For raspberry pi, we use wlan,
-        # so we need to figure out the IP address in a different way.
-        nodeproperty.My_IP_address = file_controller.get_my_ip_rpi()
-    elif os is 'Windows':
-        logging.info('peer\'s os is Windows.')
-        nodeproperty.My_IP_address = file_controller.get_my_ip()
+    set_peer.init_myIP()
 
     logging.info('Run processes for PeerConnector.')
-    peerconnector.start_peerconnector()
+    if not peerconnector.start_peerconnector():
+        logging.info('Aborted because PeerConnector execution failed.')
+        return
 
-
-
-
-
-    set_peer.set_peer()
-
-    print("my peer num : " + str(nodeproperty.My_peer_num))
-    print(" ")
-
-    # node_mapping_table.set_node()와 set_peer()는 중복 기능이나, 일단 디버깅용으로 중복으로 유지함
-    node_mapping_table.set_node()
+    set_peer.set_my_peer_num()
+    logging.info("My peer num: " + str(nodeproperty.My_peer_num))
 
     'Genesis Block Create'
     genesisblock.genesisblock_generate()
 
-    'receiver thread start'
-    print("Logchain Peer Start. Peer num : " + str(nodeproperty.My_peer_num))
-    print(" ")
-
+    logging.info("Start a thread to receive messages from other peers.")
     recv_thread = receiver.ReceiverThread(
         1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.My_receiver_port)
     recv_thread.start()
-    #print("RECEIVER START")
+    logging.info("The thread for receiving messages from other peers has started.")
+
 
     t_type_qt = t_type_queue_thread.TransactionTypeQueueThread(
         1, "TransactionTypeQueueThread",
@@ -85,11 +67,6 @@ def main():
     )
     b_type_qt.start()
 
-
-'''
-    threading._start_new_thread(receiver.start(
-        "Receiver", my_ip_address, nodeproperty.port))
-'''
 
 
 if __name__ == '__main__':

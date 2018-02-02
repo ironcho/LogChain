@@ -1,22 +1,24 @@
+import os
 import threading
 import logging
 import json
 import time
 from socket import *
 
-with open('peerconnector.json', 'r') as f:
-    config_peer = json.load(f)
 
-PeerMgr_IP = config_peer['PEER_MGR']['IP']
-PeerMgr_Port = config_peer['PEER_MGR']['PORT']
+with open(os.getcwd() + os.sep + 'peerconnector.json', 'r') as f:
+    peerconnector_config = json.load(f)
 
-PeerConnector_ID = config_peer['PEER_CONNECTOR']['ID']
-PeerConnector_Port = config_peer['PEER_CONNECTOR']['PORT']
+PeerMgr_IP = peerconnector_config['PEER_MGR']['IP']
+PeerMgr_Port = peerconnector_config['PEER_MGR']['PORT']
+
+PeerConnector_ID = peerconnector_config['PEER_CONNECTOR']['ID']
+PeerConnector_Port = peerconnector_config['PEER_CONNECTOR']['PORT']
 
 
 def start_peerconnector():
     peermgr_listening_thread = ListeningToPeerMgrThread(
-        1, "PeerMgrListeningThread", PeerMgr_IP, nodeproperty.peermgr_port, Updating_NodeTable_q
+        1, "PeerMgrListeningThread", PeerMgr_IP, PeerMgr_Port, Updating_NodeTable_q
     )
     peermgr_listening_thread.start()
     logging.debug('PeerMgrListeningThread started')

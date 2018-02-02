@@ -1,6 +1,7 @@
 My_IP_address = None
 My_peer_num = 0
 My_receiver_port = 10654
+Total_peer_num = 4
 
 
 Api_peer = "192.168.0.29"  # "163.239.200.182"
@@ -22,11 +23,9 @@ Peer4 = "192.168.0.46"
 
 REST_node_port = 10101
 # peer_num = 9
-Total_peer_num = 4
 
 my_node = None
 
-trust_ip = ''
 
 my_node_jstr = None
 my_node_jobj = None
@@ -38,5 +37,3 @@ sync_flag = False
 
 tx_count = 0
 
-peermgr_port = 0
-peermgr_ip = ''

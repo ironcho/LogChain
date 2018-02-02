@@ -1,6 +1,6 @@
 {
     "PEER_MGR": {
-        "ID": "gw_trustpeer_1",
+        "ID": "gw_trustpeer_a",
         "IP": "192.168.0.29",
         "PORT": 9999
     },
