@@ -1,8 +1,10 @@
 import logging
 import platform
+
+import peerproperty.nodeproperty
 from peerproperty import nodeproperty
 from storage import file_controller
-from communication.peermgr import peermgr
+
 
 def init_myIP():
     logging.info("Set the peer's own IP address.")
@@ -17,11 +19,10 @@ def init_myIP():
         nodeproperty.My_IP_address = file_controller.get_my_ip()
 
 
-
+# deprecated function
 def set_peer():
-    if nodeproperty.My_IP_address==None:
+    if nodeproperty.My_IP_address == None:
         init_myIP()
-
     if nodeproperty.My_IP_address == nodeproperty.Peer1:
         nodeproperty.My_peer_num = 1
     elif nodeproperty.My_IP_address == nodeproperty.Peer2:
@@ -44,21 +45,19 @@ def set_peer():
         nodeproperty.My_peer_num = "API_Peer"
 
 
-
 def set_total_peer_num() -> int:
-    nodeproperty.Total_peer_num = len(peermgr.ConnectedPeerList)
+    nodeproperty.Total_peer_num = len(peerproperty.nodeproperty.ConnectedPeerList)
     return nodeproperty.Total_peer_num
 
 
 def set_my_peer_num() -> int:
-    if nodeproperty.My_IP_address == None :
+    if nodeproperty.My_IP_address == None:
         init_myIP()
     p_num = 1
-    for i in peermgr.ConnectedPeerList :
+    for i in peerproperty.nodeproperty.ConnectedPeerList:
         if i[1] == nodeproperty.My_IP_address:
             nodeproperty.My_peer_num = p_num
         else:
-            p_num = p_num  + 1
+            p_num = p_num + 1
 
     return nodeproperty.My_peer_num
-

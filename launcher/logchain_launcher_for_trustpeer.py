@@ -28,6 +28,7 @@ def main():
     set_peer.init_myIP()
 
     logging.info('Run threads for PeerMgr.')
+
     if not peermgr.start_peermgr():
         logging.info('Aborted because PeerMgr execution failed.')
         return

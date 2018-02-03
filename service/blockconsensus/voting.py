@@ -1,5 +1,7 @@
 import json
 import time
+
+import peerproperty.nodeproperty
 from peerproperty import nodeproperty
 from storage import file_controller
 from communication.p2p import sender
@@ -16,7 +18,7 @@ def blind_voting(merkle_root):
         file_controller.add_voting(jsonString)
     else:
         index = nodeproperty.My_peer_num - 1
-        ip_address = peermgr.ConnectedPeerList[index][1]
+        ip_address = peerproperty.nodeproperty.ConnectedPeerList[index][1]
         sender.send(ip_address, jsonString, nodeproperty.My_receiver_port)
 
         # if vote_number == 1:

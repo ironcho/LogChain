@@ -2,107 +2,163 @@ import os
 import threading
 import logging
 import json
-import time
 from socket import *
-
+from queue import Queue
+from peerproperty import nodeproperty
+from communication.p2p import sender
+from peerproperty import set_peer
 
 with open(os.getcwd() + os.sep + 'peerconnector.json', 'r') as f:
     peerconnector_config = json.load(f)
 
-PeerMgr_IP = peerconnector_config['PEER_MGR']['IP']
-PeerMgr_Port = peerconnector_config['PEER_MGR']['PORT']
+# TODO: There are several PeerMgr candidates, of which PeerMgr succeeded first in PeerMgr process execution becomes final PeerMgr. If the PeerMgr node fails to run, the other candidate nodes attempt to run PeerMgr process.
+peermgr_ID = peerconnector_config['PEER_MGR_LIST'][0]['ID']
+peermgr_IP = peerconnector_config['PEER_MGR_LIST'][0]['IP']
+peermgr_Port = peerconnector_config['PEER_MGR_LIST'][0]['PORT']
 
-PeerConnector_ID = peerconnector_config['PEER_CONNECTOR']['ID']
-PeerConnector_Port = peerconnector_config['PEER_CONNECTOR']['PORT']
+peerconnector_ID = peerconnector_config['PEER_CONNECTOR']['ID']
+peerconnector_Port = peerconnector_config['PEER_CONNECTOR']['PORT']
+
+# Because PeerMgr can send ConnectedPeerList in a short time interval,
+# the request is processed asynchronously after enqueuing the request event
+# to the queue connectedPeerMgr_XXX queue.
+connectedPeerMgr_rcvddata_q = Queue()
+connectedPeerMgr_socket_q = Queue()
 
 
-def start_peerconnector():
-    peermgr_listening_thread = ListeningToPeerMgrThread(
-        1, "PeerMgrListeningThread", PeerMgr_IP, PeerMgr_Port, Updating_NodeTable_q
+# Add PeerMgr information to ConnectedPeerList by default.
+nodeproperty.ConnectedPeerList = [[peermgr_ID, peermgr_IP]]
+
+
+def start_peerconnector() -> bool:
+    logging.debug('Start a thread to connect to PeerMgr.')
+    # TODO: If there is no response after pinging PeerMgr, attempt to connect to another PeerMgr.
+    # Returns False if all attempts to connect to the PeerMgr fail.
+
+    connecting_to_peermgr_thr = ConnectingToPeerMgrThread(
+        1, "ConnectingToPeerMgrThread",
+        peermgr_IP, peermgr_Port
     )
-    peermgr_listening_thread.start()
-    logging.debug('PeerMgrListeningThread started')
+    connecting_to_peermgr_thr.start()
+    logging.debug('The thread to connect to PeerMgr has started.')
 
-    peermgr_nodetableupdate_thread = PeerUpdatingNodeTableThread(
-        1, "PeerMgrUpdatingNodeTableThread", Updating_NodeTable_q
+
+    logging.debug('Start listening thread to wait for connection of PeerMgr.')
+    listening_to_peerconnector_thr = ListeningToPeerMgrThread(
+        1, "ListeningToPeerMgrThread",
+        nodeproperty.My_IP_address, peerconnector_Port,
+        connectedPeerMgr_rcvddata_q, connectedPeerMgr_socket_q
     )
-    peermgr_nodetableupdate_thread.start()
-    logging.debug('PeerMgrUpdatingNodeTableThread started')
+    listening_to_peerconnector_thr.start()
+    logging.debug('The listening thread is started to wait for the connection of PeerMgr.')
 
 
-class ListeningToPeerMgrThread(threading.Thread):
-    def __init__(self, p_thrd_id, p_thrd_name, p_ip, p_port, p_inq):
+    logging.debug('Start a thread to update ConnectedPeerList.')
+    updating_peertable_thr = UpdatingConnectedPeerListThread(
+        1, "UpdatingConnectedPeerListThread",
+        connectedPeerMgr_rcvddata_q, connectedPeerMgr_socket_q
+    )
+    updating_peertable_thr.start()
+    logging.debug('The thread has started to update ConnectedPeerList that the peer has internally.')
+
+    return True
+
+
+
+class ConnectingToPeerMgrThread(threading.Thread):
+    def __init__(self, p_thrd_id, p_thrd_name,
+                 p_ip, p_port):
         threading.Thread.__init__(self)
         self.thrd_id = p_thrd_id
         self.thrd_name = p_thrd_name
-        self.inq = p_inq
+        self.peermgr_ip = p_ip
+        self.peermgr_port = p_port
 
     def run(self):
-        addr = (p_ip, p_port)
+        join_msg = {'ID': peerconnector_ID}
+        join_msg_json = json.dumps(join_msg)
+        sender.send(self.peermgr_ip, join_msg_json, self.peermgr_port)
+        logging.debug('An connection message was sent to PeerMgr.')
+
+
+class ListeningToPeerMgrThread(threading.Thread):
+    def __init__(self, p_thrd_id, p_thrd_name,
+                 p_peerconnector_IP, p_peerconnector_Port,
+                 p_connectedPeerMgr_rcvddata_q, p_connectedPeerMgr_socket_q):
+        threading.Thread.__init__(self)
+        self.thrd_id = p_thrd_id
+        self.thrd_name = p_thrd_name
+        self.listening_ip = p_peerconnector_IP
+        self.listening_port = p_peerconnector_Port
+        self.rcvddata_q = p_connectedPeerMgr_rcvddata_q
+        self.socket_q = p_connectedPeerMgr_socket_q
+
+
+    def run(self):
+        addr = (self.listening_ip, self.listening_port)
         buf_size = 100
-        # to check my node info
-        # print(p_thrd_name, p_ip, p_port)
-        #
+
         tcp_socket = socket(AF_INET, SOCK_STREAM)
         tcp_socket.bind(addr)
         tcp_socket.listen(5)
-        transaction_count = 0
-        num_block = 0
         while True:
-            print("waiting for connection ")
+            logging.debug('Wait for PeerMgr to connect.')
             request_sock, request_ip = tcp_socket.accept()
+            logging.debug('PeerMgr connected.')
 
             while True:
                 rcvd_total = []
                 while True:
+                    # Assuming the format of the incoming message is json
                     rcvd_pkt = request_sock.recv(buf_size)
                     if not rcvd_pkt:
                         break
                     rcvd_total.append(rcvd_pkt)
-
-                temp = ""
+                rcvd_data = ""
                 for i in rcvd_total:
-                    temp += i.decode('utf-8')
-
-                recv_data = temp
-                print("recv data: ")
-                # print(recv_data)
-                print("  ")
-
-                if recv_data == "":
+                    rcvd_data += i.decode('utf-8')
+                logging.debug("rcvd_data: " + rcvd_data)
+                if rcvd_data == "":
                     break
-                # print("from ip : " + str(request_ip[0]))
-                # node mapping table 관리를 넣는다.
+                try:
+                    self.rcvddata_q.put(rcvd_data)
+                    self.socket_q.put(request_sock)
+                    break
+                except Exception as e:
+                    logging.debug(e)
 
 
-class PeerUpdatingNodeTableThread(threading.Thread):
-    def __init__(self, p_thrd_id, p_thrd_name, p_inq):
+
+class UpdatingConnectedPeerListThread(threading.Thread):
+    def __init__(self, p_thrd_id, p_thrd_name,
+                 p_connectedPeerMgr_rcvddata_q, p_connectedPeerMgr_socket_q):
         threading.Thread.__init__(self)
         self.thrd_id = p_thrd_id
         self.thrd_name = p_thrd_name
-        self.inq = p_inq
+        self.rcvddata_q = p_connectedPeerMgr_rcvddata_q
+        self.socket_q = p_connectedPeerMgr_socket_q
+
 
     def run(self):
-        receive_event(self.thrd_name, self.inq)
+        while True:
+            rcvd_data = self.rcvddata_q.get()
+            request_sock = self.socket_q.get()
+
+            # Assuming the format of the incoming message is json
+            rcvd_list = json.loads(rcvd_data)
+
+            logging.debug("Received ConnectedPeerList: " + rcvd_list)
+
+            request_sock.close()
+
+            nodeproperty.ConnectedPeerList = rcvd_list
+            set_peer.set_my_peer_num()
+            set_peer.set_total_peer_num()
 
 
-def receive_event(p_thrd_name, p_inq):
-    count = 1
-    while True:
-        logging.debug("waiting for peer connection event")
 
-        dequeued = p_inq.get()
 
-        tx = transaction.Transaction(dequeued)
-        temp = json.dumps(
-            tx, indent=4, default=lambda o: o.__dict__, sort_keys=True)
 
-        sender.send_to_all(temp)  # 노드들 연동 후 테스트 필요 2017-09-27
 
-        logging.debug(str(dequeued))
-        logging.debug(str(temp))
 
-        logging.debug(count)
-        logging.debug(str(p_inq.qsize()))
-        count = count + 1
-        time.sleep(queue_strategy.SAVE_TX_DEQUEUE_INTERVAL)
+

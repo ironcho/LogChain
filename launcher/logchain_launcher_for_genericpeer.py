@@ -1,11 +1,9 @@
 import logging
-import platform
 import sys
 from peerproperty import nodeproperty
 from peerproperty import set_peer
 from storage import file_controller
 from communication.p2p import receiver
-from communication.p2p import node_mapping_table
 from service.blockmanager import genesisblock
 from communication.msg_dispatch import dispatch_queue_list
 from communication.msg_dispatch import t_type_queue_thread
@@ -29,9 +27,11 @@ def main():
     set_peer.init_myIP()
 
     logging.info('Run processes for PeerConnector.')
+
     if not peerconnector.start_peerconnector():
         logging.info('Aborted because PeerConnector execution failed.')
         return
+
 
     set_peer.set_my_peer_num()
     logging.info("My peer num: " + str(nodeproperty.My_peer_num))

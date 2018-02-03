@@ -1,6 +1,8 @@
 #precondition : Receiver is activated
 import logging
 from socket import *
+
+import peerproperty.nodeproperty
 from communication.p2p import node_mapping_table
 from storage import file_controller
 
@@ -85,7 +87,8 @@ def send_to_all(p_msg):
 # Send to all peers in ConnectedPeerList
 def send_to_all_peers(p_msg):
     logging.debug("Send to all peers in ConnectedPeerList")
-    for peer in peermgr.ConnectedPeerList:
+    for peer in peerproperty.nodeproperty.ConnectedPeerList:
+        # TODO: test - send_to_all_peers
         logging.debug("test-connectorpeerlist "+peer)
 
 

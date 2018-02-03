@@ -5,13 +5,13 @@
     },
     "PEER_MGR_LIST": [
         {
-            "ID": "gw_trustpeer_a",
-            "IP": "192.168.0.29",
+            "ID": "gw_trustpeer_b",
+            "IP": "192.168.0.13",
             "PORT": 9999
         },
         {
-            "ID": "gw_trustpeer_b"
-            "IP": "192.168.0.30",
+            "ID": "gw_trustpeer_a",
+            "IP": "192.168.0.29",
             "PORT": 9999
         }
     ]
