@@ -19,16 +19,9 @@ def main():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
     logging.debug('Start Logchain launcher for TrustPeer...')
 
-    logging.info('Start the blockchain initialization process...')
-    file_controller.remove_all_transactions()
-    file_controller.remove_all_blocks()
-    file_controller.remove_all_voting()
-    logging.info('Complete the blockchain initialization process...')
-
-    set_peer.init_myIP()
+    initialize()
 
     logging.info('Run threads for PeerMgr.')
-
     if not peermgr.start_peermgr():
         logging.info('Aborted because PeerMgr execution failed.')
         return
@@ -66,6 +59,15 @@ def main():
         dispatch_queue_list.Connected_socket_q
     )
     b_type_qt.start()
+
+
+def initialize():
+    logging.info('Start the blockchain initialization process...')
+    file_controller.remove_all_transactions()
+    file_controller.remove_all_blocks()
+    file_controller.remove_all_voting()
+    logging.info('Complete the blockchain initialization process...')
+    set_peer.init_myIP()
 
 
 if __name__ == '__main__':

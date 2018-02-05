@@ -1,7 +1,8 @@
-from service.blockmanager import block
+import logging
 import json
-from storage import file_controller
 import hashlib
+from service.blockmanager import block
+from storage import file_controller
 
 
 def genesisblock_generate():
@@ -27,12 +28,18 @@ def genesisblock_generate():
         genesisblock, indent=4, default=lambda o: o.__dict__, sort_keys=True)
     file_controller.create_new_block(
         str(block_header.block_number), json_genesisblock)
-    print('Genesisblock_create')
-    print(" -block hash: %s" %(block_header.block_hash))
-    print(" -block ID: %s" % (block_header.block_id))
-    print(" -block info: %s" % (block_header.block_info))
-    print(" -block transaction: %s" % (transaction))
-    print(" ")
+    logging.debug('Genesis block created now.')
+    logging.debug(" - block hash: "+ block_header.block_hash)
+    logging.debug(" - block ID: " + block_header.block_id)
+    logging.debug(" - block info: " + block_header.block_info)
+    logging.debug(" - block transaction: " + transaction)
+
+
+    # print(" -block hash: %s" %(block_header.block_hash))
+    # print(" -block ID: %s" % (block_header.block_id))
+    # print(" -block info: %s" % (block_header.block_info))
+    # print(" -block transaction: %s" % (transaction))
+    # print(" ")
 
 'Test Code'
 if __name__ == '__main__':

@@ -10,13 +10,15 @@ def init_myIP():
     logging.info("Set the peer's own IP address.")
     os = platform.system()
     if os == 'Linux':
-        logging.info("peer's os is Linux.")
+        logging.info("Peer's os is Linux.")
         # For raspberry pi, we use wlan,
         # so we need to figure out the IP address in a different way.
         nodeproperty.My_IP_address = file_controller.get_my_ip_rpi()
     elif os == 'Windows':
-        logging.info("peer's os is Windows.")
+        logging.info("Peer's os is Windows.")
         nodeproperty.My_IP_address = file_controller.get_my_ip()
+
+    logging.info("peer's IP: " + nodeproperty.My_IP_address)
 
 
 # deprecated function
