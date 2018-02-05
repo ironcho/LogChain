@@ -1,5 +1,5 @@
 import time, threading, queue, datetime
-
+import os
 from PyQt5 import QtWidgets
 from PyQt5 import uic
 from PyQt5 import QtCore
@@ -14,7 +14,7 @@ monitoring_queue = queue.Queue()
 class Form(QtWidgets.QDialog):
     def __init__(self, parent=None):
         QtWidgets.QDialog.__init__(self, parent)
-        self.ui = uic.loadUi("monitoring.ui")
+        self.ui = uic.loadUi("monitoring" + os.sep +"monitoring.ui")
         #self.ui.setWindowFlags(Qt.SplashScreen)                            윈도우 타이틀 없애기
 
         queue_thread = threading.Thread(target=self.read_queue)
