@@ -21,15 +21,17 @@ from monitoring import monitoring
 # TrustPeer acts as a peer like ordinary nodes
 # TrustPeer performs the role of PeerMgr in parallel.
 def main():
-    main_form = monitoring.Form()
+    monitoring.Main_form = monitoring.Form()
+
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
-    logmsg = "log." + "Start Logchain launcher for TrustPeer..."
-    main_form.add_queue_data(logmsg)
+    logging.info("Start Logchain launcher for TrustPeer...")
+    monitoring.Main_form.add_queue_data("log.Start Logchain launcher for TrustPeer...")
 
 
     initialize()
 
     logging.info('Run threads for PeerMgr.')
+    monitoring.Main_form.add_queue_data("log.Run threads for PeerMgr.")
     if not peermgr.start_peermgr():
         logging.info('Aborted because PeerMgr execution failed.')
         return
