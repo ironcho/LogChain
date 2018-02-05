@@ -1,5 +1,6 @@
 import logging
 import sys
+from PyQt5 import QtWidgets
 from peerproperty import nodeproperty
 from peerproperty import set_peer
 from storage import file_controller
@@ -10,13 +11,17 @@ from communication.msg_dispatch import t_type_queue_thread
 from communication.msg_dispatch import b_type_queue_thread
 from communication.msg_dispatch import v_type_queue_thread
 from communication.peermgr import peerconnector
+from monitoring import monitoring
 
 
 # Logchain launcher function for GenericPeer
 # GenericPeer performs the role of PeerConnector in parallel.
 def main():
-    logging.basicConfig(stream = sys.stderr, level = logging.DEBUG)
-    logging.debug('Start Logchain launcher for GenericPeer...')
+    monitoring.Main_form = monitoring.Form()
+
+    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+    logging.info("Start Logchain launcher for TrustPeer...")
+    monitoring.Main_form.add_queue_data("log.Start Logchain launcher for GenericPeer...")
 
     initialize()
 
@@ -71,4 +76,7 @@ def initialize():
 
 
 if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
     main()
+    sys.exit(app.exec())
+
