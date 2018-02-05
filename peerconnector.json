@@ -1,0 +1,18 @@
+{
+    "PEER_CONNECTOR": {
+        "ID": "gw1",
+        "PORT": 9998
+    },
+    "PEER_MGR_LIST": [
+        {
+            "ID": "gw_trustpeer_jskimpc",
+            "IP": "192.168.0.29",
+            "PORT": 9999
+        },
+        {
+            "ID": "gw_trustpeer_jskimhomepc",
+            "IP": "192.168.0.13",
+            "PORT": 9999
+        }
+    ]
+}
