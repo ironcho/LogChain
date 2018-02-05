@@ -77,6 +77,7 @@ class ConnectingToPeerMgrThread(threading.Thread):
     def run(self):
         join_msg = {'ID': peerconnector_ID}
         join_msg_json = json.dumps(join_msg)
+        logging.debug("Msg to connect to PeerMGr: " +join_msg_json)
         sender.send(self.peermgr_ip, join_msg_json, self.peermgr_port)
         logging.debug('An connection message was sent to PeerMgr.')
 
