@@ -13,12 +13,15 @@ from communication.msg_dispatch import t_type_queue_thread
 from communication.msg_dispatch import b_type_queue_thread
 from communication.msg_dispatch import v_type_queue_thread
 from communication.peermgr import peermgr
-
+from monitoring import monitoring
 
 # Logchain launcher function for TrustPeer
 # TrustPeer acts as a peer like ordinary nodes
 # TrustPeer performs the role of PeerMgr in parallel.
 def main():
+    monitoring_ui = monitoring.MonitoringUIThread()
+    monitoring_ui.start()
+
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
     logmsg = "log."+"Start Logchain launcher for TrustPeer..."
     monitoring.Main_form.add_queue_data(logmsg)
@@ -79,27 +82,9 @@ def initialize():
     set_peer.init_myIP()
 
 
-def monitoring_ui():
-    app = QtWidgets.QApplication(sys.argv)
-    monitoring.Main_form = monitoring.Form()
-
-    monitoring.Main_form.change_status_text("Server Status : NOMAL            13:22:09")
-
-    monitoring.Main_form.add_queue_data('block.Block1{add}')
-    monitoring.Main_form.add_queue_data('block.Block2{add}')
-    monitoring.Main_form.add_queue_data('block.Block3{add}')
-
-    monitoring.Main_form.add_queue_data('transaction.tx1{node1->node2}')
-    monitoring.Main_form.add_queue_data('transaction.tx2{node1->node2}')
-    monitoring.Main_form.add_queue_data('transaction.tx3{node1->node2}')
-
-    monitoring.Main_form.add_queue_data('log.start voting')
-    monitoring.Main_form.add_queue_data('log.end voting')
-    sys.exit(app.exec())
 
 
 if __name__ == '__main__':
-    monitoring.Main_form = monitoring.Form()
-    t1 = threading.Thread(target=monitoring_ui)
-    t1.start()
     main()
+
+
