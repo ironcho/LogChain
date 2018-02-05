@@ -11,6 +11,8 @@ from PyQt5.QtWidgets import QListWidgetItem
 
 monitoring_queue = queue.Queue()
 
+Main_form = None
+
 class Form(QtWidgets.QDialog):
     def __init__(self, parent=None):
         QtWidgets.QDialog.__init__(self, parent)

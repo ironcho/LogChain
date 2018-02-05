@@ -20,7 +20,11 @@ from communication.peermgr import peermgr
 # TrustPeer performs the role of PeerMgr in parallel.
 def main():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
-    logging.debug('Start Logchain launcher for TrustPeer...')
+    logmsg = "log."+"Start Logchain launcher for TrustPeer..."
+    monitoring.Main_form.add_queue_data(logmsg)
+    print(monitoring.Main_form)
+
+
 
     initialize()
 
@@ -77,25 +81,25 @@ def initialize():
 
 def monitoring_ui():
     app = QtWidgets.QApplication(sys.argv)
+    monitoring.Main_form = monitoring.Form()
 
-    main_form = monitoring.Form()
+    monitoring.Main_form.change_status_text("Server Status : NOMAL            13:22:09")
 
-    main_form.change_status_text("Server Status : NOMAL            13:22:09")
+    monitoring.Main_form.add_queue_data('block.Block1{add}')
+    monitoring.Main_form.add_queue_data('block.Block2{add}')
+    monitoring.Main_form.add_queue_data('block.Block3{add}')
 
-    main_form.add_queue_data('block.Block1{add}')
-    main_form.add_queue_data('block.Block2{add}')
-    main_form.add_queue_data('block.Block3{add}')
+    monitoring.Main_form.add_queue_data('transaction.tx1{node1->node2}')
+    monitoring.Main_form.add_queue_data('transaction.tx2{node1->node2}')
+    monitoring.Main_form.add_queue_data('transaction.tx3{node1->node2}')
 
-    main_form.add_queue_data('transaction.tx1{node1->node2}')
-    main_form.add_queue_data('transaction.tx2{node1->node2}')
-    main_form.add_queue_data('transaction.tx3{node1->node2}')
-
-    main_form.add_queue_data('log.start voting')
-    main_form.add_queue_data('log.end voting')
+    monitoring.Main_form.add_queue_data('log.start voting')
+    monitoring.Main_form.add_queue_data('log.end voting')
     sys.exit(app.exec())
 
 
 if __name__ == '__main__':
+    monitoring.Main_form = monitoring.Form()
     t1 = threading.Thread(target=monitoring_ui)
     t1.start()
     main()
