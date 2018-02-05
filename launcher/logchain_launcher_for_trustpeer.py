@@ -15,18 +15,16 @@ from communication.msg_dispatch import v_type_queue_thread
 from communication.peermgr import peermgr
 from monitoring import monitoring
 
+
+
 # Logchain launcher function for TrustPeer
 # TrustPeer acts as a peer like ordinary nodes
 # TrustPeer performs the role of PeerMgr in parallel.
 def main():
-    monitoring_ui = monitoring.MonitoringUIThread()
-    monitoring_ui.start()
-
+    main_form = monitoring.Form()
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
-    logmsg = "log."+"Start Logchain launcher for TrustPeer..."
-    monitoring.Main_form.add_queue_data(logmsg)
-    print(monitoring.Main_form)
-
+    logmsg = "log." + "Start Logchain launcher for TrustPeer..."
+    main_form.add_queue_data(logmsg)
 
 
     initialize()
@@ -85,6 +83,9 @@ def initialize():
 
 
 if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
     main()
+    sys.exit(app.exec())
+
 
 

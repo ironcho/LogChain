@@ -14,6 +14,38 @@ monitoring_queue = queue.Queue()
 
 Main_form = None
 
+class MonitoringUIThread(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.Main_form = None
+
+
+    def run(self):
+        self.monitoring_ui()
+
+
+    def monitoring_ui(self):
+        app = QtWidgets.QApplication(sys.argv)
+        global Main_form
+
+        Main_form = Form()
+
+        Main_form.change_status_text("Server Status : NOMAL            13:22:09")
+
+        Main_form.add_queue_data('block.Block1{add}')
+        Main_form.add_queue_data('block.Block2{add}')
+        Main_form.add_queue_data('block.Block3{add}')
+
+        Main_form.add_queue_data('transaction.tx1{node1->node2}')
+        Main_form.add_queue_data('transaction.tx2{node1->node2}')
+        Main_form.add_queue_data('transaction.tx3{node1->node2}')
+
+        Main_form.add_queue_data('log.start voting')
+        Main_form.add_queue_data('log.end voting')
+        sys.exit(app.exec())
+
+
+
 class Form(QtWidgets.QDialog):
     def __init__(self, parent=None):
         QtWidgets.QDialog.__init__(self, parent)
@@ -87,30 +119,4 @@ class Form(QtWidgets.QDialog):
                     self.add_transaction_item(data[1])
                     self.change_frame_color(241, 196, 15)
             time.sleep(1)
-
-
-class MonitoringUIThread(threading.Thread):
-    def __init__(self):
-        threading.Thread.__init__(self)
-
-    def run(self):
-        self.monitoring_ui()
-
-    def monitoring_ui(self):
-        app = QtWidgets.QApplication(sys.argv)
-        Main_form = Form()
-
-        Main_form.change_status_text("Server Status : NOMAL            13:22:09")
-
-        Main_form.add_queue_data('block.Block1{add}')
-        Main_form.add_queue_data('block.Block2{add}')
-        Main_form.add_queue_data('block.Block3{add}')
-
-        Main_form.add_queue_data('transaction.tx1{node1->node2}')
-        Main_form.add_queue_data('transaction.tx2{node1->node2}')
-        Main_form.add_queue_data('transaction.tx3{node1->node2}')
-
-        Main_form.add_queue_data('log.start voting')
-        Main_form.add_queue_data('log.end voting')
-        sys.exit(app.exec())
 
