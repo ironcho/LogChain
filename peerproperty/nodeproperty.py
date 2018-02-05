@@ -4,6 +4,7 @@ My_IP_address = None
 My_peer_num = 0
 My_receiver_port = 10654
 Total_peer_num = 4
+PeerConnector_Port = 0
 
 
 # Api_peer = "192.168.0.29"  # "163.239.200.182"

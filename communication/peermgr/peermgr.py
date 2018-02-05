@@ -28,12 +28,13 @@ connectedPeer_IP_q = Queue()
 
 # Add PeerMgr information to ConnectedPeerList by default.
 nodeproperty.ConnectedPeerList = [[peermgr_ID, peermgr_IP]]
+nodeproperty.PeerConnector_Port = peermgr_config['PEER_CONNECTOR_PORT']
+
 
 def start_peermgr() -> bool:
     if nodeproperty.My_IP_address != peermgr_IP :
         logging.debug('Only a node with a predefined IP can run PeerMgr.')
         return False
-
 
     logging.debug('Start listening thread to wait for connection of PeerConnector.')
     listening_to_peerconnector_thr = ListeningToPeerConnectorThread(
@@ -44,7 +45,6 @@ def start_peermgr() -> bool:
     listening_to_peerconnector_thr.start()
     logging.debug('The listening thread is started to wait for the connection of PeerConnector.')
 
-
     logging.debug('Start a thread to manage ConnectedPeerList.')
     managing_peertable_thr = ManagingConnectedPeerListThread(
         1, "ManagingConnectedPeerListThread",
@@ -53,7 +53,6 @@ def start_peermgr() -> bool:
     )
     managing_peertable_thr.start()
     logging.debug('The thread to manage the ConnectedPeerList has started.')
-
 
     return True
 
@@ -140,7 +139,7 @@ class ManagingConnectedPeerListThread(threading.Thread):
                 request_sock.close()
                 connected_peer_list_json = json.dumps(
                     nodeproperty.ConnectedPeerList, indent=4, default=lambda o: o.__dict__, sort_keys=True)
-                sender.send_to_all_peers(connected_peer_list_json)
+                sender.send_to_all_peers(connected_peer_list_json,nodeproperty.PeerConnector_Port)
                 set_peer.set_my_peer_num()
                 set_peer.set_total_peer_num()
 

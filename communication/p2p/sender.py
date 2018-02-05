@@ -86,10 +86,13 @@ def send_to_all(p_msg):
 
 
 # Send to all peers in ConnectedPeerList
-def send_to_all_peers(p_msg):
+def send_to_all_peers(p_msg, p_port):
     logging.debug("Send to all peers in ConnectedPeerList")
     for peer in peerproperty.nodeproperty.ConnectedPeerList:
-        # TODO: test - send_to_all_peers
+        try:
+            send(peer[1],p_msg, p_port)
+        except Exception as e:
+            print(e)
         logging.debug("test-connectorpeerlist "+peer)
 
 
