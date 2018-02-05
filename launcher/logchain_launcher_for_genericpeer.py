@@ -18,16 +18,9 @@ def main():
     logging.basicConfig(stream = sys.stderr, level = logging.DEBUG)
     logging.debug('Start Logchain launcher for GenericPeer...')
 
-    logging.info('Start the blockchain-related initialization process...')
-    file_controller.remove_all_transactions()
-    file_controller.remove_all_blocks()
-    file_controller.remove_all_voting()
-    logging.info('Complete the initialization process...')
-
-    set_peer.init_myIP()
+    initialize()
 
     logging.info('Run processes for PeerConnector.')
-
     if not peerconnector.start_peerconnector():
         logging.info('Aborted because PeerConnector execution failed.')
         return
@@ -67,6 +60,14 @@ def main():
     )
     b_type_qt.start()
 
+
+def initialize():
+    logging.info('Start the blockchain initialization process...')
+    file_controller.remove_all_transactions()
+    file_controller.remove_all_blocks()
+    file_controller.remove_all_voting()
+    logging.info('Complete the blockchain initialization process...')
+    set_peer.init_myIP()
 
 
 if __name__ == '__main__':
