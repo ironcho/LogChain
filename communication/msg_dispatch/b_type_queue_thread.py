@@ -22,7 +22,7 @@ class BlockTypeQueueThread(threading.Thread):
 
 def receive_event(p_thrd_name, p_inq, p_socketq):
     while True:
-        print("waiting for b type msg")
+        logging.debug("Waiting for B type msg")
         recv_data = p_inq.get()
         request_sock = p_socketq.get()
 

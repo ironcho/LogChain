@@ -24,19 +24,16 @@ class TransactionTypeQueueThread(threading.Thread):
 def receive_event(p_thrd_name, p_inq, p_socketq):
     transaction_count = 0
     while True:
-        print("waiting for t type msg")
+        logging.debug("Waiting for T type msg.")
         recv_data = p_inq.get()
         request_sock = p_socketq.get()
 
-        print("  ")
-        print("Transaction received")
-        print("  ")
+        logging.debug("Transaction received")
         transaction_count = transaction_count + 1
         # print(transaction_count)
 
         file_controller.add_transaction(recv_data)
-        print("transaction added to mempool : ", recv_data)
-        print("  ")
+        logging.debug("Transaction added to mempool: "+ recv_data)
 
         # transaction_count = len(file_controller.get_transaction_list())
         # print(transaction_count)
@@ -49,15 +46,14 @@ def receive_event(p_thrd_name, p_inq, p_socketq):
             merkle = merkle_tree.MerkleTree()
             transaction.Merkle_root = merkle.get_merkle(
                 transaction.Transactions)
-            print("Transaction list Merkle _root : ", transaction.Merkle_root)
-            print(" ")
-            'blind voting'
+            logging.debug("Transaction list Merkle _root: "+ transaction.Merkle_root)
 
-            print("Start blind voting")
+
+            'blind voting'
+            logging.debug("Start blind voting")
             voting.blind_voting(transaction.Merkle_root)
-            print("  ")
-            print("End voting")
-            print("  ")
+            logging.debug("End voting")
+
 
             '''
             time.sleep(5)

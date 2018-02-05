@@ -59,7 +59,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
     transaction_count = 0
     num_block = 0
     while True:
-        print("waiting for connection ")
+        logging.debug("Waiting for connection...")
         request_sock, request_ip = tcp_socket.accept()
 
         while True:
@@ -75,9 +75,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 temp += i.decode('utf-8')
 
             recv_data = temp
-            print("recv data: ")
-            # print(recv_data)
-            print("  ")
+            logging.debug("Rcvd data: "+recv_data)
 
             if recv_data == "":
                 break
@@ -175,7 +173,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                         dispatch_queue_list.Connected_socket_q.put(
                             request_sock)
 
-                        print("Voting received:", recv_data)
+                        logging.debug("Voting received: " + recv_data)
 
                         # block verification thread
                         # num_block = num_block + 1
@@ -201,7 +199,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
                 try:
                     if Data_jobj['block_header']['type'] is 'B':
-                        print("Block received")
+                        logging.debug("Block received.")
                         # block verification thread
                         dispatch_queue_list.B_type_q.put(recv_data)
                         dispatch_queue_list.Connected_socket_q.put(
