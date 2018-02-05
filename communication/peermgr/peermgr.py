@@ -83,6 +83,7 @@ class ListeningToPeerConnectorThread(threading.Thread):
             logging.debug('Wait for PeerConnector to connect.')
             request_sock, request_ip = tcp_socket.accept()
             logging.debug('PeerConnector connected.')
+            logging.debug("PeerConnector IP: "+request_ip[0])
 
             while True:
                 rcvd_total = []
@@ -101,7 +102,7 @@ class ListeningToPeerConnectorThread(threading.Thread):
                 try:
                     self.rcvddata_q.put(rcvd_data)
                     self.socket_q.put(request_sock)
-                    self.socketip_q.put(request_ip)
+                    self.socketip_q.put(request_ip[0])
                     break
                 except Exception as e:
                     logging.debug(e)
@@ -131,6 +132,7 @@ class ManagingConnectedPeerListThread(threading.Thread):
             rcvd_data_json = json.loads(rcvd_data)
             peerid = rcvd_data_json['ID']
             logging.debug("The ID of ConnectedPeer: " + peerid)
+            logging.debug("The IP of ConnectedPeer: " + socketip)
 
             if peerid in self.peer_list:
                 logging.debug("Add new peer's IP to ConnectedPeerList.")
