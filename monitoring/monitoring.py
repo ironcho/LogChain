@@ -14,7 +14,6 @@ monitoring_queue = queue.Queue()
 
 Main_form = None
 
-
 class Form(QtWidgets.QDialog):
     def __init__(self, parent=None):
         QtWidgets.QDialog.__init__(self, parent)
@@ -71,11 +70,13 @@ class Form(QtWidgets.QDialog):
         monitoring_queue.put(data)
 
     def read_queue(self):
+        time.sleep(1.5)
         while True:
             self.change_status_text('Server Status : NOMAL            ' + time.strftime('%H:' + '%M:' + '%S'))
-            if(monitoring_queue.qsize() > 0):
+
+            if monitoring_queue.qsize() > 0:
                 datas = monitoring_queue.get()
-                
+
                 data = datas.split('.')
 
                 if data[0] == 'log':
@@ -87,5 +88,3 @@ class Form(QtWidgets.QDialog):
                 elif data[0] == 'transaction':
                     self.add_transaction_item(data[1])
                     self.change_frame_color(241, 196, 15)
-            # time.sleep(1)
-

@@ -42,7 +42,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">background-color:rgb(44, 132, 238)</string>
    </property>
   </widget>
   <widget class="QListWidget" name="listWidget">
@@ -159,7 +159,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">background-color:rgb(44, 132, 238)</string>
    </property>
   </widget>
   <widget class="QWidget" name="widget_3" native="true">
@@ -172,7 +172,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">background-color:rgb(44, 132, 238)</string>
    </property>
   </widget>
   <widget class="QWidget" name="widget_4" native="true">
@@ -185,7 +185,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">background-color:rgb(44, 132, 238)</string>
    </property>
   </widget>
   <widget class="QWidget" name="widget_5" native="true">
@@ -198,7 +198,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">background-color:rgb(44, 132, 238)</string>
    </property>
    <widget class="QLabel" name="label_7">
     <property name="geometry">
@@ -253,22 +253,6 @@
    </property>
    <property name="text">
     <string>Transactions </string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>520</x>
-     <y>20</y>
-     <width>121</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color:white;</string>
-   </property>
-   <property name="text">
-    <string>test_button</string>
    </property>
   </widget>
  </widget>

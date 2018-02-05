@@ -14,6 +14,7 @@ from communication.msg_dispatch import b_type_queue_thread
 from communication.msg_dispatch import v_type_queue_thread
 
 from communication.msg_dispatch import dispatch_queue_list
+from monitoring import monitoring
 
 Data_jobj = None
 
@@ -60,6 +61,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
     num_block = 0
     while True:
         logging.debug("Waiting for connection...")
+        monitoring.Main_form.add_queue_data("log.Waiting for connection...")
         request_sock, request_ip = tcp_socket.accept()
 
         while True:

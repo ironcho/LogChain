@@ -1,7 +1,7 @@
 {
     "PEER_MGR": {
-        "ID": "gw_trustpeer_jskimpc",
-        "IP": "192.168.0.29",
+        "ID": "gw_trustpeer",
+        "IP": "163.239.200.194",
         "PORT": 9999
     },
     "PEER_CONNECTOR_PORT": 9998,
