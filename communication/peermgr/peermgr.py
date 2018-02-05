@@ -139,7 +139,8 @@ class ManagingConnectedPeerListThread(threading.Thread):
                 request_sock.close()
                 connected_peer_list_json = json.dumps(
                     nodeproperty.ConnectedPeerList, indent=4, default=lambda o: o.__dict__, sort_keys=True)
-                sender.send_to_all_peers(connected_peer_list_json,nodeproperty.PeerConnector_Port)
+                logging.debug("Updated ConnectedPeerList(json format): "+connected_peer_list_json)
+                sender.send_to_all_peers(connected_peer_list_json, nodeproperty.PeerConnector_Port)
                 set_peer.set_my_peer_num()
                 set_peer.set_total_peer_num()
 

@@ -93,7 +93,8 @@ def send_to_all_peers(p_msg, p_port):
             send(peer[1],p_msg, p_port)
         except Exception as e:
             print(e)
-        logging.debug("test-connectorpeerlist "+peer)
+        logging.debug("test-connectorpeerlist "+ peer[0])
+        logging.debug("test-connectorpeerlist " + peer[1])
 
 
 
