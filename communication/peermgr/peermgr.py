@@ -76,10 +76,10 @@ class ListeningToPeerConnectorThread(threading.Thread):
     def run(self):
         addr = (self.listening_ip, self.listening_port)
         buf_size = 100
-
         tcp_socket = socket(AF_INET, SOCK_STREAM)
         tcp_socket.bind(addr)
         tcp_socket.listen(5)
+
         while True:
             logging.debug('Wait for PeerConnector to connect.')
             request_sock, request_ip = tcp_socket.accept()
