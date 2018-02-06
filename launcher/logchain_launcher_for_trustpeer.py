@@ -27,6 +27,9 @@ def main():
     logging.info("Start Logchain launcher for TrustPeer...")
     monitoring.Main_form.add_queue_data("log.Start Logchain launcher for TrustPeer...")
 
+    # node add test
+    monitoring.Main_form.add_node('test_node', '192.168.0.1', 'node.png')
+
     initialize()
 
     logging.info('Run threads for PeerMgr.')

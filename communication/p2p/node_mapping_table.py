@@ -4,7 +4,7 @@ import json
 import socket
 from peerproperty import nodeproperty
 from storage import file_controller
-
+from monitoring import monitoring
 
 class Table:
     count = 0
@@ -39,6 +39,8 @@ class Table:
 
         print("  ")
         print("==================================")
+        # 여긴 로그로 보여주는 것이 아니라 노드 리스트에 목록을 추가해야함
+
         print('Number of linked node %d' % (num))
 
         print('index         self_node              linked_node             state')

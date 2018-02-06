@@ -10,6 +10,8 @@ from peerproperty import nodeproperty
 # port num이나 이런 것들은 추후에 계속 정해야 한다. 현재는 같은 네트워크 망 안에서 있을 때만 통신이 가능..
 from communication.peermgr import peermgr
 
+from monitoring import monitoring
+
 import json
 
 
@@ -60,15 +62,20 @@ def send(p_ip, p_msg, p_port, *args):
     receiver_addr = (p_ip, p_port)
     tcp_socket = socket(AF_INET, SOCK_STREAM)
     print("receiver addr =" + str(p_ip) + " , " + str(p_port))
+    monitoring.Main_form.add_queue_data("log." + "receiver addr =" + str(p_ip) + " , " + str(p_port))
+
     print(" ")
     try:
         tcp_socket.connect(receiver_addr)
         print("connected........")
+        monitoring.Main_form.add_queue_data("log." + "connected........")
         print(" ")
         tcp_socket.settimeout(2)
         print(p_msg)
+        monitoring.Main_form.add_queue_data("log." + p_msg)
         tcp_socket.send(p_msg.encode('utf-8'))
         print("end send")
+        monitoring.Main_form.add_queue_data("log.end send")
         print(" ")
     except Exception as e:
         print(e)
@@ -76,6 +83,7 @@ def send(p_ip, p_msg, p_port, *args):
     tcp_socket.close()
 
     print("Sending complete")
+    monitoring.Main_form.add_queue_data("log.Sending complete")
 
 
 def send_to_all(p_msg):
@@ -88,13 +96,16 @@ def send_to_all(p_msg):
 # Send to all peers in ConnectedPeerList
 def send_to_all_peers(p_msg, p_port):
     logging.debug("Send to all peers in ConnectedPeerList")
+    monitoring.Main_form.add_queue_data("log.Send to all peers in ConnectedPeerList")
     for peer in peerproperty.nodeproperty.ConnectedPeerList:
         try:
             send(peer[1],p_msg, p_port)
         except Exception as e:
             print(e)
         logging.debug("test-connectorpeerlist "+ peer[0])
+        monitoring.Main_form.add_queue_data("log." + "test-connectorpeerlist" + peer[0])
         logging.debug("test-connectorpeerlist " + peer[1])
+        monitoring.Main_form.add_queue_data("log." + "test-connectorpeerlist" + peer[1])
 
 
 
@@ -107,3 +118,4 @@ def send_to_all_node(message, my_ip, my_port):
         except Exception as e:
             print(e)
     print('send block')
+    monitoring.Main_form.add_queue_data("log." + "send block")

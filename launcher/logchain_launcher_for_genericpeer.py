@@ -25,7 +25,12 @@ def main():
 
     initialize()
 
+    # node add test
+    monitoring.Main_form.add_node('test_node', '192.168.0.1', 'node.png')
+
     logging.info('Run processes for PeerConnector.')
+    monitoring.Main_form.add_queue_data("log.Run processes for PeerConnector.")
+
     if not peerconnector.start_peerconnector():
         logging.info('Aborted because PeerConnector execution failed.')
         return

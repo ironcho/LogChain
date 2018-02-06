@@ -59,10 +59,16 @@ def receive_data(p_thrd_name, p_ip, p_port):
     tcp_socket.listen(5)
     transaction_count = 0
     num_block = 0
+    count = 1
     while True:
         logging.debug("Waiting for connection...")
         monitoring.Main_form.add_queue_data("log.Waiting for connection...")
         request_sock, request_ip = tcp_socket.accept()
+
+        # Node Add
+
+        monitoring.Main_form.add_node('Node' + count, request_ip, ',''node.png')
+        count = count + 1
 
         while True:
             rcvd_total = []
@@ -78,6 +84,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
 
             recv_data = temp
             logging.debug("Rcvd data: "+recv_data)
+            monitoring.Main_form.add_queue_data("log.Rcvd data: " + recv_data)
 
             if recv_data == "":
                 break
@@ -86,9 +93,11 @@ def receive_data(p_thrd_name, p_ip, p_port):
             if recv_data == "new node":
                 if str(request_ip[0]) in nodeproperty.my_node.linked_node:
                     print("already connected")
+                    monitoring.Main_form.add_queue_data("log.already connected")
                     break
                 else:
                     print("new node connection received")
+                    monitoring.Main_form.add_queue_data("log.new node connection received")
                     nodeproperty.my_node.table_add(
                         str(request_ip[0]), 'stable')
                     # Property.my_node.print_table()
@@ -176,6 +185,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                             request_sock)
 
                         logging.debug("Voting received: " + recv_data)
+                        monitoring.Main_form.add_queue_data("log." + "Voting received: " + recv_data)
 
                         # block verification thread
                         # num_block = num_block + 1
@@ -202,6 +212,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 try:
                     if Data_jobj['block_header']['type'] is 'B':
                         logging.debug("Block received.")
+                        monitoring.Main_form.add_queue_data("log." + "Block received.")
                         # block verification thread
                         dispatch_queue_list.B_type_q.put(recv_data)
                         dispatch_queue_list.Connected_socket_q.put(

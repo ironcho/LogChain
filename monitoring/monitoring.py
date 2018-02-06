@@ -1,14 +1,14 @@
-import time, threading, queue, datetime
+import time
+import threading
+import queue
 import os
-import sys
+
 from PyQt5 import QtWidgets
 from PyQt5 import uic
-from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QColor
-from PyQt5.QtGui import QPalette
-from PyQt5.QtGui import QPaintEvent
 from PyQt5.QtWidgets import QListWidgetItem
+
+from monitoring.node_widget import NodeWidget
 
 monitoring_queue = queue.Queue()
 
@@ -17,14 +17,35 @@ Main_form = None
 class Form(QtWidgets.QDialog):
     def __init__(self, parent=None):
         QtWidgets.QDialog.__init__(self, parent)
-        self.ui = uic.loadUi("monitoring" + os.sep +"monitoring.ui")
-        #self.ui.setWindowFlags(Qt.SplashScreen)                            윈도우 타이틀 없애기
+        self.ui = uic.loadUi("monitoring" + os.sep + "monitoring.ui")
+
+        self.ui.setWindowFlags(Qt.SplashScreen)                          # 윈도우 타이틀 없애기
 
         queue_thread = threading.Thread(target=self.read_queue)
         queue_thread.daemon = True
         queue_thread.start()
 
         self.ui.show()
+
+    def add_node(self, title, subtitle, icon):
+        # Create QCustomQWidget
+        myQCustomQWidget = NodeWidget()
+        myQCustomQWidget.setTextUp(title)
+        myQCustomQWidget.setTextDown(subtitle)
+        myQCustomQWidget.setIcon(icon)
+
+        # Create QListWidgetItem
+        myQListWidgetItem = QListWidgetItem(self.ui.listWidget_4)
+
+        # Set size hint
+        myQListWidgetItem.setSizeHint(myQCustomQWidget.sizeHint())
+
+        # Add QListWidgetItem into QListWidget
+        self.ui.listWidget_4.addItem(myQListWidgetItem)
+        self.ui.listWidget_4.setItemWidget(myQListWidgetItem, myQCustomQWidget)
+
+    def remove_node(self, index):
+        self.ui.listWidget_4.removeItemWidget(self.ui.listWidget_4.takeItem(index))
 
     def change_status_text(self, message):
         self.ui.label_7.setText(""+message)
