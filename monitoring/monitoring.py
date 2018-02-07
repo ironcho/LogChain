@@ -63,7 +63,7 @@ class Form(QtWidgets.QDialog):
         self.ui.listWidget_2.addItem(item)
 
     def change_frame_color(self, r, g, b):
-        stylesheet = "background-color: rgb({0}, {1}, {2})".format(r,g,b)
+        stylesheet = "background-color: rgb({0}, {1}, {2})".format(r, g, b)
         widget_list = [self.ui.widget,self.ui.widget_2,self.ui.widget_3,self.ui.widget_4,self.ui.widget_5]
         
         for widget in widget_list:

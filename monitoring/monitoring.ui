@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>650</width>
-    <height>450</height>
+    <width>1920</width>
+    <height>1080</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -37,7 +37,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>661</width>
+     <width>1921</width>
      <height>5</height>
     </rect>
    </property>
@@ -49,9 +49,9 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>170</y>
-     <width>241</width>
-     <height>261</height>
+     <y>430</y>
+     <width>771</width>
+     <height>631</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -61,10 +61,10 @@
   <widget class="QListWidget" name="listWidget_2">
    <property name="geometry">
     <rect>
-     <x>460</x>
-     <y>170</y>
-     <width>181</width>
-     <height>231</height>
+     <x>1540</x>
+     <y>430</y>
+     <width>361</width>
+     <height>591</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -74,10 +74,10 @@
   <widget class="QListWidget" name="listWidget_3">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>170</y>
-     <width>181</width>
-     <height>231</height>
+     <x>1170</x>
+     <y>430</y>
+     <width>361</width>
+     <height>591</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -88,9 +88,9 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>90</y>
-     <width>611</width>
-     <height>51</height>
+     <y>180</y>
+     <width>1881</width>
+     <height>171</height>
     </rect>
    </property>
    <property name="viewMode">
@@ -101,10 +101,16 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>70</y>
-     <width>56</width>
-     <height>12</height>
+     <y>151</y>
+     <width>211</width>
+     <height>21</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>18</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">color:white;</string>
@@ -117,10 +123,16 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>150</y>
-     <width>121</width>
-     <height>16</height>
+     <y>390</y>
+     <width>221</width>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>18</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">color:white;</string>
@@ -133,15 +145,15 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>10</y>
+     <y>20</y>
      <width>621</width>
-     <height>51</height>
+     <height>111</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>함초롬바탕 확장</family>
-     <pointsize>14</pointsize>
+     <pointsize>36</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -158,7 +170,7 @@
      <x>0</x>
      <y>0</y>
      <width>5</width>
-     <height>451</height>
+     <height>1080</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -168,10 +180,10 @@
   <widget class="QWidget" name="widget_3" native="true">
    <property name="geometry">
     <rect>
-     <x>645</x>
+     <x>1915</x>
      <y>0</y>
      <width>5</width>
-     <height>451</height>
+     <height>1080</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -181,9 +193,9 @@
   <widget class="QWidget" name="widget_4" native="true">
    <property name="geometry">
     <rect>
-     <x>-10</x>
-     <y>445</y>
-     <width>661</width>
+     <x>0</x>
+     <y>1075</y>
+     <width>1920</width>
      <height>5</height>
     </rect>
    </property>
@@ -194,9 +206,9 @@
   <widget class="QWidget" name="widget_5" native="true">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>410</y>
-     <width>381</width>
+     <x>800</x>
+     <y>1040</y>
+     <width>1121</width>
      <height>41</height>
     </rect>
    </property>
@@ -208,7 +220,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>361</width>
+      <width>941</width>
       <height>21</height>
      </rect>
     </property>
@@ -222,18 +234,24 @@
      <string notr="true">color:white;</string>
     </property>
     <property name="text">
-     <string>Server Status : GOOD              14:22:39</string>
+     <string>0</string>
     </property>
    </widget>
   </widget>
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>150</y>
+     <x>1170</x>
+     <y>390</y>
      <width>121</width>
-     <height>16</height>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>18</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">color:white;</string>
@@ -245,17 +263,58 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>460</x>
-     <y>150</y>
-     <width>121</width>
-     <height>16</height>
+     <x>1540</x>
+     <y>390</y>
+     <width>161</width>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>18</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">color:white;</string>
    </property>
    <property name="text">
     <string>Transactions </string>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="listWidget_5">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>430</y>
+     <width>361</width>
+     <height>591</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:white;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>390</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>18</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:white;</string>
+   </property>
+   <property name="text">
+    <string>Voting</string>
    </property>
   </widget>
  </widget>

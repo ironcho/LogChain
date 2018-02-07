@@ -1,13 +1,11 @@
 import os
 
 from PyQt5.QtWidgets import *
-from PyQt5 import QtGui
+from PyQt5.QtGui import QIcon, QPixmap
 
 class NodeWidget (QWidget):
     def __init__ (self, parent = None):
         super(NodeWidget, self).__init__(parent)
-
-        self.horizontalGroupBox = QGroupBox("Node Lists")
 
         self.textQVBoxLayout = QVBoxLayout(self)
         self.textUpQLabel    = QLabel()
@@ -15,12 +13,15 @@ class NodeWidget (QWidget):
         self.textQVBoxLayout.addWidget(self.textUpQLabel)
         self.textQVBoxLayout.addWidget(self.textDownQLabel)
 
-        self.allQHBoxLayout  = QHBoxLayout()
-        self.iconQLabel = QLabel()
+        self.allQHBoxLayout  = QVBoxLayout(self)
+        self.iconQLabel = QLabel(self)
+        self.iconQLabel.setScaledContents(True)
+        self.iconQLabel.resize(24, 24)
+
         self.allQHBoxLayout.addWidget(self.iconQLabel, 0)
         self.allQHBoxLayout.addLayout(self.textQVBoxLayout, 1)
 
-        self.horizontalGroupBox.setLayout(self.allQHBoxLayout)
+        self.setLayout(self.allQHBoxLayout)
 
         # setStyleSheet
         self.textUpQLabel.setStyleSheet('''
@@ -37,6 +38,8 @@ class NodeWidget (QWidget):
         self.textDownQLabel.setText(text)
 
     def setIcon (self, imagePath):
-        scriptDir = os.path.dirname(os.path.realpath(__file__))
-        print(scriptDir + os.path.sep + imagePath)
-        self.iconQLabel.setPixmap(QtGui.QPixmap(scriptDir + os.path.sep + imagePath))
+        pixmap = QPixmap(imagePath)
+        self.iconQLabel.setPixmap(pixmap)
+        # scriptDir = os.path.dirname(os.path.realpath(__file__))
+        # print(scriptDir + os.path.sep + imagePath)
+        # self.iconQLabel.setPixmap(QPixmap(scriptDir + os.path.sep + imagePath))

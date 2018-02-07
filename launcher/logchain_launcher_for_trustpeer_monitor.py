@@ -28,7 +28,11 @@ def main():
     monitoring.Main_form.add_queue_data("log.Start Logchain launcher for TrustPeer...")
 
     # node add test
-    monitoring.Main_form.add_node('test_node', '192.168.0.1', 'node.png')
+    monitoring.Main_form.add_node('생산자 노드', '192.168.0.1', 'node.png')
+    monitoring.Main_form.add_node('가공자 노드', '192.168.0.2', 'node.png')
+    monitoring.Main_form.add_node('배송 노드', '192.168.0.3', 'node.png')
+    monitoring.Main_form.add_node('배송2 노드', '192.168.0.4', 'node.png')
+    monitoring.Main_form.add_node('판매자 노드', '192.168.0.5', 'node.png')
 
     initialize()
 
