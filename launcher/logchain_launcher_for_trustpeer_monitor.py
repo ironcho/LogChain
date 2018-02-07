@@ -21,7 +21,10 @@ from monitoring import monitoring
 # TrustPeer acts as a peer like ordinary nodes
 # TrustPeer performs the role of PeerMgr in parallel.
 def main():
+
+    monitoring.showloginfo('1234')
     monitoring.Main_form = monitoring.Form()
+    monitoring.showloginfo('log.1234')
 
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
     logging.info("Start Logchain launcher for TrustPeer...")

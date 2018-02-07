@@ -2,6 +2,7 @@ import time
 import threading
 import queue
 import os
+import logging
 
 from PyQt5 import QtWidgets
 from PyQt5 import uic
@@ -13,6 +14,13 @@ from monitoring.node_widget import NodeWidget
 monitoring_queue = queue.Queue()
 
 Main_form = None
+
+def showloginfo(data):
+    if Main_form==None:
+        print(data)
+        logging.debug(data)
+    else:
+        Main_form.add_queue_data(data)
 
 class Form(QtWidgets.QDialog):
     def __init__(self, parent=None):
