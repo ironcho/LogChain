@@ -43,3 +43,7 @@ logchain/storage/transaction_db/.cache/v/cache/lastfailed
 _BlockStorage/1
 _BlockStorage/2
 _DataStorage/Transactions.txt
+peermgr.json
+peermgr.json
+peerconnector.json
+peerconnector.json

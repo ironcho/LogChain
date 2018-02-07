@@ -17,9 +17,11 @@ from monitoring import monitoring
 # Logchain launcher function for GenericPeer
 # GenericPeer performs the role of PeerConnector in parallel.
 def main():
+    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+
+    # UI form to show the execution log of logchain
     monitoring.Main_form = monitoring.Form()
 
-    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
     logging.info("Start Logchain launcher for TrustPeer...")
     monitoring.Main_form.add_queue_data("log.Start Logchain launcher for GenericPeer...")
 
@@ -84,4 +86,13 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     main()
     sys.exit(app.exec())
+
+
+
+
+    Dialog = QtWidgets.QDialog()
+    ui = Ui_Dialog()
+    ui.setupUi(Dialog)
+    Dialog.show()
+    sys.exit(app.exec_())
 

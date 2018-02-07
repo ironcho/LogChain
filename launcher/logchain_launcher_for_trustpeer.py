@@ -13,7 +13,7 @@ from communication.msg_dispatch import t_type_queue_thread
 from communication.msg_dispatch import b_type_queue_thread
 from communication.msg_dispatch import v_type_queue_thread
 from communication.peermgr import peermgr
-from monitoring import monitoring
+
 
 
 
@@ -21,14 +21,9 @@ from monitoring import monitoring
 # TrustPeer acts as a peer like ordinary nodes
 # TrustPeer performs the role of PeerMgr in parallel.
 def main():
-    monitoring.Main_form = monitoring.Form()
-
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
     logging.info("Start Logchain launcher for TrustPeer...")
-    monitoring.Main_form.add_queue_data("log.Start Logchain launcher for TrustPeer...")
 
-    # node add test
-    monitoring.Main_form.add_node('test_node', '192.168.0.1', 'node.png')
 
     initialize()
 
@@ -85,9 +80,7 @@ def initialize():
     set_peer.init_myIP()
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
     main()
-    sys.exit(app.exec())
 
 
 
