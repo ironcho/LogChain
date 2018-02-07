@@ -1,11 +1,15 @@
 {
     "PEER_MGR": {
-        "ID": "gw_trustpeer",
-        "IP": "163.239.200.194",
+        "ID": "pc1_trustpeer_producer",
+        "IP": "192.168.0.29",
         "PORT": 9999
     },
-    "PEER_CONNECTOR_PORT": 9998,
+    "PEER_CONNECTOR_PORT": 8888,
     "PEER_LIST": [
-        "gw1","gw2","gw3","gw4"
+        "gw1_genericpeer_processor_a",
+        "gw2_genericpeer_processor_b",
+        "gw3_genericpeer_transporter_a",
+        "gw4_genericpeer_transporter_b",
+        "gw5_genericpeer_warehouse_a"
     ]
 }
