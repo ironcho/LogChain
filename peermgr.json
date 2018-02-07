@@ -10,6 +10,6 @@
         "gw2_genericpeer_processor_b",
         "gw3_genericpeer_transporter_a",
         "gw4_genericpeer_transporter_b",
-        "gw5_genericpeer_warehouse_a"
+        "gw7_genericpeer_warehouse_a"
     ]
 }
