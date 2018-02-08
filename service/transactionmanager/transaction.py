@@ -21,7 +21,7 @@ class Transaction(object):
         self.type = 'T'
         self.timestamp = time.strftime('%Y%m%d%H%M%S', time.localtime())
         self.tx_id = "B" + self.timestamp
-        self.extra_data = self.extra_data = p_extra
+        self.extra_data = p_extra
         # self.transaction_count = transaction_count
         # self.message = ''
         # self.pub_key = ''
