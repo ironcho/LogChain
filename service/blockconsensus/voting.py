@@ -8,6 +8,8 @@ from communication.p2p import sender
 from communication.peermgr import peermgr
 from monitoring import monitoring
 
+TransactionCountForConsensus = 5
+
 
 def blind_voting(merkle_root):
 

@@ -37,7 +37,7 @@ def receive_event(p_thrd_name, p_inq, p_socketq):
 
         # transaction_count = len(file_controller.get_transaction_list())
         # print(transaction_count)
-        if transaction_count == 30:
+        if transaction_count == voting.TransactionCountForConsensus:
             #print ("Enter transaciotn count")
             difficulty = 0
 
