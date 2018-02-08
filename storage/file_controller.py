@@ -164,7 +164,7 @@ def get_last_block():
         str(block_storage_path) + last_block_file_name)
     last_block = "\n".join(last_block_tx_list)
     a = json.loads(last_block)
-    if int(a['block_header']['block_number']) >= 10:
+    if int(a['block_header']['block_number']) >= 10: #TODO: why 10?
         monitoring.log("log."+a['block_header']['block_number'])
     monitoring.log("log."+a['block_header']['block_number'])
     return a['block_header']['block_number'], a['block_header']['block_hash']

@@ -41,7 +41,7 @@ def generate_block(difficulty, merkle_root, transactions):
         block_header.block_hash = block_hash
         block_header.block_info = block_info
         block_header.miner = nodeproperty.Total_peer_num
-        block_header.num_tx = len(transactions)
+        block_header.num_tx = len(transactions)  #TODO: 단일 tx를 하나의 line으로 저장해야 함?
 
         monitoring.log("log.Create Block.")
         new_block = block.Block(block_header, transactions)
