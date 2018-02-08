@@ -49,4 +49,4 @@ def receive_event(p_thrd_name, p_inq):
         monitoring.log("log."+str(count))
         monitoring.log("log."+str(p_inq.qsize()))
         count = count + 1
-        time.sleep(queue_strategy.SAVE_TX_DEQUEUE_INTERVAL)
+        # time.sleep(queue_strategy.SAVE_TX_DEQUEUE_INTERVAL)
