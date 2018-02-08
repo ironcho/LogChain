@@ -154,14 +154,14 @@ def get_last_block():
         j = j + 1
 
     # last_block_file_name = block_list[-1]
-    last_block_file_name = block_list_size
+    last_block_file_name = str(block_list_size)
 
     monitoring.log("log.last_block_file_name is .. "+ last_block_file_name)
 
-    monitoring.log("log."+last_block_file_name+type(last_block_file_name))
+    # monitoring.log("log."+last_block_file_name+type(last_block_file_name))
 
     last_block_tx_list = read_all_line(
-        str(block_storage_path) + str(last_block_file_name))
+        str(block_storage_path) + last_block_file_name)
     last_block = "\n".join(last_block_tx_list)
     a = json.loads(last_block)
     if int(a['block_header']['block_number']) >= 10:
