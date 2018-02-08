@@ -62,28 +62,24 @@ def send(p_ip, p_msg, p_port, *args):
     receiver_addr = (p_ip, p_port)
     tcp_socket = socket(AF_INET, SOCK_STREAM)
     print("receiver addr =" + str(p_ip) + " , " + str(p_port))
-    monitoring.Main_form.add_queue_data("log." + "receiver addr =" + str(p_ip) + " , " + str(p_port))
+    monitoring.log("log." + "receiver addr =" + str(p_ip) + " , " + str(p_port))
 
     print(" ")
     try:
         tcp_socket.connect(receiver_addr)
         print("connected........")
-        monitoring.Main_form.add_queue_data("log." + "connected........")
-        print(" ")
+        monitoring.log("log." + "connected........")
         tcp_socket.settimeout(2)
         print(p_msg)
-        monitoring.Main_form.add_queue_data("log." + p_msg)
+        monitoring.log("log." + p_msg)
         tcp_socket.send(p_msg.encode('utf-8'))
-        print("end send")
-        monitoring.Main_form.add_queue_data("log.end send")
-        print(" ")
+        monitoring.log("log.end send")
     except Exception as e:
         print(e)
 
     tcp_socket.close()
 
-    print("Sending complete")
-    monitoring.Main_form.add_queue_data("log.Sending complete")
+    monitoring.log("log.Sending complete")
 
 
 def send_to_all(p_msg):
@@ -118,5 +114,5 @@ def send_to_all_node(message, my_ip, my_port):
             send(addr, message, my_port)
         except Exception as e:
             print(e)
-    print('send block')
-    monitoring.Main_form.add_queue_data("log." + "send block")
+
+    monitoring.log("log." + "send block")
