@@ -81,8 +81,7 @@ def receive_data(p_thrd_name, p_ip, p_port):
                 temp += i.decode('utf-8')
 
             recv_data = temp
-            logging.debug("Rcvd data: "+recv_data)
-            monitoring.Main_form.add_queue_data("log.Rcvd data: " + recv_data)
+            monitoring.log("log.Rcvd data: " + recv_data)
 
             if recv_data == "":
                 break

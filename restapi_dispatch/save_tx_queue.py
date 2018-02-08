@@ -46,7 +46,7 @@ def receive_event(p_thrd_name, p_inq):
         monitoring.log("log."+str(dequeued))
         monitoring.log("log."+str(temp))
 
-        monitoring.log("log."+count)
+        monitoring.log("log."+str(count))
         monitoring.log("log."+str(p_inq.qsize()))
         count = count + 1
         time.sleep(queue_strategy.SAVE_TX_DEQUEUE_INTERVAL)
