@@ -9,7 +9,7 @@ from communication.peermgr import peermgr
 from monitoring import monitoring
 
 TransactionCountForConsensus = 5
-
+MajorityVoting = 3
 
 def blind_voting(merkle_root):
 
@@ -68,7 +68,7 @@ def result_voting():
 
     list = file_controller.get_voting_list()
 
-    if len(list) > 8:
+    if len(list) > MajorityVoting :
         difficulty = 2
         monitoring.log("log.result voting : "+len(list))
         return difficulty
