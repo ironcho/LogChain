@@ -24,11 +24,11 @@ def initialize_process_for_trust_peer():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
     monitoring.log("log.Start Logchain launcher for TrustPeer...")
 
-    monitoring.add_peer('producer a', '192.168.0.1', 'producer.png')
-    monitoring.add_peer('package b', '192.168.0.2', 'package.png')
-    monitoring.add_peer('delivery a', '192.168.0.3', 'delivery.png')
-    monitoring.add_peer('delivery b', '192.168.0.4', 'delivery.png')
-    monitoring.add_peer('seller dd', '192.168.0.5', 'seller.png')
+    # monitoring.add_peer('producer a', '192.168.0.1', 'producer.png')
+    # monitoring.add_peer('package b', '192.168.0.2', 'package.png')
+    # monitoring.add_peer('delivery a', '192.168.0.3', 'delivery.png')
+    # monitoring.add_peer('delivery b', '192.168.0.4', 'delivery.png')
+    # monitoring.add_peer('seller dd', '192.168.0.5', 'seller.png')
 
 
     initialize()

@@ -29,74 +29,9 @@ savetx_q = Queue()
 
 rulelist = [
     {
-        'index': 1,
-        'title': 'Testing-rule #1',
-        'body': {
-            "conditions": [
-                []
-            ],
-            "actions": [
-                [
-                    {
-                        "agent": "actuator",
-                        "type": "led",
-                        "method": {
-                            "name": "LED 제어",
-                            "id": "led",
-                            "params": {
-                                "command": {
-                                    "cmd": "blink",
-                                    "options": {
-                                        "duration": 7000,
-                                        "interval": 1500
-                                    }
-                                },
-                                "notificationOption": "Failure",
-                                "target": {
-                                    "type": "gateway",
-                                    "id": "b827ebda7b2a",
-                                    "sensors": [
-                                        "b827ebda7b2a-0-led"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                ]
-            ],
-            "severity": "information",
-            "timezone": "+9.00",
-            "name": "buttonLED700",
-            "status": "activated",
-            "trigger": {
-                "agent": "sensorValue",
-                "type": "onoff",
-                "method": {
-                    "name": "변경",
-                    "id": "changed",
-                    "params": {
-                        "from": "0",
-                        "to": "1",
-                        "target": {
-                            "type": "tag",
-                            "id": "1",
-                            "sensors": [
-                                "b827ebda7b2a-0-button"
-                            ]
-                        }
-                    }
-                },
-                "filter": {
-                    "type": [
-                        "series"
-                    ],
-                    "gateway": "*",
-                    "sensor": [
-                        "b827ebda7b2a-0-button"
-                    ]
-                }
-            }
-        }
+      "index": 1,
+      "title": "Testing for MWC #1",
+      "body": "abc"
     }
 ]
 
