@@ -28,7 +28,7 @@ connectedPeer_IP_q = Queue()
 
 # Add PeerMgr information to ConnectedPeerList by default.
 nodeproperty.ConnectedPeerList = [[peermgr_ID, peermgr_IP]]
-nodeproperty.PeerConnector_Port = peermgr_config['PEER_CONNECTOR_PORT']
+peerconnector_Port = peermgr_config['PEER_CONNECTOR_PORT']
 
 
 def start_peermgr() -> bool:
@@ -142,7 +142,7 @@ class ManagingConnectedPeerListThread(threading.Thread):
                 connected_peer_list_json = json.dumps(
                     nodeproperty.ConnectedPeerList, indent=4, default=lambda o: o.__dict__, sort_keys=True)
                 logging.debug("Updated ConnectedPeerList(json format): "+connected_peer_list_json)
-                sender.send_to_all_peers(connected_peer_list_json, nodeproperty.PeerConnector_Port)
+                sender.send_to_all_peers(connected_peer_list_json, peerconnector_Port)
                 set_peer.set_my_peer_num()
                 set_peer.set_total_peer_num()
 

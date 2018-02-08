@@ -9,9 +9,15 @@ from queue import Queue
 from peerproperty import nodeproperty
 from peerproperty import set_peer
 from storage import file_controller
-from communication.p2p import node_mapping_table
 from restapi_dispatch import query_block_queue
 from restapi_dispatch import save_tx_queue
+from communication.peermgr import peerconnector
+from service.blockmanager import genesisblock
+from communication.msg_dispatch import dispatch_queue_list
+from communication.msg_dispatch import t_type_queue_thread
+from communication.msg_dispatch import b_type_queue_thread
+from communication.msg_dispatch import v_type_queue_thread
+from communication.p2p import receiver
 
 
 app = Flask(__name__)
@@ -94,21 +100,21 @@ rulelist = [
 ]
 
 
-def initialize_blockdbinfo():
-    logging.info('Remove all transactions in mempool')
-    file_controller.remove_all_transactions()
-    file_controller.remove_all_blocks()
-    logging.info('Remove all voting info ')
-    file_controller.remove_all_voting()
+# def initialize_blockdbinfo():
+#     logging.info('Remove all transactions in mempool')
+#     file_controller.remove_all_transactions()
+#     file_controller.remove_all_blocks()
+#     logging.info('Remove all voting info ')
+#     file_controller.remove_all_voting()
 
 
-def initialize_netinfo():
-    nodeproperty.My_IP_address = file_controller.get_my_ip()
-    set_peer.set_peer()
-    # logging.info("my peer : " + nodeproperty.my_peer_num)
-
-    # node_mapping_table.set_node()와 set_peer()는 중복 기능이나, 일단 디버깅용으로 중복으로 유지함
-    node_mapping_table.set_node()
+# def initialize_netinfo():
+#     nodeproperty.My_IP_address = file_controller.get_my_ip()
+#     set_peer.set_peer()
+#     # logging.info("my peer : " + nodeproperty.my_peer_num)
+#
+#     # node_mapping_table.set_node()와 set_peer()는 중복 기능이나, 일단 디버깅용으로 중복으로 유지함
+#     node_mapping_table.set_node()
 
 
 @app.route('/rules/', methods=['GET'])
@@ -119,14 +125,6 @@ def get_rules():
     logging.debug(query_q.qsize())
     return jsonify({'rulelist': rulelist})
 
-
-# @app.route('/rules/<int:rule_id>', methods=['GET'])
-# def get_rule(rule_id):
-#     logging.debug('request(query rule) rcvd...')
-#     query_q.put("rule_id")
-#     logging.debug(str(query_q))
-#     logging.debug(query_q.qsize())
-#     return jsonify({'rule': rule_id})
 
 
 @app.route('/rules/', methods=['POST'])
@@ -150,15 +148,70 @@ def create_rule():
 
 @app.route("/")
 def hello():
-    return "LogChain's REST API node"
+    return "LogChain launcher for Generic Peer - REST API node"
+
+
+def main():
+    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+    logging.info("Start Logchain launcher for Generic Peer...")
+
+    initialize()
+
+    logging.info('Run processes for PeerConnector.')
+    if not peerconnector.start_peerconnector():
+        logging.info('Aborted because PeerConnector execution failed.')
+        return
+
+    set_peer.set_my_peer_num()
+    logging.info("My peer num: " + str(nodeproperty.My_peer_num))
+
+    'Genesis Block Create'
+    genesisblock.genesisblock_generate()
+
+    logging.info("Start a thread to receive messages from other peers.")
+    recv_thread = receiver.ReceiverThread(
+        1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.My_receiver_port)
+    recv_thread.start()
+    logging.info("The thread for receiving messages from other peers has started.")
+
+
+    t_type_qt = t_type_queue_thread.TransactionTypeQueueThread(
+        1, "TransactionTypeQueueThread",
+        dispatch_queue_list.T_type_q,
+        dispatch_queue_list.Connected_socket_q
+    )
+    t_type_qt.start()
+
+    v_type_qt = v_type_queue_thread.VotingTypeQueueThread(
+        1, "VotingTypeQueueThread",
+        dispatch_queue_list.V_type_q,
+        dispatch_queue_list.Connected_socket_q
+    )
+    v_type_qt.start()
+
+    b_type_qt = b_type_queue_thread.BlockTypeQueueThread(
+        1, "BlockTypeQueueThread",
+        dispatch_queue_list.B_type_q,
+        dispatch_queue_list.Connected_socket_q
+    )
+    b_type_qt.start()
+
+
+def initialize():
+    logging.info('Start the blockchain initialization process...')
+    file_controller.remove_all_transactions()
+    file_controller.remove_all_blocks()
+    file_controller.remove_all_voting()
+    logging.info('Complete the blockchain initialization process...')
+    set_peer.init_myIP()
+
+
 
 
 # REST API Node launcher function
 if __name__ == "__main__":
     logging.basicConfig(stream = sys.stderr, level = logging.DEBUG)
-    initialize_blockdbinfo()
-    initialize_netinfo()
-
+    main()
     queryqueue_thread = query_block_queue.QueryQueueThread(
         1, "QueryQueueThread", query_q
     )
