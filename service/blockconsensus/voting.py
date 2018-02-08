@@ -70,7 +70,7 @@ def result_voting():
 
     if len(list) > MajorityVoting :
         difficulty = 2
-        monitoring.log("log.result voting : "+len(list))
+        monitoring.log("log.result voting : "+str(len(list)))
         return difficulty
     else:
         difficulty = 0
