@@ -24,13 +24,20 @@ def initialize_process_for_trust_peer():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
     monitoring.log("log.Start Logchain launcher for TrustPeer...")
 
+    monitoring.add_peer('producer a', '192.168.0.1', 'producer.png')
+    monitoring.add_peer('package b', '192.168.0.2', 'package.png')
+    monitoring.add_peer('delivery a', '192.168.0.3', 'delivery.png')
+    monitoring.add_peer('delivery b', '192.168.0.4', 'delivery.png')
+    monitoring.add_peer('seller dd', '192.168.0.5', 'seller.png')
+
 
     initialize()
-
     monitoring.log('log.Run threads for PeerMgr.')
     if not peermgr.start_peermgr():
         monitoring.log("log.Aborted because PeerMgr execution failed.")
         return
+
+
 
     set_peer.set_my_peer_num()
     monitoring.log("log.My peer num: " + str(nodeproperty.My_peer_num))
@@ -74,8 +81,25 @@ def initialize():
     monitoring.log('log.Complete the blockchain initialization process...')
     set_peer.init_myIP()
 
+
+def main(argv):
+    if len(argv) != 1:
+        arg_1 = argv[1]
+        print("argument 1: "+arg_1 )
+        if arg_1 == "monitor":
+            app = QtWidgets.QApplication(sys.argv)
+            monitoring.Main_form = monitoring.Form()
+            initialize_process_for_trust_peer()
+            sys.exit(app.exec())
+    else:
+        initialize_process_for_trust_peer()
+
+
+
 if __name__ == '__main__':
-    initialize_process_for_trust_peer()
+    # arg1: monitor -> Monitoring UI
+    main(sys.argv)
+
 
 
 
