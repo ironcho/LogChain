@@ -27,8 +27,7 @@ def receive_event(p_thrd_name, p_inq, p_socketq):
         monitoring.log("log.Waiting for T type msg.")
         recv_data = p_inq.get()
         request_sock = p_socketq.get()
-
-        monitoring.log("log.Transaction received")
+        monitoring.log("log.T type msg rcvd: " + recv_data)
         transaction_count = transaction_count + 1
         # print(transaction_count)
 

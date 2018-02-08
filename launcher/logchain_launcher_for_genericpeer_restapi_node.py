@@ -68,7 +68,7 @@ def create_rule():
     monitoring.log('log.request(create rule) rcvd...')
     savetx_q.put(request.json)
     monitoring.log("log."+str(savetx_q))
-    monitoring.log("log."+savetx_q.qsize())
+    monitoring.log("log."+str(savetx_q.qsize()))
 
     if not request.json or not 'title' in request.json:
         abort(400)
