@@ -147,7 +147,7 @@ class UpdatingConnectedPeerListThread(threading.Thread):
             # Assuming the format of the incoming message is json
             rcvd_list = json.loads(rcvd_data)
 
-            monitoring.log("log.Received ConnectedPeerList: " + rcvd_list)
+            monitoring.log("log.Received ConnectedPeerList: " + rcvd_data)
 
             request_sock.close()
 
