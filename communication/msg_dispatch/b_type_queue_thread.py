@@ -24,12 +24,13 @@ class BlockTypeQueueThread(threading.Thread):
 def receive_event(p_thrd_name, p_inq, p_socketq):
     while True:
         monitoring.log("log.Waiting for B type msg")
-        recv_data = p_inq.get()
+        # recv_data = p_inq.get()
+        Data_jobj = p_inq.get()
         request_sock = p_socketq.get()
         monitoring.log("log.B type msg rcvd: "+recv_data)
 
         file_controller.create_new_block(
-            str(receiver.Data_jobj['block_header']['block_number']), recv_data)
+            str(Data_jobj['block_header']['block_number']), recv_data)
 
         monitoring.log("log.End create _new block")
         file_controller.remove_all_transactions()
