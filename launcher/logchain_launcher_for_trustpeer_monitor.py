@@ -20,7 +20,7 @@ from monitoring import monitoring
 # Logchain launcher function for TrustPeer
 # TrustPeer acts as a peer like ordinary nodes
 # TrustPeer performs the role of PeerMgr in parallel.
-def main():
+def initialize_process_for_trust_peer():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
     monitoring.Main_form = monitoring.Form()
@@ -91,7 +91,7 @@ def initialize():
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    main()
+    initialize_process_for_trust_peer()
     sys.exit(app.exec())
 
 

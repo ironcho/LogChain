@@ -1,7 +1,10 @@
 ConnectedPeerList = None
 
 My_IP_address = None
+
+# The peer's number assigned in the logchain private network
 My_peer_num = 0
+
 # Listening port for consensus protocol
 My_receiver_port = 10654
 

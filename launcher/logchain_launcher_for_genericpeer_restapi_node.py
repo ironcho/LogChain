@@ -151,7 +151,7 @@ def hello():
     return "LogChain launcher for Generic Peer - REST API node"
 
 
-def main():
+def initialize_process_for_generic_peer():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
     logging.info("Start Logchain launcher for Generic Peer...")
 
@@ -205,13 +205,7 @@ def initialize():
     logging.info('Complete the blockchain initialization process...')
     set_peer.init_myIP()
 
-
-
-
-# REST API Node launcher function
-if __name__ == "__main__":
-    logging.basicConfig(stream = sys.stderr, level = logging.DEBUG)
-    main()
+def initialize_process_for_RESTAPInode():
     queryqueue_thread = query_block_queue.QueryQueueThread(
         1, "QueryQueueThread", query_q
     )
@@ -224,4 +218,10 @@ if __name__ == "__main__":
     savetxqueue_thread.start()
     logging.debug('SaveTxQueueThread started')
 
+
+# REST API Node launcher function
+if __name__ == "__main__":
+    logging.basicConfig(stream = sys.stderr, level = logging.DEBUG)
+    initialize_process_for_generic_peer()
+    initialize_process_for_RESTAPInode()
     app.run()

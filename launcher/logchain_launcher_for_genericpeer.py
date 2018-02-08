@@ -16,7 +16,7 @@ from monitoring import monitoring
 
 # Logchain launcher function for GenericPeer
 # GenericPeer performs the role of PeerConnector in parallel.
-def main():
+def initialize_process_for_generic_peer():
     monitoring.Main_form = monitoring.Form()
 
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
@@ -82,6 +82,6 @@ def initialize():
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    main()
+    initialize_process_for_generic_peer()
     sys.exit(app.exec())
 

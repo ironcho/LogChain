@@ -12,11 +12,13 @@ from communication.msg_dispatch import b_type_queue_thread
 from communication.msg_dispatch import v_type_queue_thread
 from communication.peermgr import peerconnector
 from monitoring import monitoring
+from supplychain.supplychain_ui import main_ui
+
 
 
 # Logchain launcher function for GenericPeer
 # GenericPeer performs the role of PeerConnector in parallel.
-def main():
+def initialize_process_for_generic_peer():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
     # UI form to show the execution log of logchain
@@ -84,15 +86,15 @@ def initialize():
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    main()
-    sys.exit(app.exec())
-
-
-
-
     Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
+    ui = main_ui.Ui_Dialog()
     ui.setupUi(Dialog)
     Dialog.show()
+
+    initialize_process_for_generic_peer()
+
     sys.exit(app.exec_())
+
+
+
 
