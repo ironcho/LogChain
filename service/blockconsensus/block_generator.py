@@ -19,7 +19,7 @@ def generate_block(difficulty, merkle_root, transactions):
         'set block header info'
 
         monitoring.log("log.=================================")
-        monitoring.log("log.Generate Block")
+        monitoring.log("log.Generate Block.")
 
         start_time = time.time()
 
@@ -28,13 +28,12 @@ def generate_block(difficulty, merkle_root, transactions):
         block_info = merkle_root + prev_hash
         vote_result = difficulty
 
-        'mining block'
+        monitoring.log("log.Mining Block.")
         block_hash, nonce, tryanderror = proof_of_work.proof_of_work(
             block_info, difficulty)
         timestamp = time.strftime('%Y%m%d%H%M%S', time.localtime())
 
-
-        'create block header'
+        monitoring.log("log.Create Block Header.")
         block_header = block.BlockHeader(
             prev_hash, nonce, merkle_root, vote_result, timestamp)
         block_header.block_id = "test_block_id"
@@ -44,8 +43,7 @@ def generate_block(difficulty, merkle_root, transactions):
         block_header.miner = nodeproperty.Total_peer_num
         block_header.num_tx = len(transactions)
 
-
-        'create block'
+        monitoring.log("log.Create Block.")
         new_block = block.Block(block_header, transactions)
         json_new_block = json.dumps(
             new_block, indent=4, default=lambda o: o.__dict__, sort_keys=True)
