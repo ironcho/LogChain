@@ -1,16 +1,15 @@
 {
     "PEER_MGR": {
         "ID": "pc producer Sooyong",
-        "IP": "163.239.200.194",
+        "IP": "192.168.0.29",
         "PORT": 9999
     },
     "PEER_CONNECTOR_PORT": 8888,
     "PEER_LIST": [
         "gw1 processor Donghyun",
         "gw2 processor Daeun",
-        "gw3 transporter Sangrok",
+        "gw3 transporter Sangrok RESTAPI node",
         "gw4 transporter Soohwan",
-        "gw7 warehouse Jaesun",
-        "pc2 RESTAPI Node"
+        "gw7 warehouse Jaesun"
     ]
 }
