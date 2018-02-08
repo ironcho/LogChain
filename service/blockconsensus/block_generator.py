@@ -9,15 +9,15 @@ from service.blockmanager import block
 from service.blockconsensus import proof_of_work
 from communication.p2p import sender
 
+from monitoring import monitoring
 
 def generate_block(difficulty, merkle_root, transactions):
 
     try:
         'set block header info'
 
-
-        print("=================================")
-        print("Generate Block")
+        monitoring.log("log.=================================")
+        monitoring.log("log.Generate Block")
 
         start_time = time.time()
 
@@ -47,21 +47,20 @@ def generate_block(difficulty, merkle_root, transactions):
         new_block = block.Block(block_header, transactions)
         json_new_block = json.dumps(
             new_block, indent=4, default=lambda o: o.__dict__, sort_keys=True)
-        print("Generate block complete")
-        print(" ")
+        monitoring.log("log.Generate block complete")
+        monitoring.log("log. ")
 
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print("Block Generate Time Time: %.8f seconds" % elapsed_time)
-        print("   ")
-        print("Transaction per second : ", 30 / elapsed_time)
-        print("")
+        monitoring.log("log.Block Generate Time Time: "+elapsed_time+" seconds")
+        monitoring.log("log.Transaction per second : "+ 30 / elapsed_time)
         file_controller.remove_all_transactions()
         file_controller.remove_all_voting()
 
-        sender.send_to_all(json_new_block)
-        print("send block complete")
+        sender.send_to_all_peers(json_new_block,nodeproperty.My_receiver_port)
+        # sender.send_to_all(json_new_block)
+        monitoring.log("log.Send block complete")
 
 
     except TypeError as te:

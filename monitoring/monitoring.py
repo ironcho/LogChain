@@ -15,12 +15,20 @@ monitoring_queue = queue.Queue()
 
 Main_form = None
 
-def showloginfo(data):
+def log(data):
     if Main_form==None:
         print(data)
         logging.debug(data)
     else:
         Main_form.add_queue_data(data)
+
+def add_peer(title, subtitle, iconfilename):
+    if Main_form == None:
+        logging.debug(title + "("+subtitle+") peer is added.")
+    else:
+        Main_form.add_node(title, subtitle, iconfilename)
+
+
 
 class Form(QtWidgets.QDialog):
     def __init__(self, parent=None):
@@ -37,12 +45,12 @@ class Form(QtWidgets.QDialog):
 
         self.ui.show()
 
-    def add_node(self, title, subtitle, icon):
+    def add_node(self, title, subtitle, iconfilename):
         # Create QCustomQWidget
         myQCustomQWidget = NodeWidget()
         myQCustomQWidget.setTextUp(title)
         myQCustomQWidget.setTextDown(subtitle)
-        myQCustomQWidget.setIcon(icon)
+        myQCustomQWidget.setIcon(iconfilename)
 
         # Create QListWidgetItem
         myQListWidgetItem = QListWidgetItem(self.ui.listWidget_4)

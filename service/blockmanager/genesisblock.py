@@ -3,6 +3,7 @@ import json
 import hashlib
 from service.blockmanager import block
 from storage import file_controller
+from monitoring import monitoring
 
 
 def genesisblock_generate():
@@ -28,11 +29,11 @@ def genesisblock_generate():
         genesisblock, indent=4, default=lambda o: o.__dict__, sort_keys=True)
     file_controller.create_new_block(
         str(block_header.block_number), json_genesisblock)
-    logging.debug('Genesis block created now.')
-    logging.debug(" - block hash: "+ block_header.block_hash)
-    logging.debug(" - block ID: " + block_header.block_id)
-    logging.debug(" - block info: " + block_header.block_info)
-    logging.debug(" - block transaction: " + transaction)
+    monitoring.log('log.Genesis block created now.')
+    monitoring.log("log. - block hash: "+ block_header.block_hash)
+    monitoring.log("log. - block ID: " + block_header.block_id)
+    monitoring.log("log. - block info: " + block_header.block_info)
+    monitoring.log("log. - block transaction: " + transaction)
 
 
     # print(" -block hash: %s" %(block_header.block_hash))

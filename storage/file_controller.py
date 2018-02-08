@@ -4,6 +4,7 @@ import json
 import shutil
 import netifaces
 import logging
+from monitoring import monitoring
 
 
 # database_path = os.path.dirname(
@@ -73,19 +74,18 @@ def add_node_info(node_info):
     write(path_info, node_info)
 
 
-'Get ip, block, transaction..etc'
 
 
 def get_my_ip():
     ip = socket.gethostbyname(socket.gethostname())
-    logging.debug("IP address:" + ip)
+    monitoring.log("log.IP address:" + ip)
     return ip
 
 
 def get_my_ip_rpi():
     netifaces.ifaddresses('wlan0')
     ip = netifaces.ifaddresses('wlan0')[netifaces.AF_INET][0]['addr']
-    logging.debug("IP address:" + ip)
+    monitoring.log("log.IP address:" + ip)
     return ip
 
 
@@ -156,17 +156,17 @@ def get_last_block():
     # last_block_file_name = block_list[-1]
     last_block_file_name = block_list_size
 
-    print("last_block_file_name is .. ", last_block_file_name)
+    monitoring.log("log.last_block_file_name is .. "+ last_block_file_name)
 
-    print(last_block_file_name, type(last_block_file_name))
+    monitoring.log("log."+last_block_file_name+type(last_block_file_name))
 
     last_block_tx_list = read_all_line(
         str(block_storage_path) + str(last_block_file_name))
     last_block = "\n".join(last_block_tx_list)
     a = json.loads(last_block)
     if int(a['block_header']['block_number']) >= 10:
-        print(a['block_header']['block_number'])
-    print(a['block_header']['block_number'])
+        monitoring.log("log."+a['block_header']['block_number'])
+    monitoring.log("log."+a['block_header']['block_number'])
     return a['block_header']['block_number'], a['block_header']['block_hash']
 
 
@@ -174,28 +174,27 @@ def get_block_height():
     return len(os.walk(block_storage_path).next()[2])
 
 
-'remove transactions,block,voting'
 
 
 def remove_all_transactions():
     f = open(database_path + ledger_file, 'w')
     f.write("")
     f.close()
-    logging.debug('All transactions were removed.')
+    monitoring.log('log.All transactions were removed.')
 
 
 def remove_all_voting():
     f = open(voting_storage_path + voting_info_file, 'w')
     f.write("")
     f.close()
-    logging.debug('The consensus related data has been deleted.')
+    monitoring.log('log.The consensus related data has been deleted.')
 
 
 def remove_all_blocks():
     try:
         shutil.rmtree(block_storage_path)
         os.makedirs(block_storage_path)
-        logging.debug('All blocks were removed.')
+        monitoring.log('log.All blocks were removed.')
     except Exception as e:
         print(e)
 

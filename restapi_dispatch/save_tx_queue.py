@@ -7,6 +7,8 @@ import json
 from service.transactionmanager import transaction
 from communication.p2p import sender
 from peerproperty import nodeproperty
+from monitoring import monitoring
+
 
 class SaveTxQueueThread(threading.Thread):
     def __init__(self, p_thrd_id, p_thrd_name, p_inq):
@@ -19,10 +21,10 @@ class SaveTxQueueThread(threading.Thread):
         receive_event(self.thrd_name, self.inq)
 
     def save_sensorinfo(self, p_sensorinfo_json):
-        logging.debug('request(save sensor info) rcvd...')
+        monitoring.log('log.Request(save sensor info) rcvd...')
         self.inq.put(p_sensorinfo_json)
-        logging.debug(str(self.inq))
-        logging.debug(self.inq.qsize())
+        monitoring.log("log."+str(self.inq))
+        monitoring.log("log."+self.inq.qsize())
 
 
 
@@ -30,7 +32,7 @@ class SaveTxQueueThread(threading.Thread):
 def receive_event(p_thrd_name, p_inq):
     count = 1
     while True:
-        logging.debug("waiting for event")
+        monitoring.log("log.Waiting for event")
 
         dequeued = p_inq.get()
 
@@ -41,10 +43,10 @@ def receive_event(p_thrd_name, p_inq):
         # sender.send_to_all(temp)
         sender.send_to_all_peers(temp,nodeproperty.My_receiver_port)
 
-        logging.debug(str(dequeued))
-        logging.debug(str(temp))
+        monitoring.log("log."+str(dequeued))
+        monitoring.log("log."+str(temp))
 
-        logging.debug(count)
-        logging.debug(str(p_inq.qsize()))
+        monitoring.log("log."+count)
+        monitoring.log("log."+str(p_inq.qsize()))
         count = count + 1
         time.sleep(queue_strategy.SAVE_TX_DEQUEUE_INTERVAL)

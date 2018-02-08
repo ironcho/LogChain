@@ -6,6 +6,7 @@ import json
 from storage import file_controller
 from service.blockconsensus import voting
 from communication.p2p import receiver
+from monitoring import monitoring
 
 
 class BlockTypeQueueThread(threading.Thread):
@@ -22,14 +23,14 @@ class BlockTypeQueueThread(threading.Thread):
 
 def receive_event(p_thrd_name, p_inq, p_socketq):
     while True:
-        logging.debug("Waiting for B type msg")
+        monitoring.log("log.Waiting for B type msg")
         recv_data = p_inq.get()
         request_sock = p_socketq.get()
 
         file_controller.create_new_block(
             str(receiver.Data_jobj['block_header']['block_number']), recv_data)
 
-        print("End create _new block")
+        monitoring.log("log.End create _new block")
         file_controller.remove_all_transactions()
         file_controller.remove_all_voting()
 

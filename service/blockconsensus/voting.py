@@ -6,6 +6,8 @@ from peerproperty import nodeproperty
 from storage import file_controller
 from communication.p2p import sender
 from communication.peermgr import peermgr
+from monitoring import monitoring
+
 
 def blind_voting(merkle_root):
 
@@ -65,8 +67,7 @@ def result_voting():
 
     if len(list) > 8:
         difficulty = 2
-        print("result voting : ", len(list))
-        print(" ")
+        monitoring.log("log.result voting : "+len(list))
         return difficulty
     else:
         difficulty = 0

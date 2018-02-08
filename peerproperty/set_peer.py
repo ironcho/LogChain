@@ -4,21 +4,21 @@ import platform
 import peerproperty.nodeproperty
 from peerproperty import nodeproperty
 from storage import file_controller
-
+from monitoring import monitoring
 
 def init_myIP():
-    logging.info("Set the peer's own IP address.")
+    monitoring.log("log.Set the peer's own IP address.")
     os = platform.system()
     if os == 'Linux':
-        logging.info("Peer's os is Linux.")
+        monitoring.log("log.Peer's os is Linux.")
         # For raspberry pi, we use wlan,
         # so we need to figure out the IP address in a different way.
         nodeproperty.My_IP_address = file_controller.get_my_ip_rpi()
     elif os == 'Windows':
-        logging.info("Peer's os is Windows.")
+        monitoring.log("log.Peer's os is Windows.")
         nodeproperty.My_IP_address = file_controller.get_my_ip()
 
-    logging.info("peer's IP: " + nodeproperty.My_IP_address)
+        monitoring.log("log.Peer's IP: " + nodeproperty.My_IP_address)
 
 
 # deprecated function

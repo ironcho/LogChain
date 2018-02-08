@@ -61,14 +61,12 @@ def receive_data(p_thrd_name, p_ip, p_port):
     num_block = 0
     count = 1
     while True:
-        logging.debug("Waiting for connection...")
-        monitoring.Main_form.add_queue_data("log.Waiting for connection...")
+        monitoring.log("log.Waiting for connection...")
         request_sock, request_ip = tcp_socket.accept()
 
-        # Node Add
-
-        monitoring.Main_form.add_node('Node' + count, request_ip, ',''node.png')
-        count = count + 1
+        # # Node Add
+        # monitoring.add_peer('Node' + count, request_ip, 'node.png')
+        # count = count + 1
 
         while True:
             rcvd_total = []

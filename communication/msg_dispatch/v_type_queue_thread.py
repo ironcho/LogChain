@@ -8,7 +8,7 @@ from service.blockconsensus import voting
 from service.blockconsensus import block_generator
 from service.blockconsensus import merkle_tree
 from service.transactionmanager import transaction
-
+from monitoring import monitoring
 
 from queue import Queue
 
@@ -27,7 +27,7 @@ class VotingTypeQueueThread(threading.Thread):
 
 def receive_event(p_thrd_name, p_inq, p_socketq):
     while True:
-        logging.debug("Waiting for V type msg")
+        monitoring.log("log.Waiting for V type msg")
         recv_data = p_inq.get()
         request_sock = p_socketq.get()
 
@@ -36,11 +36,11 @@ def receive_event(p_thrd_name, p_inq, p_socketq):
         difficulty = voting.result_voting()
 
         if (difficulty > 0):
-            print("Enter block generator")
+            monitoring.log("Enter block generator")
             block_generator.generate_block(
                 difficulty, transaction.Merkle_root, transaction.Transactions)
 
         else:
-            print("")
+            monitoring.log("log.")
 
         request_sock.close()

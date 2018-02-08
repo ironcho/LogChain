@@ -18,6 +18,7 @@ from communication.msg_dispatch import t_type_queue_thread
 from communication.msg_dispatch import b_type_queue_thread
 from communication.msg_dispatch import v_type_queue_thread
 from communication.p2p import receiver
+from monitoring import monitoring
 
 
 app = Flask(__name__)
@@ -129,10 +130,10 @@ def get_rules():
 
 @app.route('/rules/', methods=['POST'])
 def create_rule():
-    logging.debug('request(create rule) rcvd...')
+    monitoring.log('log.request(create rule) rcvd...')
     savetx_q.put(request.json)
-    logging.debug(str(savetx_q))
-    logging.debug(savetx_q.qsize())
+    monitoring.log("log."+str(savetx_q))
+    monitoring.log("log."+savetx_q.qsize())
 
     if not request.json or not 'title' in request.json:
         abort(400)
@@ -153,26 +154,26 @@ def hello():
 
 def initialize_process_for_generic_peer():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
-    logging.info("Start Logchain launcher for Generic Peer...")
+    monitoring.log("log.Start Logchain launcher for Generic Peer...")
 
     initialize()
 
-    logging.info('Run processes for PeerConnector.')
+    monitoring.log('log.Run processes for PeerConnector.')
     if not peerconnector.start_peerconnector():
-        logging.info('Aborted because PeerConnector execution failed.')
+        monitoring.log('log.Aborted because PeerConnector execution failed.')
         return
 
     set_peer.set_my_peer_num()
-    logging.info("My peer num: " + str(nodeproperty.My_peer_num))
+    monitoring.log("log.My peer num: " + str(nodeproperty.My_peer_num))
 
     'Genesis Block Create'
     genesisblock.genesisblock_generate()
 
-    logging.info("Start a thread to receive messages from other peers.")
+    monitoring.log("log.Start a thread to receive messages from other peers.")
     recv_thread = receiver.ReceiverThread(
         1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.My_receiver_port)
     recv_thread.start()
-    logging.info("The thread for receiving messages from other peers has started.")
+    monitoring.log("log.The thread for receiving messages from other peers has started.")
 
 
     t_type_qt = t_type_queue_thread.TransactionTypeQueueThread(
@@ -198,11 +199,11 @@ def initialize_process_for_generic_peer():
 
 
 def initialize():
-    logging.info('Start the blockchain initialization process...')
+    monitoring.log('log.Start the blockchain initialization process...')
     file_controller.remove_all_transactions()
     file_controller.remove_all_blocks()
     file_controller.remove_all_voting()
-    logging.info('Complete the blockchain initialization process...')
+    monitoring.log('log.Complete the blockchain initialization process...')
     set_peer.init_myIP()
 
 def initialize_process_for_RESTAPInode():
