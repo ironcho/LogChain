@@ -24,7 +24,14 @@ def blind_voting(merkle_root):
         # index = nodeproperty.My_peer_num - 1
         index = vote_number - 1
         ip_address = peerproperty.nodeproperty.ConnectedPeerList[index][1]
-        sender.send(ip_address, jsonString, nodeproperty.My_receiver_port)
+
+        # old
+        # sender.send(ip_address, jsonString, nodeproperty.My_receiver_port)
+
+        # for testing
+        sender.send("192.168.0.13", jsonString, nodeproperty.My_receiver_port)
+
+
 
         # if vote_number == 1:
         #     ip_address = nodeproperty.Peer1
