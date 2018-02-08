@@ -10,6 +10,8 @@ from service.blockconsensus import proof_of_work
 from communication.p2p import sender
 
 from monitoring import monitoring
+from service.blockconsensus import voting
+
 
 def generate_block(difficulty, merkle_root, transactions):
 
@@ -53,8 +55,9 @@ def generate_block(difficulty, merkle_root, transactions):
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        monitoring.log("log.Block Generate Time Time: "+elapsed_time+" seconds")
-        monitoring.log("log.Transaction per second : "+ 30 / elapsed_time)
+        monitoring.log("log.Block Generate Time Time: "+str(elapsed_time)+" seconds")
+        tps = voting.TransactionCountForConsensus / elapsed_time
+        monitoring.log("log.Transaction per second : "+ str(tps))
         file_controller.remove_all_transactions()
         file_controller.remove_all_voting()
 
