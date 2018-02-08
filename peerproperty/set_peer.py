@@ -49,6 +49,7 @@ def set_peer():
 
 def set_total_peer_num() -> int:
     nodeproperty.Total_peer_num = len(peerproperty.nodeproperty.ConnectedPeerList)
+    monitoring.log("log.total peer num: " + str(nodeproperty.Total_peer_num))
     return nodeproperty.Total_peer_num
 
 
