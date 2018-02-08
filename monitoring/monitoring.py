@@ -17,7 +17,6 @@ Main_form = None
 
 def log(data):
     if Main_form==None:
-        print(data)
         logging.debug(data)
     else:
         Main_form.add_queue_data(data)
