@@ -149,7 +149,8 @@ class Ui_Dialog(object):
     def start_supplychain(self):        
         self.textEdit_3.append("Start supply chain service")
         self.textEdit_3.append("Send Transaction")
-        temp=get_sensor_value.get_sensor_value()
+        temp = "-10"
+        # temp=get_sensor_value.get_sensor_value()
         self.textEdit_3.append(temp)
         
 if __name__ == "__main__":
