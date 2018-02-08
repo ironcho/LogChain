@@ -23,19 +23,17 @@ from monitoring import monitoring
 def main():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
-    monitoring.showloginfo('1234')
     monitoring.Main_form = monitoring.Form()
-    monitoring.showloginfo('log.5678')
 
     logging.info("Start Logchain launcher for TrustPeer...")
     monitoring.Main_form.add_queue_data("log.Start Logchain launcher for TrustPeer...")
 
     # node add test
-    monitoring.Main_form.add_node('생산자 노드', '192.168.0.1', 'node.png')
-    monitoring.Main_form.add_node('가공자 노드', '192.168.0.2', 'node.png')
-    monitoring.Main_form.add_node('배송 노드', '192.168.0.3', 'node.png')
-    monitoring.Main_form.add_node('배송2 노드', '192.168.0.4', 'node.png')
-    monitoring.Main_form.add_node('판매자 노드', '192.168.0.5', 'node.png')
+    monitoring.Main_form.add_node('생산자 노드', '192.168.0.1', 'producer.png')
+    monitoring.Main_form.add_node('가공자 노드', '192.168.0.2', 'pacakge.png')
+    monitoring.Main_form.add_node('배송 노드', '192.168.0.3', 'delivery.png')
+    monitoring.Main_form.add_node('배송2 노드', '192.168.0.4', 'delivery.png')
+    monitoring.Main_form.add_node('판매자 노드', '192.168.0.5', 'seller.png')
 
     initialize()
 

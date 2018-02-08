@@ -1,7 +1,7 @@
 {
     "PEER_MGR": {
         "ID": "pc producer Sooyong",
-        "IP": "192.168.0.13",
+        "IP": "163.239.200.194",
         "PORT": 9999
     },
     "PEER_CONNECTOR_PORT": 8888,

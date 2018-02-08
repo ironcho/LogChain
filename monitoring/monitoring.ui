@@ -93,6 +93,15 @@
      <height>171</height>
     </rect>
    </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <property name="viewMode">
     <enum>QListView::IconMode</enum>
    </property>

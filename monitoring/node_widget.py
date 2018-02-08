@@ -1,26 +1,41 @@
 import os
 
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 
 class NodeWidget (QWidget):
     def __init__ (self, parent = None):
         super(NodeWidget, self).__init__(parent)
 
-        self.textQVBoxLayout = QVBoxLayout(self)
+        self.textQVBoxLayout = QVBoxLayout()
         self.textUpQLabel    = QLabel()
         self.textDownQLabel  = QLabel()
+
+        font = self.textUpQLabel.font()
+        font.setPointSize(12)
+        self.textUpQLabel.setFont(font)
+
+        self.textUpQLabel.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.textUpQLabel.setAlignment(Qt.AlignCenter)
+
+        self.textDownQLabel.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.textDownQLabel.setAlignment(Qt.AlignCenter)
+
         self.textQVBoxLayout.addWidget(self.textUpQLabel)
         self.textQVBoxLayout.addWidget(self.textDownQLabel)
 
-        self.allQHBoxLayout  = QVBoxLayout(self)
+        self.allQHBoxLayout  = QVBoxLayout()
+
         self.iconQLabel = QLabel(self)
-        self.iconQLabel.setScaledContents(True)
-        self.iconQLabel.resize(24, 24)
+        self.iconQLabel.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.iconQLabel.resize(64, 64)
+        self.iconQLabel.setAlignment(Qt.AlignCenter)
 
         self.allQHBoxLayout.addWidget(self.iconQLabel, 0)
         self.allQHBoxLayout.addLayout(self.textQVBoxLayout, 1)
 
+        self.allQHBoxLayout.setSpacing(5)
         self.setLayout(self.allQHBoxLayout)
 
         # setStyleSheet
@@ -40,6 +55,3 @@ class NodeWidget (QWidget):
     def setIcon (self, imagePath):
         pixmap = QPixmap(imagePath)
         self.iconQLabel.setPixmap(pixmap)
-        # scriptDir = os.path.dirname(os.path.realpath(__file__))
-        # print(scriptDir + os.path.sep + imagePath)
-        # self.iconQLabel.setPixmap(QPixmap(scriptDir + os.path.sep + imagePath))

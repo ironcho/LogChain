@@ -29,6 +29,8 @@ class Form(QtWidgets.QDialog):
 
         self.ui.setWindowFlags(Qt.SplashScreen)                          # 윈도우 타이틀 없애기
 
+        self.ui.listWidget_4.setSpacing(30)
+
         queue_thread = threading.Thread(target=self.read_queue)
         queue_thread.daemon = True
         queue_thread.start()
