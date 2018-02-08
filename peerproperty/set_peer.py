@@ -62,4 +62,5 @@ def set_my_peer_num() -> int:
         else:
             p_num = p_num + 1
 
+    monitoring.log("log.my peer num: "+nodeproperty.My_peer_num)
     return nodeproperty.My_peer_num
