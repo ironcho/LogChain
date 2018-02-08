@@ -24,8 +24,8 @@ class BlockTypeQueueThread(threading.Thread):
 def receive_event(p_thrd_name, p_inq, p_socketq):
     while True:
         monitoring.log("log.Waiting for B type msg")
-        # recv_data = p_inq.get()
-        Data_jobj = p_inq.get()
+        recv_data = p_inq.get()
+        Data_jobj = json.loads(recv_data)
         request_sock = p_socketq.get()
         monitoring.log("log.B type msg rcvd: "+recv_data)
 

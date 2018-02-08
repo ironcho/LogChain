@@ -206,8 +206,8 @@ def receive_data(p_thrd_name, p_ip, p_port):
                     if Data_jobj['block_header']['type'] is 'B':
                         monitoring.log("log.Block received.")
                         # block verification thread
-                        # dispatch_queue_list.B_type_q.put(recv_data)
-                        dispatch_queue_list.B_type_q.put(Data_jobj)
+                        dispatch_queue_list.B_type_q.put(recv_data)
+                        # dispatch_queue_list.B_type_q.put(Data_jobj)
                         dispatch_queue_list.Connected_socket_q.put(
                             request_sock)
 
