@@ -1,6 +1,6 @@
 {
     "PEER_MGR": {
-        "ID": "pc producer Sooyong",
+        "ID": "pc producer Jaesun",
         "IP": "192.168.0.29",
         "PORT": 9999
     },
@@ -10,6 +10,6 @@
         "gw2 package Daeun",
         "gw3 delivery Sangrok",
         "gw4 delivery Soohwan",
-        "gw7 seller Jaesun"
+        "gw7 seller Saad"
     ]
 }
