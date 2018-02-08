@@ -93,16 +93,25 @@ def send_to_all(p_msg):
 def send_to_all_peers(p_msg, p_port):
     monitoring.log("log.Send to all peers in ConnectedPeerList")
     for peer in peerproperty.nodeproperty.ConnectedPeerList:
-        if peer[1] == peerproperty.nodeproperty.My_IP_address:
-            monitoring.log("log.Do not send msg it to peer itself.")
-        else:
-            try:
-                send(peer[1],p_msg, p_port)
-            except Exception as e:
-                print(e)
+        try:
+            send(peer[1], p_msg, p_port)
+        except Exception as e:
+            print(e)
 
-            monitoring.log("log.ConnectedPeerList ID: "+ peer[0])
-            monitoring.log("log.ConnectedPeerList IP: " + peer[1])
+        monitoring.log("log.ConnectedPeerList ID: " + peer[0])
+        monitoring.log("log.ConnectedPeerList IP: " + peer[1])
+
+        # if peer[1] == peerproperty.nodeproperty.My_IP_address:
+        #     monitoring.log("log.Do not send msg it to peer itself.")
+        # else:
+        #     try:
+        #         send(peer[1],p_msg, p_port)
+        #     except Exception as e:
+        #         print(e)
+        #
+        #     monitoring.log("log.ConnectedPeerList ID: "+ peer[0])
+        #     monitoring.log("log.ConnectedPeerList IP: " + peer[1])
+
 
 
 

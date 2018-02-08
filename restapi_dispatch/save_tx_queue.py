@@ -20,11 +20,11 @@ class SaveTxQueueThread(threading.Thread):
     def run(self):
         receive_event(self.thrd_name, self.inq)
 
-    def save_sensorinfo(self, p_sensorinfo_json):
-        monitoring.log('log.Request(save sensor info) rcvd...')
-        self.inq.put(p_sensorinfo_json)
-        monitoring.log("log."+str(self.inq))
-        monitoring.log("log."+self.inq.qsize())
+    # def save_sensorinfo(self, p_sensorinfo_json):
+    #     monitoring.log('log.Request(save sensor info) rcvd...')
+    #     self.inq.put(p_sensorinfo_json)
+    #     monitoring.log("log."+str(self.inq))
+    #     monitoring.log("log."+self.inq.qsize())
 
 
 
