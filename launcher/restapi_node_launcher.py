@@ -171,4 +171,4 @@ if __name__ == "__main__":
     savetxqueue_thread.start()
     logging.debug('SaveTxQueueThread started')
 
-    app.run()
+    app.run(host='0.0.0.0')

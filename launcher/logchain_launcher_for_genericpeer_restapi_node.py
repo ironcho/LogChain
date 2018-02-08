@@ -225,4 +225,4 @@ if __name__ == "__main__":
     logging.basicConfig(stream = sys.stderr, level = logging.DEBUG)
     initialize_process_for_generic_peer()
     initialize_process_for_RESTAPInode()
-    app.run()
+    app.run(host='0.0.0.0')
