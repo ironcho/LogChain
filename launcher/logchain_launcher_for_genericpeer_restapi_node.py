@@ -96,7 +96,7 @@ def initialize_process_for_generic_peer():
     monitoring.log('log.Run processes for PeerConnector.')
     if not peerconnector.start_peerconnector():
         monitoring.log('log.Aborted because PeerConnector execution failed.')
-        return
+        sys.exit(1)
 
     set_peer.set_my_peer_num()
     monitoring.log("log.My peer num: " + str(nodeproperty.My_peer_num))
