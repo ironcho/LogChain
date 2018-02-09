@@ -9,7 +9,7 @@ from communication.peermgr import peermgr
 from monitoring import monitoring
 
 TransactionCountForConsensus = 5
-MajorityVoting = 1
+MajorityVoting = 0
 
 def blind_voting(merkle_root):
 
