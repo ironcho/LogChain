@@ -25,6 +25,12 @@ def generate_block(difficulty, merkle_root, transactions):
 
 
         prev_block_height, prev_hash = file_controller.get_last_block() # TODO: type error 발생 must be str , not int
+
+        if type(prev_block_height) is not int:
+            prev_block_height = int(prev_block_height)
+        if type(prev_hash) is not str:
+            prev_hash = str(prev_hash)
+
         block_info = merkle_root + prev_hash
         vote_result = difficulty
 
