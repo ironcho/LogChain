@@ -165,9 +165,6 @@ def get_last_block():
     last_block = "\n".join(last_block_tx_list)
     a = json.loads(last_block)
 
-    # if int(a['block_header']['block_number']) >= 10: #TODO: why 10?
-    #     print("log."+a['block_header']['block_number'])
-    # print("log."+a['block_header']['block_number'])
     return a['block_header']['block_number'], a['block_header']['block_hash']
 
 
