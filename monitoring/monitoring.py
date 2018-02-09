@@ -22,11 +22,11 @@ def log(data):
         Main_form.add_queue_data(data)
 
 def add_peer(title, subtitle, iconfilename):
-    Main_form.add_queue_data("log."+title + " peer is added.")
-    # if Main_form == None:
-    #     logging.debug(title + "("+subtitle+") peer is added.")
-    # else:
-    #     Main_form.add_node(title, subtitle, iconfilename)
+    # Main_form.add_queue_data("log."+title + " peer is added.")
+    if Main_form == None:
+        logging.debug(title + "("+subtitle+") peer is added.")
+    else:
+        Main_form.add_node(title, subtitle, iconfilename)
 
 
 
@@ -127,3 +127,6 @@ class Form(QtWidgets.QDialog):
                 elif data[0] == 'transaction':
                     self.add_transaction_item(data[1])
                     self.change_frame_color(241, 196, 15)
+                elif data[0] == 'add_peer':
+                    # self.add_node(data[1], data[2], data[1]+".png")
+                    self.add_node(data[1], data[2], "producer.png")

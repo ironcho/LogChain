@@ -60,15 +60,15 @@ def start_peermgr() -> bool:
 
 def getPeerIconfilename(peerid: str) -> str:
     if "producer" in peerid:
-        return "producer.png"
+        return "producer"
     elif "package" in peerid:
-        return "package.png"
+        return "package"
     elif "delivery" in peerid:
-        return "delivery.png"
+        return "delivery"
     elif "seller" in peerid:
-        return "seller.png"
+        return "seller"
     else:
-        return "node.png"
+        return "node"
 
 
 
@@ -153,7 +153,7 @@ class ManagingConnectedPeerListThread(threading.Thread):
                 nodeproperty.ConnectedPeerList.append([peerid, socketip])
                 nodeproperty.ConnectedPeerList.sort()
                 request_sock.close()
-                monitoring.add_peer(peerid, socketip, getPeerIconfilename(peerid))
+
 
                 connected_peer_list_json = json.dumps(
                     nodeproperty.ConnectedPeerList, indent=4, default=lambda o: o.__dict__, sort_keys=True)
@@ -162,6 +162,9 @@ class ManagingConnectedPeerListThread(threading.Thread):
 
                 set_peer.set_my_peer_num()
                 set_peer.set_total_peer_num()
+
+
+                monitoring.add_peer(peerid, socketip, getPeerIconfilename(peerid))
 
             else:
                 request_sock.close()
