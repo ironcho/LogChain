@@ -18,7 +18,7 @@ def blind_voting(merkle_root):
               'from': nodeproperty.My_IP_address, 'type': 'V'}
     jsonString = json.dumps(voting)
 
-    if nodeproperty.My_peer_num == vote_number:
+    if nodeproperty.My_peer_num == vote_number: # TODO: 자신이면 voting을 하나 더 추가?
         file_controller.add_voting(jsonString)
     else:
         # index = nodeproperty.My_peer_num - 1
