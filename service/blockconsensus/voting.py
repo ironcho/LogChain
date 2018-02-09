@@ -68,11 +68,13 @@ def result_voting():
     list = file_controller.get_voting_list()
     voting_count = len(list)
     MajorityCount = nodeproperty.Total_peer_num / 2
-    print("MajorityCount: "+ MajorityCount)
-    print("My number of votes: "+voting_count)
+
+    print("MajorityCount: "+ str(MajorityCount))
+    print("My number of votes: "+ str(voting_count))
+
     if voting_count > MajorityCount :
         difficulty = 2
-        monitoring.log("log.result voting : "+str(len(list)))
+        monitoring.log("log.result voting : "+ str(voting_count))
         return difficulty
     else:
         difficulty = 0
