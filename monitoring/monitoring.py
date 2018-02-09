@@ -22,10 +22,11 @@ def log(data):
         Main_form.add_queue_data(data)
 
 def add_peer(title, subtitle, iconfilename):
-    if Main_form == None:
-        logging.debug(title + "("+subtitle+") peer is added.")
-    else:
-        Main_form.add_node(title, subtitle, iconfilename)
+    Main_form.add_queue_data(title + "(" + subtitle + ") peer is added.")
+    # if Main_form == None:
+    #     logging.debug(title + "("+subtitle+") peer is added.")
+    # else:
+    #     Main_form.add_node(title, subtitle, iconfilename)
 
 
 
