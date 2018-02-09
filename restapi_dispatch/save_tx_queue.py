@@ -37,8 +37,12 @@ def receive_event(p_thrd_name, p_inq):
         dequeued = p_inq.get()
 
         tx = transaction.Transaction(dequeued)
-        temp = json.dumps(
-            tx, indent=4, default=lambda o: o.__dict__, sort_keys=True)
+        # temp = json.dumps(
+        #     tx, indent=4, default=lambda o: o.__dict__, sort_keys=True)
+
+        # for try
+        temp = json.dumps(tx, default=lambda o: o.__dict__, sort_keys=True)
+
 
         # sender.send_to_all(temp)
         sender.send_to_all_peers(temp,nodeproperty.My_receiver_port)
