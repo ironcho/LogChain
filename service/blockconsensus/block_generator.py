@@ -24,7 +24,7 @@ def generate_block(difficulty, merkle_root, transactions):
         start_time = time.time()
 
 
-        prev_block_height, prev_hash = file_controller.get_last_block()
+        prev_block_height, prev_hash = file_controller.get_last_block() # TODO: type error 발생 must be str , not int
         block_info = merkle_root + prev_hash
         vote_result = difficulty
 
