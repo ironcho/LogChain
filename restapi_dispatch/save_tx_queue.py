@@ -30,9 +30,9 @@ class SaveTxQueueThread(threading.Thread):
 
 
 def receive_event(p_thrd_name, p_inq):
-    count = 1
+    total_tx_count = 1
     while True:
-        monitoring.log("log.Waiting for event")
+        monitoring.log("log.Wait for transaction creation request.")
 
         dequeued = p_inq.get()
 
@@ -47,10 +47,9 @@ def receive_event(p_thrd_name, p_inq):
         # sender.send_to_all(temp)
         sender.send_to_all_peers(temp,nodeproperty.My_receiver_port)
 
-        monitoring.log("log."+str(dequeued))
-        monitoring.log("log."+str(temp))
-
-        monitoring.log("log."+str(count))
-        monitoring.log("log."+str(p_inq.qsize()))
-        count = count + 1
+        monitoring.log("log.Transaction creation request - rcvd: "+str(dequeued))
+        monitoring.log("log.Transaction creation request - rcvd(json): "+str(temp))
+        monitoring.log("log.Total number of transaction creation request: "+str(total_tx_count ))
+        # monitoring.log("log."+str(p_inq.qsize()))
+        total_tx_count = total_tx_count + 1
         # time.sleep(queue_strategy.SAVE_TX_DEQUEUE_INTERVAL)
