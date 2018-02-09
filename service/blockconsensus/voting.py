@@ -66,9 +66,11 @@ def blind_voting(merkle_root):
 def result_voting():
 
     list = file_controller.get_voting_list()
+    voting_count = len(list)
     MajorityCount = nodeproperty.Total_peer_num / 2
-    print("MajorityCount: "+ str(MajorityCount))
-    if len(list) > MajorityCount :
+    print("MajorityCount: "+ MajorityCount)
+    print("My number of votes: "+voting_count)
+    if voting_count > MajorityCount :
         difficulty = 2
         monitoring.log("log.result voting : "+str(len(list)))
         return difficulty
