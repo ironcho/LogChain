@@ -34,7 +34,7 @@ def receive_event(p_thrd_name, p_inq, p_socketq):
 
         file_controller.add_voting(recv_data)
 
-        difficulty = voting.result_voting()   # TODO: v type msg를 받아야
+        difficulty = voting.result_voting()
 
         if (difficulty > 0):
             monitoring.log("Enter block generator")
