@@ -5,14 +5,14 @@
     },
     "PEER_MGR_LIST": [
         {
-            "ID": "pc producer Jaesun",
-            "IP": "192.168.0.29",
-            "PORT": 9999
-        },
-       {
             "ID": "pc producer Jaesun2",
             "IP": "192.168.0.13",
             "PORT": 9999
-       }
+        },
+        {
+            "ID": "pc producer Jaesun",
+            "IP": "192.168.0.29",
+            "PORT": 9999
+        }
     ]
 }
