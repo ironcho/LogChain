@@ -31,7 +31,7 @@ connectedPeerMgr_socket_q = Queue()
 nodeproperty.ConnectedPeerList = [[peermgr_ID, peermgr_IP]]
 
 
-def start_peerconnector() -> bool:
+def connect_to_peermgr():
     monitoring.log('log.Start a thread to connect to PeerMgr.')
     # TODO: If there is no response after pinging PeerMgr, attempt to connect to another PeerMgr.
     # Returns False if all attempts to connect to the PeerMgr fail.
@@ -43,14 +43,20 @@ def start_peerconnector() -> bool:
     connecting_to_peermgr_thr.start()
     monitoring.log('log.The thread to connect to PeerMgr has started.')
 
-    monitoring.log('log.Start listening thread to wait for connection of PeerMgr.')
+
+def start_peerconnector() -> bool:
+    connect_to_peermgr()
+
+    monitoring.log(
+        'log.Start listening thread to wait for connection of PeerMgr.')
     listening_to_peerconnector_thr = ListeningToPeerMgrThread(
         1, "ListeningToPeerMgrThread",
         nodeproperty.My_IP_address, peerconnector_Port,
         connectedPeerMgr_rcvddata_q, connectedPeerMgr_socket_q
     )
     listening_to_peerconnector_thr.start()
-    monitoring.log('log.The listening thread is started to wait for the connection of PeerMgr.')
+    monitoring.log(
+        'log.The listening thread is started to wait for the connection of PeerMgr.')
 
     monitoring.log('log.Start a thread to update ConnectedPeerList.')
     updating_peertable_thr = UpdatingConnectedPeerListThread(
@@ -58,10 +64,10 @@ def start_peerconnector() -> bool:
         connectedPeerMgr_rcvddata_q, connectedPeerMgr_socket_q
     )
     updating_peertable_thr.start()
-    monitoring.log('log.The thread has started to update ConnectedPeerList that the peer has internally.')
+    monitoring.log(
+        'log.The thread has started to update ConnectedPeerList that the peer has internally.')
 
     return True
-
 
 
 class ConnectingToPeerMgrThread(threading.Thread):
@@ -76,7 +82,7 @@ class ConnectingToPeerMgrThread(threading.Thread):
     def run(self):
         join_msg = {'ID': peerconnector_ID}
         join_msg_json = json.dumps(join_msg)
-        monitoring.log("log.Msg to connect to PeerMGr: " +join_msg_json)
+        monitoring.log("log.Msg to connect to PeerMGr: " + join_msg_json)
         sender.send(self.peermgr_ip, join_msg_json, self.peermgr_port)
         monitoring.log('log.An connection message was sent to PeerMgr.')
 
@@ -92,7 +98,6 @@ class ListeningToPeerMgrThread(threading.Thread):
         self.listening_port = p_peerconnector_Port
         self.rcvddata_q = p_connectedPeerMgr_rcvddata_q
         self.socket_q = p_connectedPeerMgr_socket_q
-
 
     def run(self):
         addr = (self.listening_ip, self.listening_port)
@@ -128,7 +133,6 @@ class ListeningToPeerMgrThread(threading.Thread):
                     logging.debug(e)
 
 
-
 class UpdatingConnectedPeerListThread(threading.Thread):
     def __init__(self, p_thrd_id, p_thrd_name,
                  p_connectedPeerMgr_rcvddata_q, p_connectedPeerMgr_socket_q):
@@ -137,7 +141,6 @@ class UpdatingConnectedPeerListThread(threading.Thread):
         self.thrd_name = p_thrd_name
         self.rcvddata_q = p_connectedPeerMgr_rcvddata_q
         self.socket_q = p_connectedPeerMgr_socket_q
-
 
     def run(self):
         while True:
@@ -154,11 +157,3 @@ class UpdatingConnectedPeerListThread(threading.Thread):
             nodeproperty.ConnectedPeerList = rcvd_list
             set_peer.set_my_peer_num()
             set_peer.set_total_peer_num()
-
-
-
-
-
-
-
-

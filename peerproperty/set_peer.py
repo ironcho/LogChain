@@ -6,6 +6,7 @@ from peerproperty import nodeproperty
 from storage import file_controller
 from monitoring import monitoring
 
+
 def init_myIP():
     monitoring.log("log.Set the peer's own IP address.")
     os = platform.system()
@@ -48,7 +49,8 @@ def set_peer():
 
 
 def set_total_peer_num() -> int:
-    nodeproperty.Total_peer_num = len(peerproperty.nodeproperty.ConnectedPeerList)
+    nodeproperty.Total_peer_num = len(
+        peerproperty.nodeproperty.ConnectedPeerList)
     monitoring.log("log.total peer num: " + str(nodeproperty.Total_peer_num))
     return nodeproperty.Total_peer_num
 
@@ -63,5 +65,5 @@ def set_my_peer_num() -> int:
         else:
             p_num = p_num + 1
 
-    monitoring.log("log.my peer num: "+str(nodeproperty.My_peer_num))
+    monitoring.log("log.my peer num: " + str(nodeproperty.My_peer_num))
     return nodeproperty.My_peer_num

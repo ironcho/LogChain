@@ -1,5 +1,6 @@
 import logging
-import sys, time
+import sys
+import time
 from PyQt5 import QtWidgets
 from monitoring import monitoring
 import threading
@@ -14,7 +15,6 @@ from communication.msg_dispatch import b_type_queue_thread
 from communication.msg_dispatch import v_type_queue_thread
 from communication.peermgr import peermgr
 from monitoring import monitoring
-
 
 
 # Logchain launcher function for TrustPeer
@@ -32,14 +32,11 @@ def initialize_process_for_trust_peer():
     # monitoring.add_peer('delivery', 'sdfsdf', 'delivery.png')
     # monitoring.add_peer('seller', 'seller ff', 'seller.png')
 
-
     initialize()
     monitoring.log('log.Run threads for PeerMgr.')
     if not peermgr.start_peermgr():
         monitoring.log("log.Aborted because PeerMgr execution failed.")
         return
-
-
 
     set_peer.set_my_peer_num()
     monitoring.log("log.My peer num: " + str(nodeproperty.My_peer_num))
@@ -52,7 +49,8 @@ def initialize_process_for_trust_peer():
     recv_thread = receiver.ReceiverThread(
         1, "RECEIVER", nodeproperty.My_IP_address, nodeproperty.My_receiver_port)
     recv_thread.start()
-    monitoring.log("log.The thread for receiving messages from other peers has started.")
+    monitoring.log(
+        "log.The thread for receiving messages from other peers has started.")
 
     t_type_qt = t_type_queue_thread.TransactionTypeQueueThread(
         1, "TransactionTypeQueueThread",
@@ -75,6 +73,7 @@ def initialize_process_for_trust_peer():
     )
     b_type_qt.start()
 
+
 def initialize():
     monitoring.log('log.Start the blockchain initialization process...')
     file_controller.remove_all_transactions()
@@ -87,7 +86,7 @@ def initialize():
 def main(argv):
     if len(argv) != 1:
         arg_1 = argv[1]
-        print("argument 1: "+arg_1 )
+        print("argument 1: " + arg_1)
         if arg_1 == "monitor":
             app = QtWidgets.QApplication(sys.argv)
             monitoring.Main_form = monitoring.Form()
@@ -97,11 +96,6 @@ def main(argv):
         initialize_process_for_trust_peer()
 
 
-
 if __name__ == '__main__':
     # arg1: monitor -> Monitoring UI
     main(sys.argv)
-
-
-
-

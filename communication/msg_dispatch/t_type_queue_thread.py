@@ -8,6 +8,8 @@ from storage import file_controller
 from service.blockconsensus import merkle_tree
 from service.blockconsensus import voting
 from monitoring import monitoring
+from communication.peermgr.peerconnector
+
 
 class TransactionTypeQueueThread(threading.Thread):
     def __init__(self, p_thrd_id, p_thrd_name, p_inq, p_socket_inq):
@@ -24,20 +26,25 @@ class TransactionTypeQueueThread(threading.Thread):
 def receive_event(p_thrd_name, p_inq, p_socketq):
     transaction_count = 0
     while True:
+        # Wait for the Tx to be included in the block through a new consensus session.
+        # PeerConnector updates ConnectedPeerList before collecting new Txs.
+        # PeerMgr ...?
+
+        peerconnector.connect_to_peermgr()
+
         monitoring.log("log.Waiting for T type msg.")
         recv_data = p_inq.get()
         request_sock = p_socketq.get()
         monitoring.log("log.T type msg rcvd: " + recv_data)
         transaction_count = transaction_count + 1
-        # print(transaction_count)
 
         file_controller.add_transaction(recv_data)
-        monitoring.log("log.Transaction added to mempool: "+ recv_data)
+        monitoring.log("log.Transaction added to mempool: " + recv_data)
 
         # transaction_count = len(file_controller.get_transaction_list())
-        # print(transaction_count)
+
         if transaction_count == voting.TransactionCountForConsensus:
-            #print ("Enter transaciotn count")
+
             difficulty = 0
 
             transaction.Transactions = file_controller.get_transaction_list()
@@ -45,14 +52,12 @@ def receive_event(p_thrd_name, p_inq, p_socketq):
             merkle = merkle_tree.MerkleTree()
             transaction.Merkle_root = merkle.get_merkle(
                 transaction.Transactions)
-            monitoring.log("log.Transaction list Merkle _root: "+ transaction.Merkle_root)
-
-
+            monitoring.log(
+                "log.Transaction list Merkle _root: " + transaction.Merkle_root)
 
             monitoring.log("log.Start blind voting")
             voting.blind_voting(transaction.Merkle_root)
             monitoring.log("log.End voting")
-
 
             '''
             time.sleep(5)
