@@ -8,7 +8,7 @@ from storage import file_controller
 from service.blockconsensus import merkle_tree
 from service.blockconsensus import voting
 from monitoring import monitoring
-from communication.peermgr.peerconnector
+from communication.peermgr import peerconnector
 
 
 class TransactionTypeQueueThread(threading.Thread):
