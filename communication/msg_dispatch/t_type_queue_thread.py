@@ -26,12 +26,6 @@ class TransactionTypeQueueThread(threading.Thread):
 def receive_event(p_thrd_name, p_inq, p_socketq):
     transaction_count = 0
     while True:
-        # Wait for the Tx to be included in the block through a new consensus session.
-        # PeerConnector updates ConnectedPeerList before collecting new Txs.
-        # PeerMgr ...?
-
-        peerconnector.connect_to_peermgr()
-
         monitoring.log("log.Waiting for T type msg.")
         recv_data = p_inq.get()
         request_sock = p_socketq.get()
